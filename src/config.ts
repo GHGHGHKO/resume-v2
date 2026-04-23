@@ -56,6 +56,32 @@ export const siteConfig = {
       },
     },
     {
+      name: "GS리테일 차세대 CRM 서비스 안정화",
+      description:
+        "빅뱅 오픈 직후 CRM 서비스의 보안 취약점·배치 오류·배포 병목을 동시 해소. OTP 우회 계정 탈취 취약점 패치, 쿼리 실행시간 80% 개선, 프론트엔드 빌드 시간 90% 단축.",
+      skills: ["Java", "Spring Boot", "PostgreSQL", "Docker", "Spring Batch"],
+      detail: {
+        problem:
+          "빅뱅 방식으로 오픈된 CRM 서비스에서 API 비즈니스 장애 다수 발생. 보안 취약점과 배치 오류가 존재했으며, 프론트엔드 CI/CD 빌드 시간이 20분 이상 소요되어 배포 생산성이 저하된 상태였음.",
+        analyze: [
+          "비밀번호 찾기 API가 OTP 인증 완료 여부를 미검증 → 패킷 조작으로 타 계정 비밀번호 변경 가능한 취약점 존재",
+          "법정대리인 파기 배치의 SQL WHERE 조건 누락 → 2건 등록 회원 처리 시 PK 중복 오류 발생",
+          "Dockerfile 내 COPY . . 로 node_modules 전체를 이미지에 포함 → 빌드 시간 과다",
+        ],
+        action: [
+          "OTP 우회 취약점 패치: 비밀번호 변경 API에 OTP 완료 여부 검증 추가, OTP 발송 시점 계정 일치 사전 검증",
+          "배치 오류 수정: SQL WHERE 조건에 del_schd_dt 추가, HashSet으로 중복 처리 방지",
+          "쿼리 튜닝: Correlated EXISTS 서브쿼리 → INNER JOIN 전환 검증 및 적용",
+          "Dockerfile 최적화: 배포에 필요한 .zip만 COPY하도록 수정",
+        ],
+        result: [
+          "OTP 우회를 통한 계정 탈취 취약점 원천 차단",
+          "쿼리 실행시간 1초 → 200ms (80% 개선)",
+          "프론트엔드 빌드 시간 20분 → 2분 (90% 단축)",
+        ],
+      },
+    },
+    {
       name: "택배 서비스 IDC → AWS 클라우드 이관",
       description:
         "서비스 13개 · 이기종 DB 2개 · 일 평균 1,280만 req 규모 레거시 시스템 AWS 전환. Airflow 250 DAGs → MWAA 170개 최적화, 클라우드 비용 30% 절감.",
