@@ -173,6 +173,19 @@ export const siteConfig = {
   ],
   activities: [
     {
+      name: "런마켓 (RunMarket) - 러닝 동행 서비스",
+      organization: "개인 프로젝트",
+      dateRange: "2025 – 현재",
+      bullets: [
+        "러너와 관전자가 실시간으로 위치를 공유할 수 있는 러닝 앱 백엔드 및 인프라 구축 (App Store 출시)",
+        "Spring WebFlux와 Reactive Redis를 활용한 고성능 WebSocket 실시간 위치 중계 서버 구축",
+        "Spring Boot 멀티모듈 아키텍처 적용 (REST API, WebSocket, 크롤링 Batch 등 역할 분리)",
+        "Kubernetes(K3s) 기반 Helm Chart를 활용하여 IaC 인프라 선언적 구성 및 배포",
+        "k6 기반 1,000명 동시 접속 1초 주기 실시간 주행 시뮬레이션 부하테스트 수행 (에러율 0% 달성)",
+      ],
+      link: "https://about.runmarket.cc/",
+    },
+    {
       name: "코칭스터디 멘토링",
       organization: "모두의연구소",
       dateRange: "2023 – 2025",
