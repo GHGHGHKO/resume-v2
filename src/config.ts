@@ -56,19 +56,19 @@ export const siteConfig = {
     {
       name: "GS리테일 차세대 CRM 서비스 안정화",
       description:
-        "오픈 직후 CRM 서비스의 OTP 인증 세션 및 인가(Authorization) 검증 누락 보안 취약점 해결, 배치 중복 오류 수정, 쿼리 실행시간 80% 개선 및 빌드 시간 90% 단축.",
+        "오픈 직후 CRM 서비스의 OTP 인증 세션 및 인가(Authorization) 검증 누락 보안 취약점 해결, 쿼리 실행시간 80% 개선 및 빌드 시간 90% 단축.",
       skills: ["Java", "Spring Boot", "PostgreSQL", "Docker", "Spring Batch"],
       detail: {
         problem:
-          "오픈 직후 CRM 서비스에서 발생한 API 보안 취약점(OTP 세션 및 인가 검증 누락), 데이터 배치 중복 오류, 20분 이상 소요되는 CI/CD 빌드 병목 해소 필요.",
+          "오픈 직후 CRM 서비스에서 발생한 API 보안 취약점(OTP 세션 및 인가 검증 누락), 비효율적 쿼리로 인한 응답 지연, 20분 이상 소요되는 CI/CD 빌드 병목 해소 필요.",
         analyze: [
           "비밀번호 찾기 API의 OTP 인증 완료 세션 미검증 및 인가(Authorization) 검증 누락으로 인한 계정 탈취 취약점 존재",
-          "법정대리인 파기 배치의 SQL WHERE 조건 누락으로 인한 2건 등록 회원 PK 중복 오류 발생",
+          "Correlated EXISTS 서브쿼리로 인한 회원 조회 쿼리 성능 저하",
           "기존 Dockerfile 내 전체 파일 COPY로 인한 이미지 비대화 및 빌드 시간 과다(20분)",
         ],
         action: [
           "보안 취약점 패치: 비밀번호 변경 API에 OTP 인증 완료 세션 및 계정 일치 검증, 인가(Authorization) 검증 로직 추가",
-          "배치 및 쿼리 최적화: SQL WHERE 조건(del_schd_dt) 추가, HashSet 중복 방지, Correlated EXISTS 서브쿼리 → INNER JOIN 전환",
+          "쿼리 최적화: Correlated EXISTS 서브쿼리 → INNER JOIN 전환 및 인덱스 활용",
           "Dockerfile 최적화: 배포에 필요한 아티팩트만 COPY하도록 기존 Dockerfile 수정",
         ],
         result: [

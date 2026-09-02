@@ -5,7 +5,7 @@
 - **이메일:** gudrb963@gmail.com
 - **GitHub:** [github.com/GHGHGHKO](https://github.com/GHGHGHKO)
 - **Portfolio:** [feelsgoodfrog.vercel.app](https://feelsgoodfrog.vercel.app)
-- **GitHub:** [github.com/GHGHGHKO](https://github.com/GHGHGHKO)
+- **개인 프로젝트:** [about.runmarket.cc](https://about.runmarket.cc)
 
 ---
 
@@ -73,11 +73,11 @@ IDC 기반 레거시 시스템을 AWS로 전환해야 했으나, EDB 벤더 종�
 - **기술 스택:** Java, Spring Boot, Spring Batch, PostgreSQL, Docker, GitHub Actions
 
 #### 1. 문제 배경 & 분석 (Problem & Analyze)
-오픈 직후 CRM 서비스의 비밀번호 재설정 API에서 OTP 인증 완료 세션 및 인가(Authorization) 검증이 누락되어 계정 탈취 취약점이 발견되었습니다. 또한 법정대리인 데이터 파기 배치에서 중복 키 오류가 발생했으며, 기존 Dockerfile의 전체 파일 COPY로 인해 빌드 시간이 20분 이상 소요되었습니다.
+오픈 직후 CRM 서비스의 비밀번호 재설정 API에서 OTP 인증 완료 세션 및 인가(Authorization) 검증이 누락되어 계정 탈취 취약점이 발견되었습니다. 또한 Correlated EXISTS 서브쿼리로 인해 회원 조회 응답이 지연되었으며, 기존 Dockerfile의 전체 파일 COPY로 인해 빌드 시간이 20분 이상 소요되었습니다.
 
 #### 2. 해결 과정 및 성과 (Action & Result)
 - **보안 패치:** 비밀번호 변경 단계별 OTP 인증 토큰, 계정 일치, 인가(Authorization) 검증 로직을 추가하여 **계정 탈취 취약점 원천 차단**
-- **배치 & 쿼리 튜닝:** 날짜 조건(`del_schd_dt`) 보완, `HashSet` 중복 방지, Correlated EXISTS → INNER JOIN 전환으로 **쿼리 실행시간 1초 → 200ms (80% 개선)**
+- **쿼리 튜닝:** Correlated EXISTS → INNER JOIN 전환 및 인덱스 활용으로 **쿼리 실행시간 1초 → 200ms (80% 개선)**
 - **Dockerfile 최적화:** 불필요한 파일을 제외하고 배포 아티팩트(.zip)만 COPY하도록 기존 Dockerfile을 수정하여 **빌드 시간 20분 → 2분 (90% 단축)**
 
 ---
