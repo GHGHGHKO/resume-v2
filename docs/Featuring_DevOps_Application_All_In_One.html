@@ -76,8 +76,8 @@
           <td>Java 17, Spring Boot 3, Spring WebFlux, Spring Batch, JPA, PostgreSQL, Redis / Valkey, SQLite</td>
         </tr>
         <tr>
-          <th>Data & Pipeline</th>
-          <td>Apache Airflow / AWS MWAA (170 DAGs 운영), WebSocket, Reactive Redis, Python</td>
+          <th>Data & Messaging</th>
+          <td>Apache Kafka (Lag 관리), Apache Airflow / AWS MWAA (170 DAGs 운영), WebSocket, Python</td>
         </tr>
         <tr>
           <th>Testing & Tools</th>
@@ -100,7 +100,7 @@
         <ul>
           <li><strong>[우리동네GS × 택배 회원 연동 · 리드]</strong> 1,500만 유저 앱 가입 시 택배 시스템 회원 여부에 따라 연동/가입 처리하는 체계 및 RS256 + AWS KMS 전용 인증 서버 분리 구축 (월 1,197만 req 수용, 피크 에러율 0.042%)</li>
           <li><strong>[택배 서비스 IDC → AWS 이관 · 리드]</strong> 서비스 13개 · 일 1,280만 req 레거시 마이그레이션, MWAA 파이프라인 구축 및 인프라 비용 30% 절감 (KubernetesPodOperator retry 활용 배치 성공률 99% 목표 고도화)</li>
-          <li><strong>[CRM 서비스 안정화 & CI/CD]</strong> OTP 인증 세션 검증 및 인가(Authorization) 검증 누락 보안 취약점 해결, DB 쿼리 80% 개선(1s → 200ms), 빌드 시간 90% 단축(20분 → 2분)</li>
+          <li><strong>[CRM CI 암호화 & 서비스 안정화 · 진행 중]</strong> 3,000만 회원 CI 암호화 전환 및 GS SHOP Kafka 연동 파이프라인 구축(Lag 관리), OTP/인가 보안 취약점 해결, 쿼리 80% 개선(1s → 200ms), 빌드 시간 90% 단축(20분 → 2분)</li>
           <li><strong>[기술 부채 청산]</strong> EDB 종속 쿼리 ANSI SQL 전수 표준화 및 Airflow DAG 250개 → 170개 최적화</li>
         </ul>
       </div>
@@ -115,7 +115,7 @@
         </div>
         <ul>
           <li><strong>[배송조회 API 고가용성]</strong> 네이버·당근·토스 공유 API의 Connection Timeout 원인 분석 및 해결</li>
-          <li><strong>[Multi-layer Cache & 장애 격리]</strong> Multi-layer Cache(Redis + DB) 및 Fallback 패턴으로 Redis 장애 시 무중단 DB Fallback 보장</li>
+          <li><strong>[캐시 레이어 & 장애 격리]</strong> 캐시 레이어(Redis + DB) 및 Fallback 패턴으로 Redis 장애 시 무중단 DB Fallback 보장</li>
           <li><strong>[캐시 최적화]</strong> 배송조회 및 토큰 발급에 TTL이 포함된 캐시를 적용하여 외부 API 중복 호출 차단 및 응답 안정성 향상</li>
         </ul>
       </div>
@@ -143,7 +143,7 @@
           <div class="company-title">런마켓 (RunMarket) - 러닝 동행 실시간 위치 공유 서비스</div>
           <div class="period">2025 – 현재 (iOS & Android 운영 중)</div>
         </div>
-        <p style="font-size: 14.5px; margin-bottom: 8px;">러너와 관전자가 1초 주기로 실시간 위치/페이스를 공유하는 서비스 백엔드 & 인프라 1인 전담 개발 (App Store & Play Store 정식 출시)</p>
+        <p style="font-size: 14.5px; margin-bottom: 8px;">러너와 관전자가 1초 주기로 실시간 위치/페이스를 공유하는 서비스 백엔드 & 인프라 1인 전담 개발 (App Store & Play Store 정식 출시 | <a href="https://about.runmarket.cc" target="_blank">about.runmarket.cc</a> | <a href="https://github.com/runmarket-cc" target="_blank">github.com/runmarket-cc</a>)</p>
         <ul>
           <li>Spring WebFlux + Reactive Redis 기반 고성능 WebSocket 실시간 브로드캐스팅 파이프라인(pulse.runmarket.cc) 구축</li>
           <li>Spring Boot 멀티모듈(web, socket, batch, core) 아키텍처 적용으로 관심사 분리</li>
@@ -273,12 +273,13 @@
       <!-- Project 3 -->
       <div class="card" style="margin-top: 14px;">
         <div class="card-header">
-          <div class="company-title">프로젝트 3: GS리테일 차세대 CRM 서비스 안정화 & CI/CD 최적화</div>
-          <div class="period">2022.10 – 2023.03 (6개월)</div>
+          <div class="company-title">프로젝트 3: GS리테일 차세대 CRM 서비스 안정화 & 3,000만 회원 CI 암호화</div>
+          <div class="period">2025.10 – 현재 (진행 중)</div>
         </div>
         <div class="badge-group">
           <span class="badge badge-primary">Java</span>
           <span class="badge badge-primary">Spring Boot</span>
+          <span class="badge badge-primary">Apache Kafka</span>
           <span class="badge">Spring Batch</span>
           <span class="badge">PostgreSQL</span>
           <span class="badge">Docker</span>
@@ -286,13 +287,14 @@
         </div>
 
         <h4>1. 문제 배경 & 분석 (Problem & Analyze)</h4>
-        <p>오픈 직후 CRM 서비스의 비밀번호 재설정 API에서 OTP 인증 완료 세션 및 인가(Authorization) 검증이 누락되어 계정 탈취 취약점이 발견되었습니다. 또한 Correlated EXISTS 서브쿼리로 인해 회원 조회 응답이 지연되었으며, 기존 Dockerfile의 전체 파일 COPY로 인해 빌드 시간이 20분 이상 소요되었습니다.</p>
+        <p>오픈 직후 CRM 서비스의 비밀번호 재설정 API에서 OTP 인증 완료 세션 및 인가(Authorization) 검증이 누락되어 계정 탈취 취약점이 발견되었습니다. 또한 3,000만 명 회원의 평문 CI를 암호화 컬럼으로 전환해야 했으며, CRM DB와 개인정보가 연동된 GS SHOP으로의 안정적인 실시간 데이터 전송 및 Kafka Consumer Lag 관리가 요구되었습니다.</p>
 
         <h4>2. 해결 과정 및 성과 (Action & Result)</h4>
         <ul>
+          <li><strong>3,000만 회원 CI 암호화:</strong> API 및 배치 쿼리를 변경하고 평문 CI를 암호화하여 암호화 column에 안전하게 저장</li>
+          <li><strong>GS SHOP Kafka 연동 파이프라인 구축:</strong> CRM DB와 연동된 GS SHOP에 Kafka를 통해 개인정보 데이터를 실시간 전송하고 Consumer Lag 모니터링 및 관리 체계 확립</li>
           <li><strong>보안 패치:</strong> 비밀번호 변경 단계별 OTP 인증 토큰, 계정 일치, 인가(Authorization) 검증 로직을 추가하여 <strong>계정 탈취 취약점 원천 차단</strong></li>
-          <li><strong>쿼리 튜닝:</strong> Correlated EXISTS → INNER JOIN 전환 및 인덱스 활용으로 <strong>쿼리 실행시간 1초 → 200ms (80% 개선)</strong></li>
-          <li><strong>Dockerfile 최적화:</strong> 불필요한 파일을 제외하고 배포 아티팩트(.zip)만 COPY하도록 기존 Dockerfile을 수정하여 <strong>빌드 시간 20분 → 2분 (90% 단축)</strong></li>
+          <li><strong>쿼리 튜닝 & 빌드 최적화:</strong> Correlated EXISTS → INNER JOIN 전환으로 <strong>쿼리 실행시간 1초 → 200ms (80% 개선)</strong> 및 불필요한 파일을 제외한 Dockerfile 수정으로 <strong>빌드 시간 20분 → 2분 (90% 단축)</strong></li>
         </ul>
       </div>
     </section>
@@ -303,7 +305,7 @@
 
       <div class="card" style="margin-top: 14px;">
         <div class="card-header">
-          <div class="company-title">프로젝트 4: 배송조회 API 고가용성 & Multi-layer Cache 레이어 구축</div>
+          <div class="company-title">프로젝트 4: 배송조회 API 고가용성 & 캐시 레이어 구축</div>
           <div class="period">2021.11 – 2022.06 (8개월)</div>
         </div>
         <div class="badge-group">
@@ -320,7 +322,7 @@
         <h4>2. 해결 과정 (Action)</h4>
         <ul>
           <li><strong>캐시 적용:</strong> 배송조회 및 토큰 발급에 TTL이 포함된 캐시를 적용하여 불필요한 외부 API 중복 호출 차단</li>
-          <li><strong>Multi-layer Cache & DB Fallback:</strong> Multi-layer Cache(Redis + DB)로 인증 토큰을 관리하고, Spring Retry / <code>@Recover</code> 패턴을 적용하여 Redis 장애 시 자동으로 DB Fallback 전환되도록 구현</li>
+          <li><strong>캐시 레이어 & DB Fallback:</strong> 캐시 레이어(Redis + DB)로 인증 토큰을 관리하고, Spring Retry / <code>@Recover</code> 패턴을 적용하여 Redis 장애 시 자동으로 DB Fallback 전환되도록 구현</li>
           <li><strong>외부 클라이언트 타임아웃 세분화:</strong> 레거시 클라이언트 규격을 업그레이드하고 Connect/Read Timeout을 정밀 분리</li>
         </ul>
 
@@ -365,6 +367,7 @@
       <div class="callout">
         <strong>"러너와 관전자가 실시간으로 위치와 페이스를 공유하는 러닝 동행 서비스"</strong><br>
         • <strong>서비스 소개:</strong> <a href="https://about.runmarket.cc" target="_blank">about.runmarket.cc</a><br>
+        • <strong>GitHub Organization:</strong> <a href="https://github.com/runmarket-cc" target="_blank">github.com/runmarket-cc</a><br>
         • <strong>운영 현황:</strong> iOS App Store & Google Play Store 양대 마켓 정식 출시 및 서비스 운영 중 (Bundle ID: <code>cc.runmarket.app</code>)<br>
         • <strong>역할:</strong> 1인 백엔드 아키텍처 설계, Spring Boot 멀티모듈 구축, Google Jib 컨테이너화, Kubernetes & Helm 기반 선언적 IaC 인프라 전담
       </div>
