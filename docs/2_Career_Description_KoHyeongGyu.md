@@ -4,7 +4,8 @@
 
 - **이메일:** gudrb963@gmail.com
 - **GitHub:** [github.com/GHGHGHKO](https://github.com/GHGHGHKO)
-- **개인 프로젝트 (런마켓):** [about.runmarket.cc](https://about.runmarket.cc) | [GitHub: runmarket-pacer](https://github.com/runmarket-cc/runmarket-pacer)
+- **Portfolio:** [feelsgoodfrog.vercel.app](https://feelsgoodfrog.vercel.app)
+- **GitHub:** [github.com/GHGHGHKO](https://github.com/GHGHGHKO)
 
 ---
 
