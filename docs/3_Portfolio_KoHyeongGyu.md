@@ -6,15 +6,15 @@
 
 ## 📑 목차
 1. **개인 프로젝트: 런마켓 (RunMarket) - 러닝 동행 실시간 위치 공유 서비스**
-   - 서비스 소개 및 기술 스택
-   - 전체 시스템 아키텍처 다이어그램
-   - 핵심 엔지니어링 챌린지 1: Spring WebFlux & Reactive Redis 기반 실시간 위치 중계
-   - 핵심 엔지니어링 챌린지 2: Kubernetes(K3s) & Helm Chart 기반 선언적 IaC 자동화
-   - 핵심 엔지니어링 챌린지 3: k6 기반 1,000명 동시 접속 실시간 부하 테스트 (0% 에러율)
-2. **실무 프로젝트 심층 분석 1: IDC → AWS MWAA 데이터 파이프라인 마이그레이션**
-   - 아키텍처 전환 구조 및 Fargate vs EC2 노드그룹 벤치마크
-   - CI/CD 파이프라인을 통한 250개 DAG 최적화
-3. **실무 프로젝트 심층 분석 2: AWS KMS + RS256 비대칭키 기반 독립 인증 아키텍처**
+   - 서비스 소개 및 운영 현황 (iOS & Android 정식 출시)
+   - RunMarket 멀티모듈 백엔드 생태계 및 아키텍처 (`runmarket-pacer`)
+   - 핵심 엔지니어링 챌린지 1: Spring WebFlux & Reactive Redis 기반 실시간 위치 중계 (`pulse.runmarket.cc`)
+   - 핵심 엔지니어링 챌린지 2: Google Jib 기반 데몬리스 컨테이너 빌드 & Kubernetes (K3s) + Helm Chart IaC 자동화
+   - 핵심 엔지니어링 챌린지 3: k6 기반 1,000명 동시 접속 실시간 부하 테스트 (에러율 0.00% 달성)
+2. **실무 프로젝트 심층 분석 1: IDC → AWS MWAA 데이터 파이프라인 마이그레이션 (GS리테일)**
+   - 아키텍처 전환 구조 및 Fargate vs EC2 노드그룹 벤치마크 (비용 30% 절감)
+   - GitHub Actions CI/CD 파이프라인을 통한 250개 DAG 통폐합 및 안정화
+3. **실무 프로젝트 심층 분석 2: AWS KMS + RS256 비대칭키 기반 독립 인증 아키텍처 (GS리테일)**
    - Blast Radius 격리 구조 및 보안 토큰 서명/검증 플로우
 
 ---
@@ -23,65 +23,69 @@
 
 > **"러너와 관전자가 실시간으로 위치와 페이스를 공유하는 러닝 동행 서비스"**
 > - **서비스 URL:** [https://about.runmarket.cc](https://about.runmarket.cc)
-> - **상태:** iOS App Store 출시 및 운영 중
-> - **역할:** 1인 백엔드 개발 및 클라우드 인프라(IaC/K8s) 전담 구축
+> - **GitHub Repository:** [https://github.com/runmarket-cc/runmarket-pacer](https://github.com/runmarket-cc/runmarket-pacer)
+> - **운영 현황:** iOS App Store & Google Play Store 양대 마켓 정식 출시 및 서비스 운영 중 (Bundle ID: `cc.runmarket.app`)
+> - **담당 역할:** 1인 백엔드 아키텍처 설계, Spring Boot 멀티모듈 개발, Google Jib 컨테이너화, Kubernetes(K3s) & Helm Chart 기반 IaC 인프라 전담 구축
 
 ### 🛠 Tech Stack
-- **Backend:** Java 17, Spring Boot 3, Spring WebFlux, Spring Data JPA, Spring Data Reactive Redis
-- **Infra & DevOps:** Kubernetes (K3s), Helm Chart, Docker, GitHub Actions, Nginx Ingress Controller
+- **Backend:** Java 17, Spring Boot 3, Spring WebFlux, Spring MVC, Spring Batch, Spring Data JPA, Spring Data Reactive Redis
+- **Infra & DevOps:** Kubernetes (K3s), Helm Charts (`helm/runmarket`), Google Jib (Daemonless Container Build), GitHub Actions, Nginx Ingress Controller
 - **Database & Cache:** PostgreSQL, Redis (Pub/Sub & Geospatial)
-- **Testing & Tooling:** k6 (Performance/Load Test), Postman, Git
+- **Testing & Tooling:** k6 (WebSocket Load Testing), Postman, Git
 
 ---
 
-### 🏛 전체 시스템 아키텍처
+### 🏛 전체 시스템 및 멀티모듈 아키텍처 (`runmarket-pacer`)
 
 ```
-[ iOS App Client (Runners & Spectators) ]
-                  │
-                  ▼ HTTPS / WSS (WebSocket)
-      [ Nginx Ingress Controller ]
-                  │
-  ┌───────────────┴────────────────┐
-  │ Kubernetes (K3s) Cluster      │
-  │                                │
-  │  ┌──────────────────────────┐  │
-  │  │  runmarket-websocket     │  │ ◀── Spring WebFlux (Non-blocking I/O)
-  │  │  (실시간 위치 중계 Pod)   │  │
-  │  └────────────┬─────────────┘  │
-  │               │                │
-  │  ┌────────────┴─────────────┐  │
-  │  │  runmarket-api (REST)    │  │ ◀── Spring Boot (User/Course API)
-  │  └────────────┬─────────────┘  │
-  │               │                │
-  │  ┌────────────┴─────────────┐  │
-  │  │  runmarket-batch         │  │ ◀── 데이터 집계 및 크롤링
-  │  └────────────┬─────────────┘  │
-  └───────────────┼────────────────┘
-                  │
-        ┌─────────┴─────────┐
-        ▼                   ▼
-[ Redis (Pub/Sub) ]   [ PostgreSQL DB ]
- (실시간 위치 캐싱)    (영속 데이터 저장)
+                  ┌─────────────────────────────────┐
+                  │   runmarket-front (Web Frontend) │
+                  │      https://runmarket.cc       │
+                  └────────────────┬────────────────┘
+                                   │
+                                   ▼
+┌─────────────────────────────────────────────────────────────────────────┐
+│                    runmarket-app (iOS & Android App)                    │
+│                        Bundle ID: cc.runmarket.app                      │
+└──────────────┬──────────────────────────────────┬───────────────────────┘
+               │                                  │
+      HTTP REST│ (Bearer JWT)                     │ WebSocket Stream (WSS)
+  api.runmarket.cc                                │ pulse.runmarket.cc
+               ▼                                  ▼
+      [ Nginx Ingress ]                  [ Nginx Ingress ]
+               │                                  │
+┌──────────────┴──────────────────────────────────┴───────────────────────┐
+│                Kubernetes (K3s) Cluster (IaC / Helm)                    │
+│                                                                         │
+│  ├── [web]     : Spring MVC REST API (인증, 유저/코스/기록)              │
+│  ├── [socket]  : Spring WebFlux + Reactive Redis 실시간 위치 중계        │
+│  ├── [batch]   : Spring Batch + Jsoup 마라톤/대회 데이터 웹 크롤러      │
+│  └── [core]    : application, domain, infrastructure, event-bus         │
+└────────────────────────────────┬────────────────────────────────────────┘
+                                 │
+                       ┌─────────┴─────────┐
+                       ▼                   ▼
+               [ Redis (Pub/Sub) ]   [ PostgreSQL DB ]
+                (실시간 위치 캐싱)    (영속 데이터 저장)
 ```
 
 ---
 
-### 💡 엔지니어링 챌린지 및 해결 과정
+### 💡 핵심 엔지니어링 챌린지 및 해결 과정
 
-#### 🎯 Challenge 1: 실시간 대규모 위치 브로드캐스팅 성능 최적화
-- **문제점:** 수많은 러너와 관전자가 1초 주기로 GPS 위치를 송수신하는 구조에서, 전통적인 Spring MVC (Thread-per-request) 방식은 동시 접속자 증가 시 스레드 풀 고갈 및 심각한 컨텍스트 스위칭 오버헤드가 발생했습니다.
+#### 🎯 Challenge 1: Spring WebFlux & Reactive Redis 기반 실시간 위치 중계 (`socket` 모듈)
+- **문제점:** 수많은 러너와 관전자가 1초 주기로 실시간 GPS 위치를 송수신하는 구조에서, 전통적인 Spring MVC (Thread-per-request) 방식은 동시 접속자 증가 시 스레드 풀 고갈 및 심각한 컨텍스트 스위칭 오버헤드가 발생했습니다.
 - **해결책:**
-  1. **Spring WebFlux (Reactive Streams) 도입:** Netty 기반의 Non-blocking Event Loop 모델을 채택하여 최소한의 스레드로 수천 개의 WebSocket 커넥션을 유지하도록 전환했습니다.
-  2. **Reactive Redis Pub/Sub 채널링:** 러닝 방(Room)별로 고유한 채널을 생성하고, Redis Reactive Subscriber를 통해 분산 서버 환경에서도 지연 없는 위치 메시지 브로드캐스팅을 구현했습니다.
-  3. **메모리 최적화:** 실시간 위치 데이터는 Redis In-Memory에 TTL과 함께 유지하고, 러닝 종료 시점에만 PostgreSQL로 영속화하여 DB I/O 병목을 제거했습니다.
+  1. **Spring WebFlux (Non-blocking I/O) 채택:** Netty 기반의 이벤트 루프 모델을 통해 최소한의 스레드로 수천 개의 동시 WebSocket 세션을 안정적으로 처리하도록 분리 구축했습니다 (`pulse.runmarket.cc`).
+  2. **Reactive Redis Pub/Sub 채널링:** 러닝 방(Room)별 고유 토픽을 구독(Sub) 및 발행(Pub)하여 분산 인스턴스 간 지연 없는 위치 메시지 브로드캐스팅을 구현했습니다.
+  3. **메모리 계층화:** 실시간 위치 데이터는 Redis In-Memory에 TTL과 함께 유지하고, 러닝 종료 시점에만 PostgreSQL로 비동기 영속화하여 DB I/O 병목을 제거했습니다.
 
-#### 🎯 Challenge 2: Kubernetes(K3s) & Helm Chart 기반 선언적 IaC 배포
-- **문제점:** 멀티 모듈(API, WebSocket, Batch)로 구성된 애플리케이션의 설정(ConfigMap, Secret)과 리소스(Deployment, Service, Ingress)를 수동 관리할 경우 환경 불일치와 배포 실수가 발생할 위험이 있었습니다.
+#### 🎯 Challenge 2: Google Jib 기반 데몬리스 컨테이너 빌드 & Helm Chart 선언적 IaC 자동화
+- **문제점:** 멀티 모듈(API, WebSocket, Batch) 애플리케이션의 컨테이너 빌드 시 호스트에 Docker 데몬이 종속되어 CI 환경이 무거워지고, 수동 리소스 관리 시 환경 불일치 및 배포 실수가 발생할 수 있었습니다.
 - **해결책:**
-  1. **Helm Chart 템플릿화:** 공통 인프라 템플릿을 Helm Chart로 작성하고, `values-dev.yaml`, `values-prod.yaml`을 분리하여 환경별 설정을 코드화(IaC)했습니다.
-  2. **롤링 업데이트 무중단 배포:** `readinessProbe`, `livenessProbe`를 정밀 구성하여 Pod 교체 중 연결 끊김 없는 배포 환경을 완성했습니다.
-  3. **GitHub Actions 파이프라인:** 코드 푸시 시 Docker Multi-stage 빌드 → 이미지 레지스트리 푸시 → Helm Chart 업그레이드가 전자동으로 이어지도록 구성했습니다.
+  1. **Google Jib 빌드 파이프라인 도입:** Docker 데몬 및 Dockerfile 작성 없이 Gradle 빌드 과정에서 OCI 표준 컨테이너 이미지를 레이어별로 최적화하여 빌드(`gudrb963/runmarket-pacer`, `gudrb963/runmarket-pacer-socket`). 레이어 캐싱을 통해 빌드 및 푸시 속도를 극대화했습니다.
+  2. **Helm Chart 템플릿화 (`helm/runmarket`):** Deployment, Service, Ingress, ConfigMap, Secret을 Helm Chart로 표준화하고, `values.yaml`을 통해 환경 설정을 코드화(IaC)했습니다.
+  3. **무중단 롤링 업데이트:** `readinessProbe`와 `livenessProbe`를 정밀하게 구성하여 Pod 교체 중 WebSocket 세션 끊김 없는 무중단 배포를 완성했습니다.
 
 #### 🎯 Challenge 3: k6 기반 1,000명 동시 접속 실시간 부하 테스트
 - **목표:** 동시 러너 1,000명이 1초 주기로 위치 데이터를 전송하고, 관전자가 실시간으로 수신하는 피크 시나리오 검증
