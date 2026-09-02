@@ -1,19 +1,19 @@
 # [이력서] 고형규 | Backend & DevOps Engineer
 
-> **1,500만 유저 서비스 대규모 트래픽 안정화와 Observability 기반의 기민한 배포·인프라를 주도하는 5년 차 엔지니어**
+> **1,500만 유저 대규모 트래픽 안정화와 Observability 기반의 기민한 배포·인프라를 주도하는 5년 차 엔지니어**
 
 - **이메일:** gudrb963@gmail.com
 - **GitHub:** [github.com/GHGHGHKO](https://github.com/GHGHGHKO)
 - **Blog:** [pepega.tistory.com](https://pepega.tistory.com)
-- **개인 프로젝트 (런마켓):** [about.runmarket.cc](https://about.runmarket.cc)
+- **개인 프로젝트 (런마켓):** [about.runmarket.cc](https://about.runmarket.cc) | [GitHub: runmarket-pacer](https://github.com/runmarket-cc/runmarket-pacer)
 
 ---
 
 ## 📌 Summary
 
-- **대규모 트래픽 안정화 & 클라우드 인프라 이관:** GS리테일에서 1,500만 유저 앱 '우리동네GS'와 택배 서비스의 회원 통합 전용 인증 서버 구축(월 1,200만 req 수용) 및 일 1,280만 req 규모 레거시 시스템의 AWS 클라우드 이관을 리드했습니다.
+- **대규모 트래픽 안정화 & 클라우드 인프라 이관:** GS리테일에서 1,500만 유저 앱 '우리동네GS'와 택배 서비스의 회원 통합 전용 인증 서버 구축(월 1,200만 req 수용) 및 일 1,280만 req 규모 레거시 시스템의 AWS 클라우드 무중단 이관을 리드했습니다.
 - **Observability 기반의 기민한 운영 배포:** Datadog 기반의 정밀한 모니터링 체계를 바탕으로 병목과 장애를 선제 탐지하고, 잦은 프로덕션 배포와 신속한 장애 복구 사이클을 주도했습니다.
-- **CI/CD 및 컨테이너 인프라 최적화:** Docker 빌드 최적화(20분 → 2분, 90% 단축), MWAA 데이터 파이프라인 구축(DAG 250개 → 170개 최적화 및 인프라 비용 30% 절감), Kubernetes(K3s)/Helm 기반 선언적 IaC 환경을 직접 설계하고 운영했습니다.
+- **컨테이너 인프라 & CI/CD 최적화:** Google Jib 기반 데몬리스 컨테이너 빌드, Docker 빌드 시간 90% 단축(20분 → 2분), MWAA 데이터 파이프라인 최적화(DAG 250개 → 170개, 클라우드 비용 30% 절감), Kubernetes(K3s)/Helm 기반 선언적 IaC 환경을 직접 설계하고 운영했습니다.
 
 ---
 
@@ -21,10 +21,10 @@
 
 | 구분 | 주요 기술 스택 |
 | :--- | :--- |
-| **Cloud & Infra** | AWS (EC2, EKS, RDS, S3, KMS, MWAA), Linux, Kubernetes (K3s), Docker, Helm |
-| **CI/CD & DevOps** | GitHub Actions, Dockerfile 최적화, Multi-stage Build, IaC, Bash Scripting |
+| **Cloud & Infra** | AWS (EC2, EKS, RDS, S3, KMS, MWAA), Linux, Kubernetes (K3s), Docker, Helm Chart |
+| **CI/CD & Container Build** | GitHub Actions, Google Jib (Daemonless Build), Dockerfile 최적화, IaC, Bash Scripting |
 | **Observability** | Datadog (APM, Metrics, Log Management, Dashboard, Alerting), CloudWatch |
-| **Backend & DB** | Java, Spring Boot, Spring WebFlux, Spring Batch, JPA, PostgreSQL, Redis / Valkey |
+| **Backend & DB** | Java 17, Spring Boot 3, Spring WebFlux, Spring Batch, JPA, PostgreSQL, Redis / Valkey |
 | **Data & Messaging**| Apache Airflow / AWS MWAA, WebSocket, Reactive Redis, Python |
 | **Testing & Tools** | k6 부하 테스트, Git, JIRA, Confluence, Slack |
 
@@ -72,9 +72,10 @@
 ## 🚀 Projects & Activities
 
 - **런마켓 (RunMarket) - 러닝 동행 실시간 위치 공유 서비스 (2025 ~ 현재)**
-  - Spring WebFlux + Reactive Redis 기반 고성능 WebSocket 실시간 위치 브로드캐스팅 백엔드 전담 구축 (App Store 출시)
-  - Kubernetes(K3s) & Helm Chart 기반 선언적 IaC 인프라 구성 및 배포 자동화
-  - k6 기반 1,000명 동시 접속, 1초 주기 위치 업데이트 부하 테스트 환경에서 에러율 0% 검증
+  - 러너와 관전자가 실시간으로 위치와 페이스를 공유하는 서비스 (iOS App Store & Google Play Store 양대 마켓 출시 운영 중)
+  - Spring Boot 멀티모듈 (`web` REST API, `socket` WebFlux WebSocket, `batch` 크롤러, `core` 도메인) 백엔드 전담 구축
+  - Google Jib 기반 데몬리스 OCI 컨테이너 이미지 빌드 & Kubernetes (K3s) + Helm Chart 선언적 IaC 배포 자동화
+  - k6 기반 1,000명 동시 접속 1초 주기 위치 수집 시뮬레이션 부하 테스트 (에러율 0.00% 달성)
 - **사내 기술 세미나: 'Rust 핵심 개념과 메모리 안전성 모델' (2024)**
   - 소유권(Ownership), 차용(Borrowing) 등 Rust의 메모리 관리 메커니즘 사내 엔지니어 공유
 - **모두의연구소 코칭스터디 기술 멘토링 (2023 ~ 2025)**
@@ -85,5 +86,3 @@
 ## 🎓 Education
 
 - **건국대학교 글로컬캠퍼스** | 컴퓨터공학과 학사 (2014.03 – 2021.02)
-  - 학과 BareMetal 서버 대상 Ubuntu 실습 환경 구축 및 사용자/런타임 격리 운영
-  - 학과 네트워크 루핑 장애 트러블슈팅 및 L2/L3 스위치 패킷 경로 정상화

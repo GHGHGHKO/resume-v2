@@ -40,8 +40,8 @@
           <td>AWS (EC2, EKS, RDS, S3, KMS, MWAA), Linux, Kubernetes (K3s), Docker, Helm Chart</td>
         </tr>
         <tr>
-          <th>CI/CD & DevOps</th>
-          <td>GitHub Actions, Dockerfile 최적화, Multi-stage Build, IaC, Bash Scripting</td>
+          <th>CI/CD & Container Build</th>
+          <td>GitHub Actions, Google Jib (Daemonless Build), Dockerfile 최적화, IaC, Bash Scripting</td>
         </tr>
         <tr>
           <th>Observability</th>
@@ -117,19 +117,21 @@
       <div class="card">
         <div class="card-header">
           <div class="company-title">런마켓 (RunMarket) - 러닝 동행 실시간 위치 공유 서비스</div>
-          <div class="period">2025 – 현재 (App Store 운영 중)</div>
+          <div class="period">2025 – 현재 (iOS & Android 운영 중)</div>
         </div>
-        <p style="font-size: 13.5px; margin-bottom: 6px;">러너와 관전자가 1초 주기로 실시간 위치/페이스를 공유하는 서비스 백엔드 & 인프라 1인 전담 개발</p>
+        <p style="font-size: 13.5px; margin-bottom: 6px;">러너와 관전자가 1초 주기로 실시간 위치/페이스를 공유하는 서비스 백엔드 & 인프라 1인 전담 개발 (App Store & Play Store 정식 출시)</p>
         <ul>
-          <li>Spring WebFlux + Reactive Redis 기반 고성능 WebSocket 실시간 브로드캐스팅 파이프라인 구축</li>
-          <li>Kubernetes (K3s) & Helm Chart 기반 선언적 IaC 인프라 구성 및 CI/CD 자동화</li>
+          <li>Spring WebFlux + Reactive Redis 기반 고성능 WebSocket 실시간 브로드캐스팅 파이프라인(pulse.runmarket.cc) 구축</li>
+          <li>Spring Boot 멀티모듈(web, socket, batch, core) 아키텍처 적용으로 관심사 분리</li>
+          <li>Google Jib 기반 데몬리스 컨테이너 빌드 & Kubernetes (K3s) + Helm Chart 선언적 IaC 배포 자동화</li>
           <li>k6 부하 테스트: 1,000명 동시 접속 실시간 위치 송수신 환경에서 에러율 0.00% 달성</li>
         </ul>
         <div class="badge-group">
           <span class="badge badge-primary">Spring WebFlux</span>
           <span class="badge badge-primary">Reactive Redis</span>
+          <span class="badge badge-primary">Google Jib</span>
           <span class="badge">Kubernetes (K3s)</span>
-          <span class="badge">Helm</span>
+          <span class="badge">Helm Chart</span>
           <span class="badge">k6 Load Test</span>
         </div>
       </div>
