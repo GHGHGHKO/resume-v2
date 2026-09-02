@@ -2,6 +2,10 @@
 
 > **클라우드 네이티브 아키텍처 설계와 실제 운영 결과물의 기술적 증명**
 
+- **이메일:** gudrb963@gmail.com
+- **GitHub:** [github.com/GHGHGHKO](https://github.com/GHGHGHKO)
+- **개인 프로젝트 (런마켓):** [about.runmarket.cc](https://about.runmarket.cc) | [GitHub: runmarket-pacer](https://github.com/runmarket-cc/runmarket-pacer)
+
 ---
 
 ## 📑 목차
@@ -9,13 +13,13 @@
    - 서비스 소개 및 운영 현황 (iOS & Android 정식 출시)
    - RunMarket 멀티모듈 백엔드 생태계 및 아키텍처 (`runmarket-pacer`)
    - 핵심 엔지니어링 챌린지 1: Spring WebFlux & Reactive Redis 기반 실시간 위치 중계 (`pulse.runmarket.cc`)
-   - 핵심 엔지니어링 챌린지 2: Google Jib 기반 데몬리스 컨테이너 빌드 & Kubernetes (K3s) + Helm Chart IaC 자동화
+   - 핵심 엔지니어링 챌린지 2: Google Jib 기반 데몬리스 컨테이너 빌드 & Kubernetes + Helm Chart 선언적 IaC 자동화
    - 핵심 엔지니어링 챌린지 3: k6 기반 1,000명 동시 접속 실시간 부하 테스트 (에러율 0.00% 달성)
 2. **실무 프로젝트 심층 분석 1: IDC → AWS MWAA 데이터 파이프라인 마이그레이션 (GS리테일)**
    - 아키텍처 전환 구조 및 Fargate vs EC2 노드그룹 벤치마크 (비용 30% 절감)
-   - GitHub Actions CI/CD 파이프라인을 통한 250개 DAG 통폐합 및 안정화
+   - KubernetesPodOperator Retry 설정을 통한 배치 안정성 99% 고도화
 3. **실무 프로젝트 심층 분석 2: AWS KMS + RS256 비대칭키 기반 독립 인증 아키텍처 (GS리테일)**
-   - Blast Radius 격리 구조 및 보안 토큰 서명/검증 플로우
+   - 비회원 서비스 영향 격리 구조 및 보안 토큰 서명/검증 플로우
 
 ---
 
@@ -25,11 +29,11 @@
 > - **서비스 URL:** [https://about.runmarket.cc](https://about.runmarket.cc)
 > - **GitHub Repository:** [https://github.com/runmarket-cc/runmarket-pacer](https://github.com/runmarket-cc/runmarket-pacer)
 > - **운영 현황:** iOS App Store & Google Play Store 양대 마켓 정식 출시 및 서비스 운영 중 (Bundle ID: `cc.runmarket.app`)
-> - **담당 역할:** 1인 백엔드 아키텍처 설계, Spring Boot 멀티모듈 개발, Google Jib 컨테이너화, Kubernetes(K3s) & Helm Chart 기반 IaC 인프라 전담 구축
+> - **담당 역할:** 1인 백엔드 아키텍처 설계, Spring Boot 멀티모듈 개발, Google Jib 컨테이너화, Kubernetes & Helm Chart 기반 IaC 인프라 전담 구축
 
 ### 🛠 Tech Stack
 - **Backend:** Java 17, Spring Boot 3, Spring WebFlux, Spring MVC, Spring Batch, Spring Data JPA, Spring Data Reactive Redis
-- **Infra & DevOps:** Kubernetes (K3s), Helm Charts (`helm/runmarket`), Google Jib (Daemonless Container Build), GitHub Actions, Nginx Ingress Controller
+- **Infra & DevOps:** Kubernetes, Helm Charts (`helm/runmarket`), Google Jib (Daemonless Container Build), GitHub Actions, Nginx Ingress Controller
 - **Database & Cache:** PostgreSQL, Redis (Pub/Sub & Geospatial)
 - **Testing & Tooling:** k6 (WebSocket Load Testing), Postman, Git
 
@@ -55,7 +59,7 @@
       [ Nginx Ingress ]                  [ Nginx Ingress ]
                │                                  │
 ┌──────────────┴──────────────────────────────────┴───────────────────────┐
-│                Kubernetes (K3s) Cluster (IaC / Helm)                    │
+│                Kubernetes Cluster (IaC / Helm)                          │
 │                                                                         │
 │  ├── [web]     : Spring MVC REST API (인증, 유저/코스/기록)              │
 │  ├── [socket]  : Spring WebFlux + Reactive Redis 실시간 위치 중계        │
@@ -119,15 +123,15 @@
 ### 🔬 기술적 의사결정: Fargate vs EC2 노드그룹 벤치마크
 - **검토 배경:** MWAA의 `KubernetesPodOperator` 실행 환경으로 서버리스인 AWS Fargate와 EC2 노드그룹을 비교 검증했습니다.
 - **벤치마크 결과:**
-  - **AWS Fargate:** 신규 Pod 프로비저닝 시간(약 45~90초) + Java 런타임 기동 시간으로 인해 짧은 주기의 배치 실행 시 심각한 큐 적체 발생
-  - **EC2 Warm NodeGroup:** 노드 사전 프로비저닝 및 Docker 캐싱 활용으로 **Pod 기동 시간 3초 이내 보장**
-- **결정:** EC2 기반 관리형 노드그룹을 채택하고 스팟 인스턴스 정책을 혼합하여 **기동 속도 확보와 비용 30% 절감**을 동시에 달성했습니다.
+  - **AWS Fargate:** 신규 Pod 프로비저닝 시간 + Java 런타임 기동 시간(수 분)으로 인해 짧은 주기의 배치 실행 시 큐 적체 발생
+  - **EC2 Warm NodeGroup:** 노드 사전 프로비저닝 및 Docker 캐싱 활용으로 **Pod 기동 시간 약 50초 수준으로 단축**
+- **결정 & 고도화:** EC2 관리형 노드그룹을 채택하고 `KubernetesPodOperator`의 retry 설정을 적용하여 **배치 성공률 99% 달성을 목표로 안정성 확보 및 클라우드 비용 30% 절감**을 달성했습니다.
 
 ---
 
 ## 🔒 3. 실무 프로젝트 심층 분석 2: AWS KMS + RS256 기반 독립 인증/인가 아키텍처
 
-### 🛡 Blast Radius 격리 & 비대칭키 검증 워크플로우
+### 🛡 기존 서비스 영향 격리 & 비대칭키 검증 워크플로우
 
 ```
 [ 우리동네GS App (1,500만 유저) ]
@@ -143,15 +147,15 @@
 ┌───────────────────────────────────────────────┐
 │ [택배 서비스 게이트웨이 / Interceptor 계층]   │
 │  - JWKS 캐시를 통한 로컬 공개키 서명 검증     │
-│  - 내부 회원 식별 및 세션 바인딩               │
+│  - session cluster 기반 내부 회원 세션 연계    │
 └───────────────────────┬───────────────────────┘
                         │
          ┌──────────────┴──────────────┐
          ▼                             ▼
 [ 통합 회원 비즈니스 로직 ]     [ 기존 비회원 서비스 ]
-(Zero Blast Radius - 비회원 서비스 영향도 원천 차단)
+(단일 DB 환경 내 독립 마이크로서비스 구축으로 기존 서비스 영향 최소화)
 ```
 
 ### 💡 엔지니어링 핵심 성과
-- **보안성:** Secret Key 노출 위험이 있는 대칭키(HS256)를 배제하고 AWS KMS 하드웨어 보안 모듈(HSM) 기반 RS256 비대칭키 서명 체계 확립
+- **보안성 확보:** AWS KMS 기반 RS256 비대칭키 서명 체계를 통해 외부 시스템에 안전한 공개키(JWKS) 제공 및 payload 서명 검증 체계 구현
 - **가용성 & 안정성:** 월 요청량 8.5배 급증(140만 → 1,197만 건) 상황에서도 피크 에러율 0.042% 유지

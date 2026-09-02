@@ -38,12 +38,11 @@
       <span class="doc-section-badge">PART 1. 이력서 (RESUME)</span>
     </div>
     <header>
-      <h1>고형규 (Ko Hyeong-gyu)</h1>
+      <h1>고형규 (Ko Hyung-gyu)</h1>
       <div class="subtitle">5년차 백엔드 & 인프라 엔지니어 | Java · Spring Boot · AWS · Kubernetes</div>
       <div class="contact-info">
         <span>📧 <strong>Email:</strong> <a href="mailto:gudrb963@gmail.com">gudrb963@gmail.com</a></span>
         <span>💻 <strong>GitHub:</strong> <a href="https://github.com/GHGHGHKO" target="_blank">github.com/GHGHGHKO</a></span>
-        <span>📝 <strong>Blog:</strong> <a href="https://pepega.tistory.com" target="_blank">pepega.tistory.com</a></span>
         <span>🚀 <strong>Portfolio:</strong> <a href="https://about.runmarket.cc" target="_blank">about.runmarket.cc</a></span>
       </div>
     </header>
@@ -52,7 +51,7 @@
       <h2>Executive Summary</h2>
       <div class="callout">
         <strong>"대규모 트래픽 안정성과 Observability 기반의 기민한 배포·인프라를 주도하는 5년 차 엔지니어입니다."</strong><br>
-        대기업의 대규모 서비스 환경에서도 스타트업처럼 기민한 Observability 체계를 바탕으로 일해왔습니다. Datadog 기반의 정밀한 모니터링으로 병목과 장애를 선제 탐지하고, 잦은 프로덕션 배포와 빠른 수정 사이클을 주도했습니다. GS리테일에서 1,500만 유저 앱 '우리동네GS'와 택배 서비스의 회원 통합 전용 인증 서버 구축(월 1,200만 req 수용) 및 일 1,280만 req 규모 레거시 시스템의 AWS 클라우드 무중단 이관을 리드했습니다.
+        대기업의 대규모 서비스 환경에서도 스타트업처럼 기민한 Observability 체계를 바탕으로 일해왔습니다. Datadog 기반의 정밀한 모니터링으로 병목과 장애를 선제 탐지하고, 잦은 프로덕션 배포와 빠른 수정 사이클을 주도했습니다. GS리테일에서 1,500만 유저 앱 '우리동네GS'와 택배 서비스의 회원 통합(우리동네GS 가입 시 택배 회원 연동/가입) 전용 인증 서버 구축(월 1,200만 req 수용) 및 일 1,280만 req 규모 레거시 시스템의 AWS 클라우드 무중단 이관을 리드했습니다.
       </div>
     </section>
 
@@ -61,7 +60,7 @@
       <table>
         <tr>
           <th>Cloud & Infra</th>
-          <td>AWS (EC2, EKS, RDS, S3, KMS, MWAA), Linux, Kubernetes (K3s), Docker, Helm Chart</td>
+          <td>AWS (EC2, EKS, RDS, S3, KMS, MWAA), Linux, Kubernetes, Docker, Helm Chart</td>
         </tr>
         <tr>
           <th>CI/CD & Container Build</th>
@@ -93,14 +92,14 @@
         <div class="card-header">
           <div>
             <div class="company-title">GS리테일 (GS네트웍스에서 인사이동)</div>
-            <div style="font-size: 13.5px; color: var(--primary); font-weight: 600;">백엔드 & 인프라 엔지니어 (매니저)</div>
+            <div style="font-size: 13.5px; color: var(--primary); font-weight: 600;">통합서비스팀 | 백엔드</div>
           </div>
           <div class="period">2022.10 – 현재 (재직 중)</div>
         </div>
         <ul>
-          <li><strong>[우리동네GS × 택배 회원 연동 · 리드]</strong> 1,500만 유저 앱 가입 시 택배 회원 자동 연계 통합 체계 및 RS256 + AWS KMS 전용 인증 서버 분리 구축 (월 1,197만 req 수용, 피크 에러율 0.042%)</li>
-          <li><strong>[택배 서비스 IDC → AWS 이관 · 리드]</strong> 서비스 13개 · 일 1,280만 req 레거시 마이그레이션, MWAA 파이프라인 구축 및 인프라 비용 30% 절감</li>
-          <li><strong>[CRM 서비스 안정화 & CI/CD]</strong> OTP 인증 세션 검증으로 계정 탈취 취약점 원천 차단, DB 쿼리 80% 개선(1s → 200ms), 빌드 시간 90% 단축(20분 → 2분)</li>
+          <li><strong>[우리동네GS × 택배 회원 연동 · 리드]</strong> 1,500만 유저 앱 가입 시 택배 시스템 회원 여부에 따라 연동/가입 처리하는 체계 및 RS256 + AWS KMS 전용 인증 서버 분리 구축 (월 1,197만 req 수용, 피크 에러율 0.042%)</li>
+          <li><strong>[택배 서비스 IDC → AWS 이관 · 리드]</strong> 서비스 13개 · 일 1,280만 req 레거시 마이그레이션, MWAA 파이프라인 구축 및 인프라 비용 30% 절감 (KubernetesPodOperator retry 활용 배치 성공률 99% 목표 고도화)</li>
+          <li><strong>[CRM 서비스 안정화 & CI/CD]</strong> OTP 인증 세션 검증 및 인가(Authorization) 검증 누락 보안 취약점 해결, DB 쿼리 80% 개선(1s → 200ms), 빌드 시간 90% 단축(20분 → 2분)</li>
           <li><strong>[기술 부채 청산]</strong> EDB 종속 쿼리 ANSI SQL 전수 표준화 및 Airflow DAG 250개 → 170개 최적화</li>
         </ul>
       </div>
@@ -109,14 +108,14 @@
         <div class="card-header">
           <div>
             <div class="company-title">GS네트웍스</div>
-            <div style="font-size: 13.5px; color: var(--primary); font-weight: 600;">백엔드 엔지니어 (매니저)</div>
+            <div style="font-size: 13.5px; color: var(--primary); font-weight: 600;">시스템파트 | 백엔드</div>
           </div>
           <div class="period">2021.08 – 2022.10</div>
         </div>
         <ul>
-          <li><strong>[대외 제휴 배송조회 API 고가용성]</strong> 네이버·당근·토스 공유 API의 Connection Timeout 원인 분석 및 해결</li>
-          <li><strong>[다계층 캐시 & 장애 격리]</strong> DB + Redis Layered Cache 및 Retry/Recover 패턴으로 Redis 장애 시 무중단 DB Fallback 보장</li>
-          <li><strong>[I/O 최적화]</strong> 배송 상태별 Dynamic TTL 캐싱으로 외부 API 중복 호출 차단 및 응답 안정성 향상</li>
+          <li><strong>[배송조회 API 고가용성]</strong> 네이버·당근·토스 공유 API의 Connection Timeout 원인 분석 및 해결</li>
+          <li><strong>[Multi-layer Cache & 장애 격리]</strong> Multi-layer Cache(Redis + DB) 및 Fallback 패턴으로 Redis 장애 시 무중단 DB Fallback 보장</li>
+          <li><strong>[캐시 최적화]</strong> 배송조회 및 토큰 발급에 TTL이 포함된 캐시를 적용하여 외부 API 중복 호출 차단 및 응답 안정성 향상</li>
         </ul>
       </div>
 
@@ -124,7 +123,7 @@
         <div class="card-header">
           <div>
             <div class="company-title">마인드패스 (공동창업)</div>
-            <div style="font-size: 13.5px; color: var(--primary); font-weight: 600;">공동창업자 & 엔지니어</div>
+            <div style="font-size: 13.5px; color: var(--primary); font-weight: 600;">공동창업자</div>
           </div>
           <div class="period">2018.12 – 2021.01</div>
         </div>
@@ -147,14 +146,14 @@
         <ul>
           <li>Spring WebFlux + Reactive Redis 기반 고성능 WebSocket 실시간 브로드캐스팅 파이프라인(pulse.runmarket.cc) 구축</li>
           <li>Spring Boot 멀티모듈(web, socket, batch, core) 아키텍처 적용으로 관심사 분리</li>
-          <li>Google Jib 기반 데몬리스 컨테이너 빌드 & Kubernetes (K3s) + Helm Chart 선언적 IaC 배포 자동화</li>
+          <li>Google Jib 기반 데몬리스 컨테이너 빌드 & Kubernetes + Helm Chart 선언적 IaC 배포 자동화</li>
           <li>k6 부하 테스트: 1,000명 동시 접속 실시간 위치 송수신 환경에서 에러율 0.00% 달성</li>
         </ul>
         <div class="badge-group">
           <span class="badge badge-primary">Spring WebFlux</span>
           <span class="badge badge-primary">Reactive Redis</span>
           <span class="badge badge-primary">Google Jib</span>
-          <span class="badge">Kubernetes (K3s)</span>
+          <span class="badge">Kubernetes</span>
           <span class="badge">Helm Chart</span>
           <span class="badge">k6 Load Test</span>
         </div>
@@ -175,18 +174,17 @@
     </div>
     <header>
       <h1>경력기술서 (Work Experience Detail)</h1>
-      <div class="subtitle">고형규 | 5년차 백엔드 & 인프라 엔지니어</div>
+      <div class="subtitle">고형규 (Ko Hyung-gyu) | 5년차 백엔드 & 인프라 엔지니어</div>
       <div class="contact-info">
         <span>📧 <a href="mailto:gudrb963@gmail.com">gudrb963@gmail.com</a></span>
         <span>💻 <a href="https://github.com/GHGHGHKO" target="_blank">github.com/GHGHGHKO</a></span>
-        <span>📝 <a href="https://pepega.tistory.com" target="_blank">pepega.tistory.com</a></span>
         <span>🚀 <a href="https://about.runmarket.cc" target="_blank">about.runmarket.cc</a></span>
       </div>
     </header>
 
     <section>
       <h2>1. GS리테일 (2022.10 – 현재)</h2>
-      <p><strong>소속:</strong> IT본부 물류시스템개발팀 | <strong>직책:</strong> 백엔드 & 인프라 엔지니어 (매니저)</p>
+      <p><strong>소속:</strong> 통합서비스팀 | <strong>직책:</strong> 백엔드</p>
 
       <!-- Project 1 -->
       <div class="card" style="margin-top: 14px;">
@@ -205,26 +203,27 @@
         <p style="font-size: 13px; color: var(--text-light); margin-bottom: 10px;"><strong>규모:</strong> 13개 마이크로서비스, 이기종 DB 2개, 일 평균 1,280만 req(피크 82만 req/h), Airflow 250 DAGs</p>
 
         <h4>1. 문제 배경 (Problem)</h4>
-        <p>IDC 기반 레거시 시스템을 AWS로 전환해야 했으나, EDB 벤더 종속 SQL 문법으로 인해 AWS DMS 자동 마이그레이션이 불가능했습니다. 또한 외주 개발사에서 구축한 250여 개의 Airflow DAG가 결합도가 높고 스케줄링이 비효율적이어서 IDC 환경에서 잦은 배치 지연과 장애가 반복되었습니다.</p>
+        <p>IDC 기반 레거시 시스템을 AWS로 전환해야 했으나, EDB 벤더 종속 SQL 문법으로 인해 AWS DMS 자동 마이그레이션이 불가능했습니다. 또한 외주 개발사에서 구축한 250여 개의 Airflow DAG 중 미사용/중복 코드가 산재하여 IDC 환경에서 잦은 배치 지연이 발생했습니다.</p>
 
         <h4>2. 분석 및 기술 검토 (Analyze)</h4>
         <ul>
-          <li><strong>DB 마이그레이션:</strong> EDB 전용 문법을 표준 ANSI SQL로 수동 전환하고 테스트 파이프라인을 구축해 정합성을 검증해야 했습니다.</li>
-          <li><strong>워커 노드 지연:</strong> KubernetesPodOperator 실행 환경으로 Fargate 검토 시, Java 콜드스타트 + Fargate 프로비저닝 지연(수십 초~수 분)으로 인해 짧은 주기의 배치가 밀리는 현상이 확인되었습니다.</li>
-          <li><strong>운영 복잡도:</strong> 외주 의존도로 인해 장애 대응이 지연되어 사내 엔지니어링 직접 운영 체계가 시급했습니다.</li>
+          <li><strong>DB 마이그레이션:</strong> EDB 전용 문법을 표준 ANSI SQL로 전환하여 PostgreSQL RDS 호환성을 확보해야 했습니다.</li>
+          <li><strong>워커 노드 지연:</strong> KubernetesPodOperator 실행 환경으로 Fargate 검토 시, Java 콜드스타트 및 프로비저닝 지연(수 분)으로 인해 배치가 지연되는 현상이 확인되었습니다.</li>
+          <li><strong>운영 복잡도:</strong> 외주 의존도를 제거하고 사내 엔지니어링 직접 운영 체계 확립이 시급했습니다.</li>
         </ul>
 
         <h4>3. 해결 과정 및 실행 (Action)</h4>
         <ul>
-          <li><strong>EDB 종속 쿼리 ANSI SQL 전수 표준화:</strong> 13개 서비스의 EDB SQL을 PostgreSQL 호환 ANSI SQL로 전수 변환 및 테스트 검증을 완료했습니다.</li>
-          <li><strong>AWS MWAA 직접 구축 및 워커 최적화:</strong> Fargate vs EC2 노드그룹 벤치마크 테스트 후 기동 속도가 빠른 EC2 노드그룹을 채택하여 Pod 기동 지연을 수초 이내로 단축했습니다.</li>
+          <li><strong>EDB 종속 쿼리 ANSI SQL 전수 표준화:</strong> 13개 서비스의 EDB SQL을 PostgreSQL 호환 ANSI SQL로 전수 변환 및 검증을 완료했습니다.</li>
+          <li><strong>AWS MWAA 직접 구축 및 워커 최적화:</strong> Fargate vs EC2 노드그룹 벤치마크 테스트 후 EC2 노드그룹을 채택하여 Pod 기동 지연을 약 50초 수준으로 단축했습니다.</li>
+          <li><strong>KubernetesPodOperator Retry 설정:</strong> KubernetesPodOperator의 retry 설정을 적용하여 배치 성공률을 99% 수준으로 끌어올리는 파이프라인 고도화를 진행했습니다.</li>
           <li><strong>DAG 통폐합 & CI/CD 자동화:</strong> 250개 DAG 중 중복·미사용 DAG 80개를 정리(170개로 최적화)하고, GitHub Actions → S3 Sync 자동 배포 파이프라인을 구축했습니다.</li>
         </ul>
 
         <h4>4. 엔지니어링 성과 (Result)</h4>
         <ul>
-          <li><strong>클라우드 운영 비용 30% 절감:</strong> DAG 통폐합(250개 → 170개) 및 인스턴스 효율화로 운영 비용 30% 절감 달성</li>
-          <li><strong>배치 정시 완료율 99.9% 달성:</strong> EC2 워커 노드 채택으로 Pod 기동 지연 해소 및 안정적 스케줄링 보장</li>
+          <li><strong>클라우드 운영 비용 30% 절감:</strong> DAG 통폐합(250개 → 170개) 및 인스턴스 최적화로 운영 비용 30% 절감 달성</li>
+          <li><strong>배치 안정성 향상:</strong> EC2 워커 노드 채택 및 retry 설정으로 배치 기동 지연 해소 및 안정적 스케줄링 보장</li>
           <li><strong>사내 직접 운영 체계 완비:</strong> 외주 의존도 100% 제거 및 배포 자동화 파이프라인 구축</li>
         </ul>
       </div>
@@ -241,33 +240,31 @@
           <span class="badge badge-primary">AWS KMS</span>
           <span class="badge">JWT (RS256)</span>
           <span class="badge">Kubernetes (EKS)</span>
-          <span class="badge">k6 Load Test</span>
         </div>
         <p style="font-size: 13px; color: var(--text-light); margin-bottom: 10px;"><strong>규모:</strong> 1,500만 유저 앱 '우리동네GS', 월 1,197만 req, 피크 트래픽 37,654 req/h</p>
 
         <h4>1. 문제 배경 (Problem)</h4>
-        <p>1,500만 다운로드 앱 '우리동네GS'에 가입하면 택배 서비스 회원으로 자동 연계되는 통합 회원 체계를 구축해야 했습니다. 기존 택배 시스템은 단일 비회원 API 중심 구조였기 때문에, 대규모 앱 회원 트래픽이 직접 인입될 경우 기존 비회원 서비스까지 장애가 전파될 위험이 존재했습니다.</p>
+        <p>1,500만 다운로드 앱 '우리동네GS'에 가입하면 택배 시스템 회원인 경우 연동하고, 회원이 아닌 경우 택배 시스템에 회원가입을 연동하도록 체계를 구축해야 했습니다. 기존 서버에 직접 인증을 추가하기에는 비회원 서비스 영향과 트래픽 부담이 컸고, 외부 시스템에서 서명을 검증할 수 있는 공개키 기반 체계가 필요했습니다.</p>
 
         <h4>2. 분석 및 기술 검토 (Analyze)</h4>
         <ul>
-          <li><strong>Blast Radius (장애 전파 범위):</strong> 기존 비회원 서버 수정 시 비회원 접수까지 중단되는 단일 장애점(SPOF) 리스크가 있어 독립 전용 인증 서버 분리가 필수적이었습니다.</li>
-          <li><strong>보안성:</strong> HS256 대칭키 방식은 Secret Key 공유 리스크가 있어, RS256 비대칭키 및 AWS KMS 기반 공개키 서명 검증 전환이 필요했습니다.</li>
-          <li><strong>트래픽 급증:</strong> 연동 후 예상되는 급증 트래픽의 수용력을 사전에 검증해야 했습니다.</li>
+          <li><strong>장애 영향 분리:</strong> 기존 비회원 서버 직접 수정 시 비회원 접수까지 영향을 줄 위험이 있어, 동일 DB 환경에서 독립된 전용 인증 마이크로서비스 분리가 필요했습니다.</li>
+          <li><strong>보안성 & 서명 검증:</strong> 외부 시스템에서 안전하게 토큰 서명을 검증할 수 있도록 RS256 비대칭키 및 AWS KMS 기반 공개키 제공 체계가 필요했습니다.</li>
+          <li><strong>레거시 연동:</strong> session cluster 기반의 레거시 홈페이지 환경에서 인입 계층을 통한 회원 식별 및 세션 바인딩이 필요했습니다.</li>
         </ul>
 
         <h4>3. 해결 과정 및 실행 (Action)</h4>
         <ul>
-          <li><strong>전용 인증/인가 서버 신규 분리:</strong> 기존 비회원 서버와 완전 격리된 독립 인증 마이크로서비스를 구축했습니다.</li>
+          <li><strong>전용 인증/인가 서버 신규 분리:</strong> 동일 DB 환경에서 비회원 서버와 분리된 독립 인증 마이크로서비스를 구축했습니다.</li>
           <li><strong>AWS KMS + RS256 비대칭키 서명:</strong> KMS 비대칭 키쌍으로 JWT를 발행하고 외부 시스템에 Public JWKS 엔드포인트를 제공하여 안전하게 서명을 검증하도록 구현했습니다.</li>
-          <li><strong>Interceptor 기반 회원 식별:</strong> 택배 서비스 인입 계층에 Interceptor를 구성하여 JWT 검증 및 내부 회원 세션을 연계 생성했습니다.</li>
-          <li><strong>사전 부하 테스트:</strong> 목표 트래픽의 2배를 상정하여 k6 부하 테스트를 수행하고 Connection Pool 및 JVM GC를 최적화했습니다.</li>
+          <li><strong>Interceptor 기반 회원 식별 & 세션 바인딩:</strong> session cluster 기반의 레거시 홈페이지 택배 서비스 인입 계층에 Interceptor를 구성하여 JWT 검증 및 내부 회원 세션을 연계 생성했습니다.</li>
         </ul>
 
         <h4>4. 엔지니어링 성과 (Result)</h4>
         <ul>
           <li><strong>월 요청량 8.5배(140만 → 1,197만 건) 안정적 수용:</strong> 트래픽 폭증에도 시스템 장애 없이 서비스 안정화</li>
           <li><strong>피크 트래픽 에러율 0.042% 유지:</strong> 37,654 req/h 피크 부하 상황에서 극저 에러율 유지</li>
-          <li><strong>Zero Blast Radius 달성:</strong> 비회원 서비스 영향도 0의 독립 인증 아키텍처 수립</li>
+          <li><strong>기존 서비스 영향 최소화:</strong> 독립 인증 마이크로서비스 구축을 통해 비회원 서비스 영향도 차단</li>
         </ul>
       </div>
 
@@ -287,24 +284,24 @@
         </div>
 
         <h4>1. 문제 배경 & 분석 (Problem & Analyze)</h4>
-        <p>빅뱅 오픈 직후 CRM 서비스의 비밀번호 재설정 API에서 OTP 인증 완료 세션 상태를 검증하지 않는 계정 탈취 취약점이 발견되었습니다. 또한 법정대리인 데이터 파기 배치에서 중복 키 오류가 발생했으며, CI/CD 프론트엔드 빌드 시간이 20분 이상 소요되어 배포 병목이 극심했습니다.</p>
+        <p>오픈 직후 CRM 서비스의 비밀번호 재설정 API에서 OTP 인증 완료 세션 및 인가(Authorization) 검증이 누락되어 계정 탈취 취약점이 발견되었습니다. 또한 법정대리인 데이터 파기 배치에서 중복 키 오류가 발생했으며, 기존 Dockerfile의 전체 파일 COPY로 인해 빌드 시간이 20분 이상 소요되었습니다.</p>
 
         <h4>2. 해결 과정 및 성과 (Action & Result)</h4>
         <ul>
-          <li><strong>보안 패치:</strong> 비밀번호 변경 단계별 OTP 인증 토큰 및 계정 일치 엄격 검증 로직을 추가하여 <strong>계정 탈취 취약점 원천 차단</strong></li>
+          <li><strong>보안 패치:</strong> 비밀번호 변경 단계별 OTP 인증 토큰, 계정 일치, 인가(Authorization) 검증 로직을 추가하여 <strong>계정 탈취 취약점 원천 차단</strong></li>
           <li><strong>배치 & 쿼리 튜닝:</strong> 날짜 조건(<code>del_schd_dt</code>) 보완, <code>HashSet</code> 중복 방지, Correlated EXISTS → INNER JOIN 전환으로 <strong>쿼리 실행시간 1초 → 200ms (80% 개선)</strong></li>
-          <li><strong>Dockerfile 최적화:</strong> 배포 아티팩트(.zip)만 선별 복사하도록 Multi-stage Build 구조를 적용하여 <strong>빌드 시간 20분 → 2분 (90% 단축)</strong></li>
+          <li><strong>Dockerfile 최적화:</strong> 불필요한 파일을 제외하고 배포 아티팩트(.zip)만 COPY하도록 기존 Dockerfile을 수정하여 <strong>빌드 시간 20분 → 2분 (90% 단축)</strong></li>
         </ul>
       </div>
     </section>
 
     <section class="page-break">
       <h2>2. GS네트웍스 (2021.08 – 2022.10)</h2>
-      <p><strong>소속:</strong> IT운영팀 | <strong>직책:</strong> 백엔드 엔지니어 (매니저)</p>
+      <p><strong>소속:</strong> 시스템파트 | <strong>직책:</strong> 백엔드</p>
 
       <div class="card" style="margin-top: 14px;">
         <div class="card-header">
-          <div class="company-title">프로젝트 4: 대외 제휴 배송조회 API 고가용성 & 다계층 캐시 레이어 구축</div>
+          <div class="company-title">프로젝트 4: 배송조회 API 고가용성 & Multi-layer Cache 레이어 구축</div>
           <div class="period">2021.11 – 2022.06 (8개월)</div>
         </div>
         <div class="badge-group">
@@ -316,20 +313,20 @@
         </div>
 
         <h4>1. 문제 배경 & 분석 (Problem & Analyze)</h4>
-        <p>네이버, 당근, 토스 등 주요 제휴사가 공유하는 배송조회 API에서 외부 연동사의 간헐적 지연으로 Connection Timeout이 빈발했습니다. 또한 On-Premise Redis에 의존성이 집중되어 Redis 장애 시 전체 서비스가 중단되는 SPOF 리스크가 존재했습니다.</p>
+        <p>네이버, 당근, 토스 등 주요 제휴사가 공유하는 배송조회 API에서 외부 연동사의 간헐적 지연으로 Connection Timeout이 빈발했습니다. 또한 On-Premise Redis에 의존성이 집중되어 Redis 장애 시 전체 서비스가 중단되는 위험이 존재했습니다.</p>
 
         <h4>2. 해결 과정 (Action)</h4>
         <ul>
-          <li><strong>Dynamic TTL 캐싱:</strong> 배송 상태(배송준비/배송중/배송완료)에 따른 차등 TTL 적용으로 불필요한 외부 API 중복 호출 차단</li>
-          <li><strong>다계층 캐시 & DB Fallback:</strong> DB + Redis Layered Cache로 인증 토큰을 관리하고, Spring Retry / <code>@Recover</code> 패턴을 적용하여 Redis 장애 시 자동으로 DB Fallback 전환되도록 구현</li>
+          <li><strong>캐시 적용:</strong> 배송조회 및 토큰 발급에 TTL이 포함된 캐시를 적용하여 불필요한 외부 API 중복 호출 차단</li>
+          <li><strong>Multi-layer Cache & DB Fallback:</strong> Multi-layer Cache(Redis + DB)로 인증 토큰을 관리하고, Spring Retry / <code>@Recover</code> 패턴을 적용하여 Redis 장애 시 자동으로 DB Fallback 전환되도록 구현</li>
           <li><strong>외부 클라이언트 타임아웃 세분화:</strong> 레거시 클라이언트 규격을 업그레이드하고 Connect/Read Timeout을 정밀 분리</li>
         </ul>
 
         <h4>3. 성과 (Result)</h4>
         <ul>
           <li>외부 API Connection Timeout 문제 완전 해소 및 응답 안정성 확보</li>
-          <li>Redis 다운 상황에서도 DB Fallback을 통해 서비스 지속성 보장</li>
-          <li>외부 API 호출량 획기적 절감으로 외부 시스템 의존 리스크 최소화</li>
+          <li>Redis 다운 상황에서도 DB Fallback을 통해 무중단 서비스 지속성 보장</li>
+          <li>외부 API 호출량 절감으로 외부 시스템 의존 리스크 최소화</li>
         </ul>
       </div>
     </section>
@@ -337,10 +334,10 @@
     <section>
       <h2>3. 마인드패스 (공동창업, 2018.12 – 2021.01)</h2>
       <div class="card">
-        <p><strong>역할:</strong> 공동창업자 & 엔지니어</p>
+        <p><strong>직책:</strong> 공동창업자</p>
         <ul>
-          <li>On-Premise Linux 서버 배포 환경 구축 및 인프라 전담 운영</li>
-          <li>GoogleNet 기반 이미지 분류 및 한국어 입모양 OCR 모델 서빙 백엔드 API 개발 (기술보증기금 등 지원사업 5,000만 원 수혜)</li>
+          <li>On-Premise Linux 서버 배포 환경 구축 및 서비스 인프라 전담 운영</li>
+          <li>GoogleNet 기반 이미지 분류 및 한국어 입모양 OCR 모델 서빙 백엔드 API 개발 (정부 지원사업 5,000만 원 수혜)</li>
           <li>Raspberry Pi 기반 센서 데이터 수집 파이프라인 개발 및 건국대학교병원 파일럿 테스트 진행</li>
         </ul>
       </div>
@@ -353,7 +350,7 @@
       <h1>기술 포트폴리오 (Portfolio)</h1>
       <div class="subtitle">클라우드 네이티브 아키텍처 설계와 실제 운영 결과물의 기술적 증명</div>
       <div class="contact-info">
-        <span>고형규 | 5년차 백엔드 & DevOps 엔지니어</span>
+        <span>고형규 (Ko Hyung-gyu) | 5년차 백엔드 & DevOps 엔지니어</span>
         <span>📧 <a href="mailto:gudrb963@gmail.com">gudrb963@gmail.com</a></span>
         <span>🚀 <a href="https://about.runmarket.cc" target="_blank">about.runmarket.cc</a></span>
         <span>💻 <a href="https://github.com/runmarket-cc/runmarket-pacer" target="_blank">github.com/runmarket-cc/runmarket-pacer</a></span>
@@ -365,7 +362,7 @@
       <div class="callout">
         <strong>"러너와 관전자가 실시간으로 위치와 페이스를 공유하는 러닝 동행 서비스"</strong><br>
         • <strong>운영 현황:</strong> iOS App Store & Google Play Store 양대 마켓 정식 출시 및 서비스 운영 중 (Bundle ID: <code>cc.runmarket.app</code>)<br>
-        • <strong>역할:</strong> 1인 백엔드 아키텍처 설계, Spring Boot 멀티모듈 구축, Google Jib 컨테이너화, Kubernetes(K3s) & Helm 기반 선언적 IaC 인프라 전담
+        • <strong>역할:</strong> 1인 백엔드 아키텍처 설계, Spring Boot 멀티모듈 구축, Google Jib 컨테이너화, Kubernetes & Helm 기반 선언적 IaC 인프라 전담
       </div>
 
       <div class="badge-group">
@@ -374,7 +371,7 @@
         <span class="badge badge-primary">Spring WebFlux</span>
         <span class="badge badge-primary">Reactive Redis</span>
         <span class="badge badge-primary">Google Jib</span>
-        <span class="badge">Kubernetes (K3s)</span>
+        <span class="badge">Kubernetes</span>
         <span class="badge">Helm Chart</span>
         <span class="badge">PostgreSQL</span>
         <span class="badge">k6 Load Testing</span>
@@ -399,7 +396,7 @@
       [ Nginx Ingress ]                  [ Nginx Ingress ]
                │                                  │
 ┌──────────────┴──────────────────────────────────┴───────────────────────┐
-│                Kubernetes (K3s) Cluster (IaC / Helm)                    │
+│                Kubernetes Cluster (IaC / Helm)                          │
 │                                                                         │
 │  ├── [web]     : Spring MVC REST API (인증, 유저/코스/기록)              │
 │  ├── [socket]  : Spring WebFlux + Reactive Redis 실시간 위치 중계        │
@@ -483,9 +480,9 @@
         <h4 style="color: var(--text-main); font-size: 15px;">🔬 워커 노드 선정 Trade-off: AWS Fargate vs EC2 노드그룹</h4>
         <p>MWAA <code>KubernetesPodOperator</code> 실행 환경으로 Fargate와 EC2 노드그룹을 벤치마크 테스트했습니다.</p>
         <ul>
-          <li><strong>AWS Fargate:</strong> Pod 프로비저닝 시간(45~90초) + Java 런타임 기동 시간으로 인해 짧은 주기의 배치 실행 시 큐 적체 발생</li>
-          <li><strong>EC2 Warm NodeGroup:</strong> 노드 사전 프로비저닝 및 Docker 이미지 캐싱으로 <strong>Pod 기동 시간 3초 이내 보장</strong></li>
-          <li><strong>결과:</strong> EC2 관리형 노드그룹 채택 + 스팟 인스턴스 정책 혼합으로 <strong>기동 지연 해소 및 인프라 비용 30% 절감 달성</strong></li>
+          <li><strong>AWS Fargate:</strong> Pod 프로비저닝 시간 + Java 런타임 기동 시간(수 분)으로 인해 짧은 주기의 배치 실행 시 큐 적체 발생</li>
+          <li><strong>EC2 Warm NodeGroup:</strong> 노드 사전 프로비저닝 및 Docker 이미지 캐싱으로 <strong>Pod 기동 시간 약 50초 수준으로 단축</strong></li>
+          <li><strong>결과 & 고도화:</strong> EC2 관리형 노드그룹 채택 및 <code>KubernetesPodOperator</code> retry 설정을 통해 <strong>배치 성공률 99% 목표 고도화 및 인프라 비용 30% 절감 달성</strong></li>
         </ul>
       </div>
     </section>
@@ -493,7 +490,7 @@
     <section class="page-break">
       <h2>3. 실무 프로젝트 심층 분석 2: AWS KMS + RS256 기반 독립 인증/인가 아키텍처</h2>
 
-      <h3>🛡 Blast Radius 격리 & 비대칭키 서명/검증 플로우</h3>
+      <h3>🛡 기존 서비스 영향 격리 & 비대칭키 서명/검증 플로우</h3>
       <pre>
 [ 우리동네GS App (1,500만 유저) ]
             │ (1) 앱 로그인 요청
@@ -508,19 +505,19 @@
 ┌───────────────────────────────────────────────┐
 │ [택배 서비스 게이트웨이 / Interceptor 계층]   │
 │  - JWKS 캐시를 통한 로컬 공개키 서명 검증     │
-│  - 내부 회원 식별 및 세션 바인딩               │
+│  - session cluster 기반 내부 회원 세션 연계    │
 └───────────────────────┬───────────────────────┘
                         │
          ┌──────────────┴──────────────┐
          ▼                             ▼
 [ 통합 회원 비즈니스 로직 ]     [ 기존 비회원 서비스 ]
-(Zero Blast Radius - 비회원 서비스 영향도 원천 차단)</pre>
+(단일 DB 환경 내 독립 마이크로서비스 구축으로 기존 서비스 영향 최소화)</pre>
 
       <div class="card">
         <h4 style="color: var(--text-main); font-size: 15px;">💡 기술적 의사결정 및 엔지니어링 성과</h4>
         <ul>
-          <li><strong>보안성 확보:</strong> Secret Key 공유가 필요한 대칭키(HS256) 대신 AWS KMS HSM 기반 RS256 비대칭키 서명 체계 확립</li>
-          <li><strong>장애 격리:</strong> 전용 인증 서버 분리를 통해 기존 비회원 서비스 영향도 Zero(0) 달성</li>
+          <li><strong>보안성 확보:</strong> AWS KMS 기반 RS256 비대칭키 서명 체계를 통해 외부 시스템에 안전한 공개키(JWKS) 제공 및 payload 서명 검증 체계 구현</li>
+          <li><strong>장애 영향 분리:</strong> 전용 인증 서버 분리를 통해 기존 서비스 영향 최소화 달성</li>
           <li><strong>대규모 트래픽 안정성:</strong> 월 요청량 8.5배 급증(140만 → 1,197만 건) 상황에서도 <strong>피크 에러율 0.042% 유지</strong></li>
         </ul>
       </div>
