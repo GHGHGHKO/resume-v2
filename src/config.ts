@@ -18,6 +18,7 @@ export const siteConfig = {
     "JPA",
     "PostgreSQL",
     "Redis / Valkey",
+    "Kafka",
     "AWS",
     "Kubernetes",
     "Docker",
@@ -54,27 +55,29 @@ export const siteConfig = {
       },
     },
     {
-      name: "GS리테일 차세대 CRM 서비스 안정화",
+      name: "GS리테일 차세대 CRM 서비스 안정화 & CI 암호화",
       description:
-        "오픈 직후 CRM 서비스의 OTP 인증 세션 및 인가(Authorization) 검증 누락 보안 취약점 해결, 쿼리 실행시간 80% 개선 및 빌드 시간 90% 단축.",
-      skills: ["Java", "Spring Boot", "PostgreSQL", "Docker", "Spring Batch"],
+        "3,000만 회원 CI 암호화 및 GS SHOP Kafka 데이터 연동 파이프라인 구축(Lag 관리), OTP/인가 보안 취약점 해결, 쿼리 80% 개선 및 빌드 시간 90% 단축.",
+      skills: ["Java", "Spring Boot", "PostgreSQL", "Kafka", "Docker", "Spring Batch"],
       detail: {
         problem:
-          "오픈 직후 CRM 서비스에서 발생한 API 보안 취약점(OTP 세션 및 인가 검증 누락), 비효율적 쿼리로 인한 응답 지연, 20분 이상 소요되는 CI/CD 빌드 병목 해소 필요.",
+          "오픈 직후 발생한 API 보안 취약점(OTP 세션 및 인가 검증 누락) 및 쿼리/빌드 병목 해소와, 3,000만 회원의 평문 CI 암호화 전환 및 GS SHOP 실시간 데이터 연동 필요.",
         analyze: [
-          "비밀번호 찾기 API의 OTP 인증 완료 세션 미검증 및 인가(Authorization) 검증 누락으로 인한 계정 탈취 취약점 존재",
-          "Correlated EXISTS 서브쿼리로 인한 회원 조회 쿼리 성능 저하",
-          "기존 Dockerfile 내 전체 파일 COPY로 인한 이미지 비대화 및 빌드 시간 과다(20분)",
+          "3,000만 회원 데이터의 평문 CI를 암호화 컬럼으로 안전하게 전환하기 위한 API 및 배치 쿼리 수정 필요",
+          "CRM DB와 연동된 GS SHOP으로의 안정적인 개인정보 동기화 및 Kafka Consumer Lag 관리 필요",
+          "비밀번호 찾기 API의 OTP 인증 세션 미검증 및 인가 누락 취약점 존재",
+          "Correlated EXISTS 서브쿼리 및 전체 파일 COPY Dockerfile로 인한 빌드(20분)/쿼리 병목",
         ],
         action: [
-          "보안 취약점 패치: 비밀번호 변경 API에 OTP 인증 완료 세션 및 계정 일치 검증, 인가(Authorization) 검증 로직 추가",
-          "쿼리 최적화: Correlated EXISTS 서브쿼리 → INNER JOIN 전환 및 인덱스 활용",
-          "Dockerfile 최적화: 배포에 필요한 아티팩트만 COPY하도록 기존 Dockerfile 수정",
+          "3,000만 명 CI 암호화: API 및 배치 쿼리를 변경하여 평문 CI를 암호화하여 암호화 column에 저장",
+          "GS SHOP Kafka 연동: CRM DB와 연동된 GS SHOP에 Kafka를 통해 개인정보 데이터를 전송하고 Consumer Lag 모니터링/관리",
+          "보안 패치: 비밀번호 변경 API에 OTP 인증 완료 세션 및 계정 일치 검증, 인가(Authorization) 검증 로직 추가",
+          "쿼리 & 빌드 최적화: Correlated EXISTS → INNER JOIN 전환(1s → 200ms) 및 배포 아티팩트 선별 COPY로 Dockerfile 수정(20분 → 2분)",
         ],
         result: [
+          "3,000만 회원 CI 암호화 및 GS SHOP Kafka 연동 파이프라인 안정적 운영",
           "OTP 우회 및 인가 누락을 통한 계정 탈취 취약점 원천 차단",
-          "쿼리 실행시간 1초 → 200ms (80% 개선)",
-          "프론트엔드 빌드 시간 20분 → 2분 (90% 단축)",
+          "쿼리 실행시간 1초 → 200ms (80% 개선), 빌드 시간 20분 → 2분 (90% 단축)",
         ],
       },
     },
@@ -108,7 +111,7 @@ export const siteConfig = {
     {
       name: "배송조회 API 고가용성 및 캐시 레이어 구축",
       description:
-        "네이버·당근·토스 등 제휴사 공유 배송조회 API의 Connection Timeout 해소. Multi-layer Cache(Redis + DB) 및 Fallback 패턴으로 가용성 확보.",
+        "네이버·당근·토스 등 제휴사 공유 배송조회 API의 Connection Timeout 해소. 캐시 레이어(Redis + DB Fallback)로 가용성 확보.",
       skills: ["Java", "Spring Boot", "Redis", "PostgreSQL"],
       detail: {
         problem:
@@ -120,7 +123,7 @@ export const siteConfig = {
         ],
         action: [
           "배송조회 및 토큰 발급에 TTL이 포함된 캐시를 적용하여 외부 API 중복 호출 차단",
-          "인증 토큰을 Multi-layer Cache(Redis + DB)로 관리",
+          "인증 토큰을 캐시 레이어(Redis + DB)로 관리",
           "Retry / Recover 패턴 구현으로 Redis 다운 시 DB Fallback 처리",
           "외부 배송조회 API 버전 업그레이드 적용",
         ],
@@ -140,7 +143,7 @@ export const siteConfig = {
       bullets: [
         "[우리동네GS × 택배 회원 연동 · 리드] 우리동네GS 가입 시 택배 회원 연동/가입 및 RS256 + AWS KMS 전용 인증 서버 구축 (월 1,197만 req 수용, 피크 에러율 0.042%)",
         "[IDC → AWS 이관] 서비스 13개 · 일 1,280만 req 레거시 마이그레이션 리드, MWAA 파이프라인 구축 및 비용 30% 절감",
-        "[CRM 서비스 안정화 & CI/CD] OTP 인증 세션 검증 및 인가(Authorization) 검증 누락 보안 취약점 해결, DB 쿼리 80% 개선(1s → 200ms), 빌드 시간 90% 단축(20분 → 2분)",
+        "[CRM CI 암호화 & 안정화] 3,000만 회원 CI 암호화 및 GS SHOP Kafka 연동 파이프라인 구축(Lag 관리), OTP/인가 보안 취약점 해결, 쿼리 80% 개선(1s → 200ms), 빌드 시간 90% 단축(20분 → 2분)",
         "[기술 부채 청산] EDB 종속 쿼리 ANSI SQL 전수 표준화 및 Airflow DAG 250개 → 170개 최적화",
       ],
     },
@@ -150,7 +153,7 @@ export const siteConfig = {
       dateRange: "Aug 2021 – Oct 2022",
       bullets: [
         "[배송조회 API 고가용성] 네이버·당근·토스 공유 API의 Connection Timeout 원인 분석 및 해결",
-        "[Multi-layer Cache & 장애 격리] Multi-layer Cache(Redis + DB) 및 Fallback 패턴으로 Redis 장애 시 무중단 DB Fallback 보장",
+        "[캐시 레이어 & 장애 격리] 캐시 레이어(Redis + DB) 및 Fallback 패턴으로 Redis 장애 시 무중단 DB Fallback 보장",
         "[캐시 최적화] 배송조회 및 토큰 발급에 TTL이 포함된 캐시를 적용하여 외부 API 중복 호출 차단 및 응답 안정성 향상",
       ],
     },

@@ -5,7 +5,7 @@
 - **이메일:** gudrb963@gmail.com
 - **GitHub:** [github.com/GHGHGHKO](https://github.com/GHGHGHKO)
 - **Portfolio:** [feelsgoodfrog.vercel.app](https://feelsgoodfrog.vercel.app)
-- **개인 프로젝트:** [about.runmarket.cc](https://about.runmarket.cc)
+- **개인 프로젝트 (런마켓):** [about.runmarket.cc](https://about.runmarket.cc) | [GitHub (runmarket-cc)](https://github.com/runmarket-cc)
 
 ---
 
@@ -28,6 +28,7 @@
 
 > **"러너와 관전자가 실시간으로 위치와 페이스를 공유하는 러닝 동행 서비스"**
 > - **서비스 URL:** [https://about.runmarket.cc](https://about.runmarket.cc)
+> - **GitHub Organization:** [https://github.com/runmarket-cc](https://github.com/runmarket-cc)
 > - **운영 현황:** iOS App Store & Google Play Store 양대 마켓 정식 출시 및 서비스 운영 중 (Bundle ID: `cc.runmarket.app`)
 > - **담당 역할:** 1인 백엔드 아키텍처 설계, Spring Boot 멀티모듈 개발, Google Jib 컨테이너화, Kubernetes & Helm Chart 기반 IaC 인프라 전담 구축
 

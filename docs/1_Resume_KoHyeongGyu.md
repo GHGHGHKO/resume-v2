@@ -5,7 +5,7 @@
 - **이메일:** gudrb963@gmail.com
 - **GitHub:** [github.com/GHGHGHKO](https://github.com/GHGHGHKO)
 - **Portfolio:** [feelsgoodfrog.vercel.app](https://feelsgoodfrog.vercel.app)
-- **개인 프로젝트:** [about.runmarket.cc](https://about.runmarket.cc)
+- **개인 프로젝트 (런마켓):** [about.runmarket.cc](https://about.runmarket.cc) | [GitHub (runmarket-cc)](https://github.com/runmarket-cc)
 
 ---
 
@@ -13,7 +13,7 @@
 
 - **대규모 트래픽 안정화 & 클라우드 인프라 이관:** GS리테일에서 1,500만 유저 앱 '우리동네GS'와 택배 서비스의 회원 통합(우리동네GS 가입 시 택배 회원 연동/가입) 전용 인증 서버 구축(월 1,200만 req 수용) 및 일 1,280만 req 규모 레거시 시스템의 AWS 클라우드 무중단 이관을 리드했습니다.
 - **Observability 기반의 기민한 운영 배포:** Datadog 기반의 정밀한 모니터링 체계를 바탕으로 병목과 장애를 선제 탐지하고, 잦은 프로덕션 배포와 신속한 수정 사이클을 주도했습니다.
-- **컨테이너 인프라 & CI/CD 최적화:** Google Jib 기반 데몬리스 컨테이너 빌드, Docker 빌드 시간 90% 단축(20분 → 2분), MWAA 데이터 파이프라인 최적화(DAG 250개 → 170개, 클라우드 비용 30% 절감), Kubernetes/Helm 기반 선언적 IaC 환경을 직접 설계하고 운영했습니다.
+- **데이터 파이프라인 & 컨테이너 최적화:** 3,000만 회원 CI 암호화 및 GS SHOP Kafka 연동 파이프라인(Lag 관리), MWAA 데이터 파이프라인 최적화(DAG 250개 → 170개, 클라우드 비용 30% 절감), Google Jib 기반 데몬리스 컨테이너 빌드, Docker 빌드 시간 90% 단축(20분 → 2분)을 직접 주도했습니다.
 
 ---
 
@@ -25,7 +25,7 @@
 | **CI/CD & Container Build** | GitHub Actions, Google Jib (Daemonless Build), Dockerfile 최적화, IaC, Bash Scripting |
 | **Observability** | Datadog (APM, Metrics, Log Management, Dashboard, Alerting), CloudWatch |
 | **Backend & DB** | Java 17, Spring Boot 3, Spring WebFlux, Spring Batch, JPA, PostgreSQL, Redis / Valkey, SQLite |
-| **Data & Messaging**| Apache Airflow / AWS MWAA (170 DAGs), WebSocket, Reactive Redis, Python |
+| **Data & Messaging**| Apache Kafka (Lag Management), Apache Airflow / AWS MWAA (170 DAGs), WebSocket, Python |
 | **Testing & Tools** | k6 부하 테스트, Git, JIRA, Confluence, Slack |
 
 ---
@@ -45,10 +45,11 @@
   - IDC Airflow(250 DAGs) → AWS MWAA(170 DAGs) 파이프라인 재설계 및 클라우드 운영 비용 30% 절감
   - KubernetesPodOperator의 retry 설정을 활용하여 배치 성공률 99% 달성을 목표로 파이프라인 고도화
   - EDB 벤더 종속 쿼리 ANSI SQL 전수 표준화 및 외주 의존도 제거
-- **[CRM 서비스 안정화 & CI/CD]**
+- **[CRM CI 암호화 & 서비스 안정화 · 진행 중]**
+  - 3,000만 회원 평문 CI 암호화 전환: API 및 배치 쿼리 변경 후 암호화 컬럼에 안전하게 적재
+  - CRM DB와 연동된 GS SHOP에 Kafka 기반 개인정보 실시간 동기화 파이프라인 구축 및 Consumer Lag 관리
   - 비밀번호 변경 API의 OTP 인증 세션 검증 및 인가(Authorization) 검증 누락 보안 취약점 해결로 계정 탈취 원천 차단
-  - 불필요한 파일을 제외하고 배포에 필요한 아티팩트만 COPY하도록 기존 Dockerfile을 수정하여 빌드 시간 20분 → 2분(90% 단축)
-  - 병목 DB 쿼리 실행시간 1초 → 200ms(80% 단축)
+  - 쿼리 80% 개선(1s → 200ms) 및 Dockerfile 수정으로 빌드 시간 20분 → 2분(90% 단축)
 
 ---
 
@@ -57,7 +58,7 @@
 
 - **[배송조회 API 고가용성 구축]**
   - 네이버, 당근, 토스 등 제휴사가 공유하는 배송조회 API의 Connection Timeout 병목 해소
-  - Multi-layer Cache(Redis + DB) 및 Fallback 패턴 구현으로 Redis 장애 시 무중단 DB Fallback 보장
+  - 캐시 레이어(Redis + DB) 및 Fallback 패턴 구현으로 Redis 장애 시 무중단 DB Fallback 보장
   - 배송조회 및 토큰 발급에 TTL이 포함된 캐시를 적용하여 외부 API 중복 호출 차단 및 응답 지연 개선
 
 ---
@@ -78,6 +79,7 @@
   - Spring Boot 멀티모듈 (`web` REST API, `socket` WebFlux WebSocket, `batch` 크롤러, `core` 도메인) 백엔드 전담 구축
   - Google Jib 기반 데몬리스 컨테이너 이미지 빌드 & Kubernetes + Helm Chart 선언적 IaC 배포 자동화
   - k6 기반 1,000명 동시 접속 1초 주기 위치 수집 시뮬레이션 부하 테스트 (에러율 0.00% 달성)
+  - 서비스 소개: [about.runmarket.cc](https://about.runmarket.cc) | GitHub: [github.com/runmarket-cc](https://github.com/runmarket-cc)
 - **사내 기술 세미나: 'Rust 핵심 개념과 메모리 안전성 모델' (2024)**
   - 소유권(Ownership), 차용(Borrowing) 등 Rust의 메모리 관리 메커니즘 사내 엔지니어 공유
 - **모두의연구소 코칭스터디 기술 멘토링 (2023 ~ 2025)**

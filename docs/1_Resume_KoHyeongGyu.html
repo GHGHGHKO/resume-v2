@@ -52,8 +52,8 @@
           <td>Java 17, Spring Boot 3, Spring WebFlux, Spring Batch, JPA, PostgreSQL, Redis / Valkey, SQLite</td>
         </tr>
         <tr>
-          <th>Data & Pipeline</th>
-          <td>Apache Airflow / AWS MWAA (170 DAGs 운영), WebSocket, Reactive Redis, Python</td>
+          <th>Data & Messaging</th>
+          <td>Apache Kafka (Lag 관리), Apache Airflow / AWS MWAA (170 DAGs 운영), WebSocket, Python</td>
         </tr>
         <tr>
           <th>Testing & Tools</th>
@@ -76,7 +76,7 @@
         <ul>
           <li><strong>[우리동네GS × 택배 회원 연동 · 리드]</strong> 1,500만 유저 앱 가입 시 택배 시스템 회원 여부에 따라 연동/가입 처리하는 체계 및 RS256 + AWS KMS 전용 인증 서버 분리 구축 (월 1,197만 req 수용, 피크 에러율 0.042%)</li>
           <li><strong>[택배 서비스 IDC → AWS 이관 · 리드]</strong> 서비스 13개 · 일 1,280만 req 레거시 마이그레이션, MWAA 파이프라인 구축 및 인프라 비용 30% 절감 (KubernetesPodOperator retry 활용 배치 성공률 99% 목표 고도화)</li>
-          <li><strong>[CRM 서비스 안정화 & CI/CD]</strong> OTP 인증 세션 검증 및 인가(Authorization) 검증 누락 보안 취약점 해결, DB 쿼리 80% 개선(1s → 200ms), 빌드 시간 90% 단축(20분 → 2분)</li>
+          <li><strong>[CRM CI 암호화 & 서비스 안정화 · 진행 중]</strong> 3,000만 회원 CI 암호화 전환 및 GS SHOP Kafka 연동 파이프라인 구축(Lag 관리), OTP/인가 보안 취약점 해결, 쿼리 80% 개선(1s → 200ms), 빌드 시간 90% 단축(20분 → 2분)</li>
           <li><strong>[기술 부채 청산]</strong> EDB 종속 쿼리 ANSI SQL 전수 표준화 및 Airflow DAG 250개 → 170개 최적화</li>
         </ul>
       </div>
@@ -91,7 +91,7 @@
         </div>
         <ul>
           <li><strong>[배송조회 API 고가용성]</strong> 네이버·당근·토스 공유 API의 Connection Timeout 원인 분석 및 해결</li>
-          <li><strong>[Multi-layer Cache & 장애 격리]</strong> Multi-layer Cache(Redis + DB) 및 Fallback 패턴으로 Redis 장애 시 무중단 DB Fallback 보장</li>
+          <li><strong>[캐시 레이어 & 장애 격리]</strong> 캐시 레이어(Redis + DB) 및 Fallback 패턴으로 Redis 장애 시 무중단 DB Fallback 보장</li>
           <li><strong>[캐시 최적화]</strong> 배송조회 및 토큰 발급에 TTL이 포함된 캐시를 적용하여 외부 API 중복 호출 차단 및 응답 안정성 향상</li>
         </ul>
       </div>
@@ -119,7 +119,7 @@
           <div class="company-title">런마켓 (RunMarket) - 러닝 동행 실시간 위치 공유 서비스</div>
           <div class="period">2025 – 현재 (iOS & Android 운영 중)</div>
         </div>
-        <p style="font-size: 14.5px; margin-bottom: 8px;">러너와 관전자가 1초 주기로 실시간 위치/페이스를 공유하는 서비스 백엔드 & 인프라 1인 전담 개발 (App Store & Play Store 정식 출시)</p>
+        <p style="font-size: 14.5px; margin-bottom: 8px;">러너와 관전자가 1초 주기로 실시간 위치/페이스를 공유하는 서비스 백엔드 & 인프라 1인 전담 개발 (App Store & Play Store 정식 출시 | <a href="https://about.runmarket.cc" target="_blank">about.runmarket.cc</a> | <a href="https://github.com/runmarket-cc" target="_blank">github.com/runmarket-cc</a>)</p>
         <ul>
           <li>Spring WebFlux + Reactive Redis 기반 고성능 WebSocket 실시간 브로드캐스팅 파이프라인(pulse.runmarket.cc) 구축</li>
           <li>Spring Boot 멀티모듈(web, socket, batch, core) 아키텍처 적용으로 관심사 분리</li>

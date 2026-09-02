@@ -113,12 +113,13 @@
       <!-- Project 3 -->
       <div class="card" style="margin-top: 14px;">
         <div class="card-header">
-          <div class="company-title">프로젝트 3: GS리테일 차세대 CRM 서비스 안정화 & CI/CD 최적화</div>
-          <div class="period">2022.10 – 2023.03 (6개월)</div>
+          <div class="company-title">프로젝트 3: GS리테일 차세대 CRM 서비스 안정화 & 3,000만 회원 CI 암호화</div>
+          <div class="period">2025.10 – 현재 (진행 중)</div>
         </div>
         <div class="badge-group">
           <span class="badge badge-primary">Java</span>
           <span class="badge badge-primary">Spring Boot</span>
+          <span class="badge badge-primary">Apache Kafka</span>
           <span class="badge">Spring Batch</span>
           <span class="badge">PostgreSQL</span>
           <span class="badge">Docker</span>
@@ -126,13 +127,14 @@
         </div>
 
         <h4>1. 문제 배경 & 분석 (Problem & Analyze)</h4>
-        <p>오픈 직후 CRM 서비스의 비밀번호 재설정 API에서 OTP 인증 완료 세션 및 인가(Authorization) 검증이 누락되어 계정 탈취 취약점이 발견되었습니다. 또한 Correlated EXISTS 서브쿼리로 인해 회원 조회 응답이 지연되었으며, 기존 Dockerfile의 전체 파일 COPY로 인해 빌드 시간이 20분 이상 소요되었습니다.</p>
+        <p>오픈 직후 CRM 서비스의 비밀번호 재설정 API에서 OTP 인증 완료 세션 및 인가(Authorization) 검증이 누락되어 계정 탈취 취약점이 발견되었습니다. 또한 3,000만 명 회원의 평문 CI를 암호화 컬럼으로 전환해야 했으며, CRM DB와 개인정보가 연동된 GS SHOP으로의 안정적인 실시간 데이터 전송 및 Kafka Consumer Lag 관리가 요구되었습니다.</p>
 
         <h4>2. 해결 과정 및 성과 (Action & Result)</h4>
         <ul>
+          <li><strong>3,000만 회원 CI 암호화:</strong> API 및 배치 쿼리를 변경하고 평문 CI를 암호화하여 암호화 column에 안전하게 저장</li>
+          <li><strong>GS SHOP Kafka 연동 파이프라인 구축:</strong> CRM DB와 연동된 GS SHOP에 Kafka를 통해 개인정보 데이터를 실시간 전송하고 Consumer Lag 모니터링 및 관리 체계 확립</li>
           <li><strong>보안 패치:</strong> 비밀번호 변경 단계별 OTP 인증 토큰, 계정 일치, 인가(Authorization) 검증 로직을 추가하여 <strong>계정 탈취 취약점 원천 차단</strong></li>
-          <li><strong>쿼리 튜닝:</strong> Correlated EXISTS → INNER JOIN 전환 및 인덱스 활용으로 <strong>쿼리 실행시간 1초 → 200ms (80% 개선)</strong></li>
-          <li><strong>Dockerfile 최적화:</strong> 불필요한 파일을 제외하고 배포 아티팩트(.zip)만 COPY하도록 기존 Dockerfile을 수정하여 <strong>빌드 시간 20분 → 2분 (90% 단축)</strong></li>
+          <li><strong>쿼리 튜닝 & 빌드 최적화:</strong> Correlated EXISTS → INNER JOIN 전환으로 <strong>쿼리 실행시간 1초 → 200ms (80% 개선)</strong> 및 불필요한 파일을 제외한 Dockerfile 수정으로 <strong>빌드 시간 20분 → 2분 (90% 단축)</strong></li>
         </ul>
       </div>
     </section>
@@ -143,7 +145,7 @@
 
       <div class="card" style="margin-top: 14px;">
         <div class="card-header">
-          <div class="company-title">프로젝트 4: 배송조회 API 고가용성 & Multi-layer Cache 레이어 구축</div>
+          <div class="company-title">프로젝트 4: 배송조회 API 고가용성 & 캐시 레이어 구축</div>
           <div class="period">2021.11 – 2022.06 (8개월)</div>
         </div>
         <div class="badge-group">
@@ -160,7 +162,7 @@
         <h4>2. 해결 과정 (Action)</h4>
         <ul>
           <li><strong>캐시 적용:</strong> 배송조회 및 토큰 발급에 TTL이 포함된 캐시를 적용하여 불필요한 외부 API 중복 호출 차단</li>
-          <li><strong>Multi-layer Cache & DB Fallback:</strong> Multi-layer Cache(Redis + DB)로 인증 토큰을 관리하고, Spring Retry / <code>@Recover</code> 패턴을 적용하여 Redis 장애 시 자동으로 DB Fallback 전환되도록 구현</li>
+          <li><strong>캐시 레이어 & DB Fallback:</strong> 캐시 레이어(Redis + DB)로 인증 토큰을 관리하고, Spring Retry / <code>@Recover</code> 패턴을 적용하여 Redis 장애 시 자동으로 DB Fallback 전환되도록 구현</li>
           <li><strong>외부 클라이언트 타임아웃 세분화:</strong> 레거시 클라이언트 규격을 업그레이드하고 Connect/Read Timeout을 정밀 분리</li>
         </ul>
 
