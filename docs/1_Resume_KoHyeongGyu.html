@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>고형규 - 이력서 (Resume)</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="top-bar no-print">
+    <span class="title">고형규 | 이력서 (Resume) - 주식회사 피처링 [프로덕트] DevOps 지원</span>
+    <button class="btn-print" onclick="window.print()">🖨️ PDF 인쇄 / 저장</button>
+  </div>
+
+  <div class="container">
+    <header>
+      <h1>고형규 (Ko Hyeong-gyu)</h1>
+      <div class="subtitle">5년차 백엔드 & 인프라 엔지니어 | Java · Spring Boot · AWS · Kubernetes</div>
+      <div class="contact-info">
+        <span>📧 <strong>Email:</strong> <a href="mailto:gudrb963@gmail.com">gudrb963@gmail.com</a></span>
+        <span>💻 <strong>GitHub:</strong> <a href="https://github.com/GHGHGHKO" target="_blank">github.com/GHGHGHKO</a></span>
+        <span>📝 <strong>Blog:</strong> <a href="https://pepega.tistory.com" target="_blank">pepega.tistory.com</a></span>
+        <span>🚀 <strong>Portfolio:</strong> <a href="https://about.runmarket.cc" target="_blank">about.runmarket.cc</a></span>
+      </div>
+    </header>
+
+    <section>
+      <h2>Executive Summary</h2>
+      <div class="callout">
+        <strong>"대규모 트래픽 안정성과 Observability 기반의 기민한 배포·인프라를 주도하는 5년 차 엔지니어입니다."</strong><br>
+        대기업의 대규모 서비스 환경에서도 스타트업처럼 기민한 Observability 체계를 바탕으로 일해왔습니다. Datadog 기반의 정밀한 모니터링으로 병목과 장애를 선제 탐지하고, 잦은 프로덕션 배포와 빠른 수정 사이클을 주도했습니다. GS리테일에서 1,500만 유저 앱 '우리동네GS'와 택배 서비스의 회원 통합 전용 인증 서버 구축(월 1,200만 req 수용) 및 일 1,280만 req 규모 레거시 시스템의 AWS 클라우드 무중단 이관을 리드했습니다.
+      </div>
+    </section>
+
+    <section>
+      <h2>Technical Skills</h2>
+      <table>
+        <tr>
+          <th>Cloud & Infra</th>
+          <td>AWS (EC2, EKS, RDS, S3, KMS, MWAA), Linux, Kubernetes (K3s), Docker, Helm Chart</td>
+        </tr>
+        <tr>
+          <th>CI/CD & DevOps</th>
+          <td>GitHub Actions, Dockerfile 최적화, Multi-stage Build, IaC, Bash Scripting</td>
+        </tr>
+        <tr>
+          <th>Observability</th>
+          <td>Datadog (APM, Metrics, Log Management, Dashboard, Alerting), CloudWatch</td>
+        </tr>
+        <tr>
+          <th>Backend & DB</th>
+          <td>Java 17, Spring Boot 3, Spring WebFlux, Spring Batch, JPA, PostgreSQL, Redis / Valkey</td>
+        </tr>
+        <tr>
+          <th>Data & Pipeline</th>
+          <td>Apache Airflow / AWS MWAA (170 DAGs 운영), WebSocket, Reactive Redis, Python</td>
+        </tr>
+        <tr>
+          <th>Testing & Tools</th>
+          <td>k6 부하 테스트, Git, JIRA, Confluence, Slack</td>
+        </tr>
+      </table>
+    </section>
+
+    <section>
+      <h2>Work Experience</h2>
+
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="company-title">GS리테일 (GS네트웍스에서 인사이동)</div>
+            <div style="font-size: 13.5px; color: var(--primary); font-weight: 600;">백엔드 & 인프라 엔지니어 (매니저)</div>
+          </div>
+          <div class="period">2022.10 – 현재 (재직 중)</div>
+        </div>
+        <ul>
+          <li><strong>[우리동네GS × 택배 회원 연동 · 리드]</strong> 1,500만 유저 앱 가입 시 택배 회원 자동 연계 통합 체계 및 RS256 + AWS KMS 전용 인증 서버 분리 구축 (월 1,197만 req 수용, 피크 에러율 0.042%)</li>
+          <li><strong>[택배 서비스 IDC → AWS 이관 · 리드]</strong> 서비스 13개 · 일 1,280만 req 레거시 마이그레이션, MWAA 파이프라인 구축 및 인프라 비용 30% 절감</li>
+          <li><strong>[CRM 서비스 안정화 & CI/CD]</strong> OTP 인증 세션 검증으로 계정 탈취 취약점 원천 차단, DB 쿼리 80% 개선(1s → 200ms), 빌드 시간 90% 단축(20분 → 2분)</li>
+          <li><strong>[기술 부채 청산]</strong> EDB 종속 쿼리 ANSI SQL 전수 표준화 및 Airflow DAG 250개 → 170개 최적화</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="company-title">GS네트웍스</div>
+            <div style="font-size: 13.5px; color: var(--primary); font-weight: 600;">백엔드 엔지니어 (매니저)</div>
+          </div>
+          <div class="period">2021.08 – 2022.10</div>
+        </div>
+        <ul>
+          <li><strong>[대외 제휴 배송조회 API 고가용성]</strong> 네이버·당근·토스 공유 API의 Connection Timeout 원인 분석 및 해결</li>
+          <li><strong>[다계층 캐시 & 장애 격리]</strong> DB + Redis Layered Cache 및 Retry/Recover 패턴으로 Redis 장애 시 무중단 DB Fallback 보장</li>
+          <li><strong>[I/O 최적화]</strong> 배송 상태별 Dynamic TTL 캐싱으로 외부 API 중복 호출 차단 및 응답 안정성 향상</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="company-title">마인드패스 (공동창업)</div>
+            <div style="font-size: 13.5px; color: var(--primary); font-weight: 600;">공동창업자 & 엔지니어</div>
+          </div>
+          <div class="period">2018.12 – 2021.01</div>
+        </div>
+        <ul>
+          <li>On-Premise Linux 서버 배포 환경 구축 및 서비스 인프라 전담 운영</li>
+          <li>GoogleNet 기반 이미지/OCR 모델 서빙 API 개발 및 정부 지원사업 5,000만 원 수혜</li>
+          <li>Raspberry Pi 기반 센서 데이터 수집 파이프라인 개발 및 건국대학교병원 파일럿 테스트 진행</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <h2>Projects & Activities</h2>
+      <div class="card">
+        <div class="card-header">
+          <div class="company-title">런마켓 (RunMarket) - 러닝 동행 실시간 위치 공유 서비스</div>
+          <div class="period">2025 – 현재 (App Store 운영 중)</div>
+        </div>
+        <p style="font-size: 13.5px; margin-bottom: 6px;">러너와 관전자가 1초 주기로 실시간 위치/페이스를 공유하는 서비스 백엔드 & 인프라 1인 전담 개발</p>
+        <ul>
+          <li>Spring WebFlux + Reactive Redis 기반 고성능 WebSocket 실시간 브로드캐스팅 파이프라인 구축</li>
+          <li>Kubernetes (K3s) & Helm Chart 기반 선언적 IaC 인프라 구성 및 CI/CD 자동화</li>
+          <li>k6 부하 테스트: 1,000명 동시 접속 실시간 위치 송수신 환경에서 에러율 0.00% 달성</li>
+        </ul>
+        <div class="badge-group">
+          <span class="badge badge-primary">Spring WebFlux</span>
+          <span class="badge badge-primary">Reactive Redis</span>
+          <span class="badge">Kubernetes (K3s)</span>
+          <span class="badge">Helm</span>
+          <span class="badge">k6 Load Test</span>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Education</h2>
+      <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+        <strong>건국대학교 글로컬캠퍼스</strong>
+        <span class="period">2014.03 – 2021.02</span>
+      </div>
+      <p style="font-size: 13.5px;">컴퓨터공학과 학사 | 학과 BareMetal 서버 대상 Ubuntu 실습 환경 구축 및 L2/L3 네트워크 트러블슈팅</p>
+    </section>
+  </div>
+</body>
+</html>
