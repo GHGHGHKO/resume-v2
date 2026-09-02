@@ -20,6 +20,7 @@
         <span>📧 <a href="mailto:gudrb963@gmail.com">gudrb963@gmail.com</a></span>
         <span>💻 <a href="https://github.com/GHGHGHKO" target="_blank">github.com/GHGHGHKO</a></span>
         <span>🚀 <a href="https://feelsgoodfrog.vercel.app" target="_blank">feelsgoodfrog.vercel.app</a></span>
+        <span>🏃 <a href="https://about.runmarket.cc" target="_blank">about.runmarket.cc</a></span>
       </div>
     </header>
 
@@ -41,7 +42,7 @@
           <span class="badge">GitHub Actions</span>
           <span class="badge">ANSI SQL</span>
         </div>
-        <p style="font-size: 13px; color: var(--text-light); margin-bottom: 10px;"><strong>규모:</strong> 13개 마이크로서비스, 이기종 DB 2개, 일 평균 1,280만 req(피크 82만 req/h), Airflow 250 DAGs</p>
+        <p style="font-size: 14px; color: var(--text-light); margin-bottom: 10px;"><strong>규모:</strong> 13개 마이크로서비스, 이기종 DB 2개, 일 평균 1,280만 req(피크 82만 req/h), Airflow 250 DAGs</p>
 
         <h4>1. 문제 배경 (Problem)</h4>
         <p>IDC 기반 레거시 시스템을 AWS로 전환해야 했으나, EDB 벤더 종속 SQL 문법으로 인해 AWS DMS 자동 마이그레이션이 불가능했습니다. 또한 외주 개발사에서 구축한 250여 개의 Airflow DAG 중 미사용/중복 코드가 산재하여 IDC 환경에서 잦은 배치 지연이 발생했습니다.</p>
@@ -82,7 +83,7 @@
           <span class="badge">JWT (RS256)</span>
           <span class="badge">Kubernetes (EKS)</span>
         </div>
-        <p style="font-size: 13px; color: var(--text-light); margin-bottom: 10px;"><strong>규모:</strong> 1,500만 유저 앱 '우리동네GS', 월 1,197만 req, 피크 트래픽 37,654 req/h</p>
+        <p style="font-size: 14px; color: var(--text-light); margin-bottom: 10px;"><strong>규모:</strong> 1,500만 유저 앱 '우리동네GS', 월 1,197만 req, 피크 트래픽 37,654 req/h</p>
 
         <h4>1. 문제 배경 (Problem)</h4>
         <p>1,500만 다운로드 앱 '우리동네GS'에 가입하면 택배 시스템 회원인 경우 연동하고, 회원이 아닌 경우 택배 시스템에 회원가입을 연동하도록 체계를 구축해야 했습니다. 기존 서버에 직접 인증을 추가하기에는 비회원 서비스 영향과 트래픽 부담이 컸고, 외부 시스템에서 서명을 검증할 수 있는 공개키 기반 체계가 필요했습니다.</p>
@@ -125,12 +126,12 @@
         </div>
 
         <h4>1. 문제 배경 & 분석 (Problem & Analyze)</h4>
-        <p>오픈 직후 CRM 서비스의 비밀번호 재설정 API에서 OTP 인증 완료 세션 및 인가(Authorization) 검증이 누락되어 계정 탈취 취약점이 발견되었습니다. 또한 법정대리인 데이터 파기 배치에서 중복 키 오류가 발생했으며, 기존 Dockerfile의 전체 파일 COPY로 인해 빌드 시간이 20분 이상 소요되었습니다.</p>
+        <p>오픈 직후 CRM 서비스의 비밀번호 재설정 API에서 OTP 인증 완료 세션 및 인가(Authorization) 검증이 누락되어 계정 탈취 취약점이 발견되었습니다. 또한 Correlated EXISTS 서브쿼리로 인해 회원 조회 응답이 지연되었으며, 기존 Dockerfile의 전체 파일 COPY로 인해 빌드 시간이 20분 이상 소요되었습니다.</p>
 
         <h4>2. 해결 과정 및 성과 (Action & Result)</h4>
         <ul>
           <li><strong>보안 패치:</strong> 비밀번호 변경 단계별 OTP 인증 토큰, 계정 일치, 인가(Authorization) 검증 로직을 추가하여 <strong>계정 탈취 취약점 원천 차단</strong></li>
-          <li><strong>배치 & 쿼리 튜닝:</strong> 날짜 조건(<code>del_schd_dt</code>) 보완, <code>HashSet</code> 중복 방지, Correlated EXISTS → INNER JOIN 전환으로 <strong>쿼리 실행시간 1초 → 200ms (80% 개선)</strong></li>
+          <li><strong>쿼리 튜닝:</strong> Correlated EXISTS → INNER JOIN 전환 및 인덱스 활용으로 <strong>쿼리 실행시간 1초 → 200ms (80% 개선)</strong></li>
           <li><strong>Dockerfile 최적화:</strong> 불필요한 파일을 제외하고 배포 아티팩트(.zip)만 COPY하도록 기존 Dockerfile을 수정하여 <strong>빌드 시간 20분 → 2분 (90% 단축)</strong></li>
         </ul>
       </div>
@@ -148,7 +149,7 @@
         <div class="badge-group">
           <span class="badge badge-primary">Java</span>
           <span class="badge badge-primary">Spring Boot</span>
-          <span class="badge badge-primary">Redis</span>
+          <span class="badge">Redis</span>
           <span class="badge">PostgreSQL</span>
           <span class="badge">Spring Retry</span>
         </div>

@@ -5,8 +5,7 @@
 - **이메일:** gudrb963@gmail.com
 - **GitHub:** [github.com/GHGHGHKO](https://github.com/GHGHGHKO)
 - **Portfolio:** [feelsgoodfrog.vercel.app](https://feelsgoodfrog.vercel.app)
-- **GitHub:** [github.com/GHGHGHKO](https://github.com/GHGHGHKO)
-- **런마켓 프로젝트:** [about.runmarket.cc](https://about.runmarket.cc)
+- **개인 프로젝트:** [about.runmarket.cc](https://about.runmarket.cc)
 
 ---
 
@@ -25,7 +24,7 @@
 | **Cloud & Infra** | AWS (EC2, EKS, RDS, S3, KMS, MWAA), Linux, Kubernetes, Docker, Helm Chart |
 | **CI/CD & Container Build** | GitHub Actions, Google Jib (Daemonless Build), Dockerfile 최적화, IaC, Bash Scripting |
 | **Observability** | Datadog (APM, Metrics, Log Management, Dashboard, Alerting), CloudWatch |
-| **Backend & DB** | Java 17, Spring Boot 3, Spring WebFlux, Spring Batch, JPA, PostgreSQL, Redis / Valkey |
+| **Backend & DB** | Java 17, Spring Boot 3, Spring WebFlux, Spring Batch, JPA, PostgreSQL, Redis / Valkey, SQLite |
 | **Data & Messaging**| Apache Airflow / AWS MWAA (170 DAGs), WebSocket, Reactive Redis, Python |
 | **Testing & Tools** | k6 부하 테스트, Git, JIRA, Confluence, Slack |
 
