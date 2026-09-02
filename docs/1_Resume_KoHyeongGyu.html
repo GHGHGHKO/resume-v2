@@ -14,12 +14,11 @@
 
   <div class="container">
     <header>
-      <h1>고형규 (Ko Hyeong-gyu)</h1>
+      <h1>고형규 (Ko Hyung-gyu)</h1>
       <div class="subtitle">5년차 백엔드 & 인프라 엔지니어 | Java · Spring Boot · AWS · Kubernetes</div>
       <div class="contact-info">
         <span>📧 <strong>Email:</strong> <a href="mailto:gudrb963@gmail.com">gudrb963@gmail.com</a></span>
         <span>💻 <strong>GitHub:</strong> <a href="https://github.com/GHGHGHKO" target="_blank">github.com/GHGHGHKO</a></span>
-        <span>📝 <strong>Blog:</strong> <a href="https://pepega.tistory.com" target="_blank">pepega.tistory.com</a></span>
         <span>🚀 <strong>Portfolio:</strong> <a href="https://about.runmarket.cc" target="_blank">about.runmarket.cc</a></span>
       </div>
     </header>
@@ -28,7 +27,7 @@
       <h2>Executive Summary</h2>
       <div class="callout">
         <strong>"대규모 트래픽 안정성과 Observability 기반의 기민한 배포·인프라를 주도하는 5년 차 엔지니어입니다."</strong><br>
-        대기업의 대규모 서비스 환경에서도 스타트업처럼 기민한 Observability 체계를 바탕으로 일해왔습니다. Datadog 기반의 정밀한 모니터링으로 병목과 장애를 선제 탐지하고, 잦은 프로덕션 배포와 빠른 수정 사이클을 주도했습니다. GS리테일에서 1,500만 유저 앱 '우리동네GS'와 택배 서비스의 회원 통합 전용 인증 서버 구축(월 1,200만 req 수용) 및 일 1,280만 req 규모 레거시 시스템의 AWS 클라우드 무중단 이관을 리드했습니다.
+        대기업의 대규모 서비스 환경에서도 스타트업처럼 기민한 Observability 체계를 바탕으로 일해왔습니다. Datadog 기반의 정밀한 모니터링으로 병목과 장애를 선제 탐지하고, 잦은 프로덕션 배포와 빠른 수정 사이클을 주도했습니다. GS리테일에서 1,500만 유저 앱 '우리동네GS'와 택배 서비스의 회원 통합(우리동네GS 가입 시 택배 회원 연동/가입) 전용 인증 서버 구축(월 1,200만 req 수용) 및 일 1,280만 req 규모 레거시 시스템의 AWS 클라우드 무중단 이관을 리드했습니다.
       </div>
     </section>
 
@@ -37,7 +36,7 @@
       <table>
         <tr>
           <th>Cloud & Infra</th>
-          <td>AWS (EC2, EKS, RDS, S3, KMS, MWAA), Linux, Kubernetes (K3s), Docker, Helm Chart</td>
+          <td>AWS (EC2, EKS, RDS, S3, KMS, MWAA), Linux, Kubernetes, Docker, Helm Chart</td>
         </tr>
         <tr>
           <th>CI/CD & Container Build</th>
@@ -69,14 +68,14 @@
         <div class="card-header">
           <div>
             <div class="company-title">GS리테일 (GS네트웍스에서 인사이동)</div>
-            <div style="font-size: 13.5px; color: var(--primary); font-weight: 600;">백엔드 & 인프라 엔지니어 (매니저)</div>
+            <div style="font-size: 13.5px; color: var(--primary); font-weight: 600;">통합서비스팀 | 백엔드</div>
           </div>
           <div class="period">2022.10 – 현재 (재직 중)</div>
         </div>
         <ul>
-          <li><strong>[우리동네GS × 택배 회원 연동 · 리드]</strong> 1,500만 유저 앱 가입 시 택배 회원 자동 연계 통합 체계 및 RS256 + AWS KMS 전용 인증 서버 분리 구축 (월 1,197만 req 수용, 피크 에러율 0.042%)</li>
-          <li><strong>[택배 서비스 IDC → AWS 이관 · 리드]</strong> 서비스 13개 · 일 1,280만 req 레거시 마이그레이션, MWAA 파이프라인 구축 및 인프라 비용 30% 절감</li>
-          <li><strong>[CRM 서비스 안정화 & CI/CD]</strong> OTP 인증 세션 검증으로 계정 탈취 취약점 원천 차단, DB 쿼리 80% 개선(1s → 200ms), 빌드 시간 90% 단축(20분 → 2분)</li>
+          <li><strong>[우리동네GS × 택배 회원 연동 · 리드]</strong> 1,500만 유저 앱 가입 시 택배 시스템 회원 여부에 따라 연동/가입 처리하는 체계 및 RS256 + AWS KMS 전용 인증 서버 분리 구축 (월 1,197만 req 수용, 피크 에러율 0.042%)</li>
+          <li><strong>[택배 서비스 IDC → AWS 이관 · 리드]</strong> 서비스 13개 · 일 1,280만 req 레거시 마이그레이션, MWAA 파이프라인 구축 및 인프라 비용 30% 절감 (KubernetesPodOperator retry 활용 배치 성공률 99% 목표 고도화)</li>
+          <li><strong>[CRM 서비스 안정화 & CI/CD]</strong> OTP 인증 세션 검증 및 인가(Authorization) 검증 누락 보안 취약점 해결, DB 쿼리 80% 개선(1s → 200ms), 빌드 시간 90% 단축(20분 → 2분)</li>
           <li><strong>[기술 부채 청산]</strong> EDB 종속 쿼리 ANSI SQL 전수 표준화 및 Airflow DAG 250개 → 170개 최적화</li>
         </ul>
       </div>
@@ -85,14 +84,14 @@
         <div class="card-header">
           <div>
             <div class="company-title">GS네트웍스</div>
-            <div style="font-size: 13.5px; color: var(--primary); font-weight: 600;">백엔드 엔지니어 (매니저)</div>
+            <div style="font-size: 13.5px; color: var(--primary); font-weight: 600;">시스템파트 | 백엔드</div>
           </div>
           <div class="period">2021.08 – 2022.10</div>
         </div>
         <ul>
-          <li><strong>[대외 제휴 배송조회 API 고가용성]</strong> 네이버·당근·토스 공유 API의 Connection Timeout 원인 분석 및 해결</li>
-          <li><strong>[다계층 캐시 & 장애 격리]</strong> DB + Redis Layered Cache 및 Retry/Recover 패턴으로 Redis 장애 시 무중단 DB Fallback 보장</li>
-          <li><strong>[I/O 최적화]</strong> 배송 상태별 Dynamic TTL 캐싱으로 외부 API 중복 호출 차단 및 응답 안정성 향상</li>
+          <li><strong>[배송조회 API 고가용성]</strong> 네이버·당근·토스 공유 API의 Connection Timeout 원인 분석 및 해결</li>
+          <li><strong>[Multi-layer Cache & 장애 격리]</strong> Multi-layer Cache(Redis + DB) 및 Fallback 패턴으로 Redis 장애 시 무중단 DB Fallback 보장</li>
+          <li><strong>[캐시 최적화]</strong> 배송조회 및 토큰 발급에 TTL이 포함된 캐시를 적용하여 외부 API 중복 호출 차단 및 응답 안정성 향상</li>
         </ul>
       </div>
 
@@ -100,7 +99,7 @@
         <div class="card-header">
           <div>
             <div class="company-title">마인드패스 (공동창업)</div>
-            <div style="font-size: 13.5px; color: var(--primary); font-weight: 600;">공동창업자 & 엔지니어</div>
+            <div style="font-size: 13.5px; color: var(--primary); font-weight: 600;">공동창업자</div>
           </div>
           <div class="period">2018.12 – 2021.01</div>
         </div>
@@ -123,14 +122,14 @@
         <ul>
           <li>Spring WebFlux + Reactive Redis 기반 고성능 WebSocket 실시간 브로드캐스팅 파이프라인(pulse.runmarket.cc) 구축</li>
           <li>Spring Boot 멀티모듈(web, socket, batch, core) 아키텍처 적용으로 관심사 분리</li>
-          <li>Google Jib 기반 데몬리스 컨테이너 빌드 & Kubernetes (K3s) + Helm Chart 선언적 IaC 배포 자동화</li>
+          <li>Google Jib 기반 데몬리스 컨테이너 빌드 & Kubernetes + Helm Chart 선언적 IaC 배포 자동화</li>
           <li>k6 부하 테스트: 1,000명 동시 접속 실시간 위치 송수신 환경에서 에러율 0.00% 달성</li>
         </ul>
         <div class="badge-group">
           <span class="badge badge-primary">Spring WebFlux</span>
           <span class="badge badge-primary">Reactive Redis</span>
           <span class="badge badge-primary">Google Jib</span>
-          <span class="badge">Kubernetes (K3s)</span>
+          <span class="badge">Kubernetes</span>
           <span class="badge">Helm Chart</span>
           <span class="badge">k6 Load Test</span>
         </div>

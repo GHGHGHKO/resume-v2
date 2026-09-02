@@ -17,7 +17,7 @@
       <h1>기술 포트폴리오 (Portfolio)</h1>
       <div class="subtitle">클라우드 네이티브 아키텍처 설계와 실제 운영 결과물의 기술적 증명</div>
       <div class="contact-info">
-        <span>고형규 | 5년차 백엔드 & DevOps 엔지니어</span>
+        <span>고형규 (Ko Hyung-gyu) | 5년차 백엔드 & DevOps 엔지니어</span>
         <span>📧 <a href="mailto:gudrb963@gmail.com">gudrb963@gmail.com</a></span>
         <span>🚀 <a href="https://about.runmarket.cc" target="_blank">about.runmarket.cc</a></span>
         <span>💻 <a href="https://github.com/runmarket-cc/runmarket-pacer" target="_blank">github.com/runmarket-cc/runmarket-pacer</a></span>
@@ -29,7 +29,7 @@
       <div class="callout">
         <strong>"러너와 관전자가 실시간으로 위치와 페이스를 공유하는 러닝 동행 서비스"</strong><br>
         • <strong>운영 현황:</strong> iOS App Store & Google Play Store 양대 마켓 정식 출시 및 서비스 운영 중 (Bundle ID: <code>cc.runmarket.app</code>)<br>
-        • <strong>역할:</strong> 1인 백엔드 아키텍처 설계, Spring Boot 멀티모듈 구축, Google Jib 컨테이너화, Kubernetes(K3s) & Helm 기반 선언적 IaC 인프라 전담
+        • <strong>역할:</strong> 1인 백엔드 아키텍처 설계, Spring Boot 멀티모듈 구축, Google Jib 컨테이너화, Kubernetes & Helm 기반 선언적 IaC 인프라 전담
       </div>
 
       <div class="badge-group">
@@ -38,7 +38,7 @@
         <span class="badge badge-primary">Spring WebFlux</span>
         <span class="badge badge-primary">Reactive Redis</span>
         <span class="badge badge-primary">Google Jib</span>
-        <span class="badge">Kubernetes (K3s)</span>
+        <span class="badge">Kubernetes</span>
         <span class="badge">Helm Chart</span>
         <span class="badge">PostgreSQL</span>
         <span class="badge">k6 Load Testing</span>
@@ -63,7 +63,7 @@
       [ Nginx Ingress ]                  [ Nginx Ingress ]
                │                                  │
 ┌──────────────┴──────────────────────────────────┴───────────────────────┐
-│                Kubernetes (K3s) Cluster (IaC / Helm)                    │
+│                Kubernetes Cluster (IaC / Helm)                          │
 │                                                                         │
 │  ├── [web]     : Spring MVC REST API (인증, 유저/코스/기록)              │
 │  ├── [socket]  : Spring WebFlux + Reactive Redis 실시간 위치 중계        │
@@ -147,9 +147,9 @@
         <h4 style="color: var(--text-main); font-size: 15px;">🔬 워커 노드 선정 Trade-off: AWS Fargate vs EC2 노드그룹</h4>
         <p>MWAA <code>KubernetesPodOperator</code> 실행 환경으로 Fargate와 EC2 노드그룹을 벤치마크 테스트했습니다.</p>
         <ul>
-          <li><strong>AWS Fargate:</strong> Pod 프로비저닝 시간(45~90초) + Java 런타임 기동 시간으로 인해 짧은 주기의 배치 실행 시 큐 적체 발생</li>
-          <li><strong>EC2 Warm NodeGroup:</strong> 노드 사전 프로비저닝 및 Docker 이미지 캐싱으로 <strong>Pod 기동 시간 3초 이내 보장</strong></li>
-          <li><strong>결과:</strong> EC2 관리형 노드그룹 채택 + 스팟 인스턴스 정책 혼합으로 <strong>기동 지연 해소 및 인프라 비용 30% 절감 달성</strong></li>
+          <li><strong>AWS Fargate:</strong> Pod 프로비저닝 시간 + Java 런타임 기동 시간(수 분)으로 인해 짧은 주기의 배치 실행 시 큐 적체 발생</li>
+          <li><strong>EC2 Warm NodeGroup:</strong> 노드 사전 프로비저닝 및 Docker 이미지 캐싱으로 <strong>Pod 기동 시간 약 50초 수준으로 단축</strong></li>
+          <li><strong>결과 & 고도화:</strong> EC2 관리형 노드그룹 채택 및 <code>KubernetesPodOperator</code> retry 설정을 통해 <strong>배치 성공률 99% 목표 고도화 및 인프라 비용 30% 절감 달성</strong></li>
         </ul>
       </div>
     </section>
@@ -157,7 +157,7 @@
     <section class="page-break">
       <h2>3. 실무 프로젝트 심층 분석 2: AWS KMS + RS256 기반 독립 인증/인가 아키텍처</h2>
 
-      <h3>🛡 Blast Radius 격리 & 비대칭키 서명/검증 플로우</h3>
+      <h3>🛡 기존 서비스 영향 격리 & 비대칭키 서명/검증 플로우</h3>
       <pre>
 [ 우리동네GS App (1,500만 유저) ]
             │ (1) 앱 로그인 요청
@@ -172,19 +172,19 @@
 ┌───────────────────────────────────────────────┐
 │ [택배 서비스 게이트웨이 / Interceptor 계층]   │
 │  - JWKS 캐시를 통한 로컬 공개키 서명 검증     │
-│  - 내부 회원 식별 및 세션 바인딩               │
+│  - session cluster 기반 내부 회원 세션 연계    │
 └───────────────────────┬───────────────────────┘
                         │
          ┌──────────────┴──────────────┐
          ▼                             ▼
 [ 통합 회원 비즈니스 로직 ]     [ 기존 비회원 서비스 ]
-(Zero Blast Radius - 비회원 서비스 영향도 원천 차단)</pre>
+(단일 DB 환경 내 독립 마이크로서비스 구축으로 기존 서비스 영향 최소화)</pre>
 
       <div class="card">
         <h4 style="color: var(--text-main); font-size: 15px;">💡 기술적 의사결정 및 엔지니어링 성과</h4>
         <ul>
-          <li><strong>보안성 확보:</strong> Secret Key 공유가 필요한 대칭키(HS256) 대신 AWS KMS HSM 기반 RS256 비대칭키 서명 체계 확립</li>
-          <li><strong>장애 격리:</strong> 전용 인증 서버 분리를 통해 기존 비회원 서비스 영향도 Zero(0) 달성</li>
+          <li><strong>보안성 확보:</strong> AWS KMS 기반 RS256 비대칭키 서명 체계를 통해 외부 시스템에 안전한 공개키(JWKS) 제공 및 payload 서명 검증 체계 구현</li>
+          <li><strong>장애 영향 분리:</strong> 전용 인증 서버 분리를 통해 기존 서비스 영향 최소화 달성</li>
           <li><strong>대규모 트래픽 안정성:</strong> 월 요청량 8.5배 급증(140만 → 1,197만 건) 상황에서도 <strong>피크 에러율 0.042% 유지</strong></li>
         </ul>
       </div>
