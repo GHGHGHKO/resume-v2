@@ -4,7 +4,7 @@ export const siteConfig = {
   description: "고형규의 포트폴리오 — Backend Developer",
   accentColor: "#1d4ed8",
   profilePhoto: "https://pub-1d62bbed806549fe95a5676d3fc13a50.r2.dev/profile.jpg",
-  resumePdf: "https://pub-1d62bbed806549fe95a5676d3fc13a50.r2.dev/%EC%9D%B4%EB%A0%A5%EC%84%9C.pdf",
+  resumePdf: "https://pub-1d62bbed806549fe95a5676d3fc13a50.r2.dev/%EA%B3%A0%ED%98%95%EA%B7%9C-resume.pdf",
   social: {
     email: "gudrb963@gmail.com",
     github: "https://github.com/GHGHGHKO",
