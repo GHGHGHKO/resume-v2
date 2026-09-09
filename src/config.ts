@@ -109,28 +109,39 @@ export const siteConfig = {
       },
     },
     {
-      name: "배송조회 API 고가용성 및 캐시 레이어 구축",
+      name: "런마켓 (RunMarket) - 실시간 러닝 동행 플랫폼",
       description:
-        "네이버·당근·토스 등 제휴사 공유 배송조회 API의 Connection Timeout 해소. 캐시 레이어(Redis + DB Fallback)로 가용성 확보.",
-      skills: ["Java", "Spring Boot", "Redis", "PostgreSQL"],
+        "러너-관전자 간 실시간 GPS 위치 및 페이스 스트리밍 서비스 (iOS & Android 정식 출시). Spring WebFlux + Reactive Redis 기반 초저지연 WebSocket 브로드캐스팅 및 Expo/React Native 기반 크로스플랫폼 앱, Kubernetes 선언적 IaC 구축 (k6 1,000 VU 부하 테스트 에러율 0% 달성).",
+      skills: [
+        "React Native",
+        "Expo",
+        "TypeScript",
+        "Spring WebFlux",
+        "Reactive Redis",
+        "Kubernetes",
+        "Helm",
+      ],
       detail: {
         problem:
-          "택배 홈페이지 및 제휴사가 공유하는 배송조회 API에서 빈번한 외부 API 호출로 인한 Connection Timeout 발생 및 On-Premise Redis의 단일 장애점(SPOF) 위험 존재.",
+          "러너와 관전자가 1초 주기로 실시간 GPS 위치 및 운동 데이터를 송수신하는 환경에서, 동시 접속자 증가 시 전통적인 블로킹 I/O 모델의 스레드 풀 고갈 및 모바일 네트워크 음영지역에서의 위치 데이터 유실 방지와 클라이언트-서버-인프라 전반의 안정적 배포 체계가 필요했음.",
         analyze: [
-          "동일 배송정보의 반복적인 외부 API 호출로 인한 I/O 병목",
-          "Redis 다운 시 배송조회 서비스 중단 위험",
-          "외부 API 구버전 한계로 인한 호출 안정성 부족",
+          "Spring MVC(Thread-per-request) 모델은 1초 주기 실시간 WebSocket 스트리밍 시 동시 접속자 급증에 따른 스레드 풀 고갈 및 컨텍스트 스위칭 오버헤드 유발",
+          "러너의 이동 중 일시적인 터널/음영지역 네트워크 단절 시 GPS 경로 데이터 유실 위험 존재 → 로컬 오프라인 버퍼링 및 복구 시 동기화 메커니즘 필요",
+          "모바일 백그라운드 GPS 위치 추적, 잠금화면/Dynamic Island 실시간 위젯(iOS Live Activity), Apple HealthKit 등 네이티브 생태계와의 정밀한 통합 필요",
+          "Docker 데몬 종속성 없는 경량 컨테이너 빌드 및 Kubernetes 선언적 IaC 기반 무중단 배포 표준화 필요",
         ],
         action: [
-          "배송조회 및 토큰 발급에 TTL이 포함된 캐시를 적용하여 외부 API 중복 호출 차단",
-          "인증 토큰을 캐시 레이어(Redis + DB)로 관리",
-          "Retry / Recover 패턴 구현으로 Redis 다운 시 DB Fallback 처리",
-          "외부 배송조회 API 버전 업그레이드 적용",
+          "Spring WebFlux + Reactive Redis: Netty 이벤트 루프 기반 전용 WebSocket 중계 서버(pulse.runmarket.cc)를 구축하고 Redis Pub/Sub 토픽 채널링으로 분산 인스턴스 간 초저지연 브로드캐스팅 구현",
+          "크로스플랫폼 앱 구축 (Expo SDK 56 / React Native): expo-location 백그라운드 위치 추적, SQLite 로컬 버퍼링 및 네트워크 재연결 시 REST API 자동 동기화(runSync) 파이프라인 구현",
+          "iOS Live Activity & Apple HealthKit 연동: Swift/Nitro 커스텀 모듈로 잠금화면/Dynamic Island 실시간 위젯을 연동하고, 러닝 완료 후 Apple HealthKit 운동 자동 동기화 구현",
+          "Google Jib & Helm 선언적 IaC: Docker 데몬 없는 경량 OCI 컨테이너 빌드 파이프라인 구축 및 Helm Chart(helm/runmarket)를 통한 K8s 배포 자동화, 무중단 롤링 업데이트 구성",
+          "k6 WebSocket 부하 테스트: 1,000 VU가 1초 주기로 위치 데이터를 전송하고 관전자가 수신하는 고부하 시나리오 시뮬레이션 수행",
         ],
         result: [
-          "외부 API Connection Timeout 문제 해소",
-          "Redis 장애 상황에서도 DB Fallback을 통한 서비스 지속성 확보",
-          "캐시 적용으로 외부 API 중복 호출 감소 및 응답 안정성 향상",
+          "iOS App Store 및 Google Play Store 양대 마켓 정식 출시 및 서비스 운영 중 (cc.runmarket.app)",
+          "k6 1,000명 동시 접속 실시간 부하 테스트 환경에서 에러율 0.00%, WebSocket 메시지 왕복 지연시간(RTT) 평균 38ms (p95: 62ms) 달성",
+          "SQLite 로컬 버퍼링 파이프라인으로 네트워크 단절 상황에서도 러닝 데이터 유실 제로 보장",
+          "Google Jib + Helm Chart 도입으로 CI/CD 경량화 및 환경 일관성 확보, 무중단 배포 체계 확립",
         ],
       },
     },
@@ -154,7 +165,7 @@ export const siteConfig = {
       bullets: [
         "[배송조회 API 고가용성] 네이버·당근·토스 공유 API의 Connection Timeout 원인 분석 및 해결",
         "[캐시 레이어 & 장애 격리] 캐시 레이어(Redis + DB) 및 Fallback 패턴으로 Redis 장애 시 무중단 DB Fallback 보장",
-        "[캐시 최적화] 배송조회 및 토큰 발급에 TTL이 포함된 캐시를 적용하여 외부 API 중복 호출 차단 및 응답 안정성 향상",
+        "[캐시 최적화] 배송조회 및 토큰 발급에 단일 TTL 캐시를 적용하여 외부 API 중복 호출 차단 및 응답 안정성 향상",
       ],
     },
     {
