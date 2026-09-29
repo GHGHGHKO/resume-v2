@@ -28,7 +28,7 @@
       <h2>Executive Summary</h2>
       <div class="callout">
         <strong>"대규모 트래픽 안정성과 Observability 기반의 기민한 배포·인프라를 주도하는 5년 차 엔지니어입니다."</strong><br>
-        대기업의 대규모 서비스 환경에서도 스타트업처럼 기민한 Observability 체계를 바탕으로 일해왔습니다. Datadog 기반의 정밀한 모니터링으로 병목과 장애를 선제 탐지하고, 잦은 프로덕션 배포와 빠른 수정 사이클을 주도했습니다. GS리테일에서 1,500만 유저 앱 '우리동네GS'와 택배 서비스의 회원 통합(우리동네GS 가입 시 택배 회원 연동/가입) 전용 인증 서버 구축(월 1,200만 req 수용) 및 일 1,280만 req 규모 레거시 시스템의 AWS 클라우드 무중단 이관을 리드했습니다.
+        대기업의 대규모 서비스 환경에서도 스타트업처럼 기민한 Observability 체계를 바탕으로 일해왔습니다. Datadog 기반의 정밀한 모니터링으로 병목과 장애를 선제 탐지하고, 잦은 프로덕션 배포와 빠른 수정 사이클을 주도했습니다. GS리테일에서 1,500만 유저 앱 '우리동네GS'와 택배 서비스의 회원 통합(우리동네GS 가입 시 택배 회원 연동/가입) 전용 인증 서버 구축(월 1,200만 req 수용) 및 일 1,280만 req 규모 레거시 시스템의 AWS 이관에서 배치 플랫폼과 Core API·배치 SQL 전환을 담당했습니다.
       </div>
     </section>
 
@@ -75,9 +75,9 @@
         </div>
         <ul>
           <li><strong>[우리동네GS × 택배 회원 연동 · 리드]</strong> 1,500만 유저 앱 가입 시 택배 시스템 회원 여부에 따라 연동/가입 처리하는 체계 및 RS256 + AWS KMS 전용 인증 서버 분리 구축 (월 1,197만 req 수용, 피크 에러율 0.042%)</li>
-          <li><strong>[택배 서비스 IDC → AWS 이관 · 리드]</strong> 서비스 13개 · 일 1,280만 req 레거시 마이그레이션, MWAA 파이프라인 구축 및 인프라 비용 30% 절감 (KubernetesPodOperator retry 활용 배치 성공률 99% 목표 고도화)</li>
+          <li><strong>[택배 서비스 IDC → AWS 배치 플랫폼 이관 및 운영 내재화]</strong><p><strong>기간:</strong> 2023.01부터 사전 분석·쿼리 수정 / 본 프로젝트 2023.06–2024.03 / 안정화 2024.04까지</p><p><strong>팀·본인 기여:</strong> 내부 3명·외주 3명 중 Airflow 아키텍처 설계·이관, 배포 자동화, DAG 정비, Core API·배치 SQL 전환 및 외주 온보딩 담당</p><ul><li><strong>문제·역할:</strong> 외주 의존으로 변경·유지보수가 어려웠던 배치 환경의 MWAA·EKS 이관 및 내부 운영 체계 구축 담당.</li><li><strong>단계적 전환:</strong> 동일 이미지를 IDC·AWS에 배포해 IDC에서 검증하고, 실행 Pod 종료를 확인한 뒤 DAG를 순차 전환. IDC 복귀 절차 마련.</li><li><strong>실행 환경 선정:</strong> 5분 주기 배치의 처리 지연을 줄이기 위해 Fargate·EC2 PoC 수행. 준비 시간 약 200초 → 80초인 EC2 선택.</li><li><strong>DAG 정비:</strong> 미사용 DAG 제거 및 저처리량 제휴사 20곳의 전송 작업을 병렬 Flow로 통합하여 DAG 250개 → 170개로 축소.</li><li><strong>자동 복구:</strong> 기존 실패 지점 재개 구조에 자동 재시도·SNS 알림을 적용. 수동 대응 주 약 3–4건 → 월 약 1–2건 (정확한 집계가 아닌 운영 경험에 따른 추정치).</li><li><strong>DB 전환:</strong> Core API·배치의 PPAS 호환 쿼리를 ANSI SQL로 변경하고, 단방향 동기화 테이블 대신 원본 테이블을 직접 조회하도록 전환.</li></ul></li>
           <li><strong>[CRM CI 암호화 & 서비스 안정화 · 진행 중]</strong> 3,000만 회원 CI 암호화 전환 및 GS SHOP Kafka 연동 파이프라인 구축(Lag 관리), OTP/인가 보안 취약점 해결, 쿼리 80% 개선(1s → 200ms), 빌드 시간 90% 단축(20분 → 2분)</li>
-          <li><strong>[기술 부채 청산]</strong> EDB 종속 쿼리 ANSI SQL 전수 표준화 및 Airflow DAG 250개 → 170개 최적화</li>
+          <li><strong>[기술 부채 청산]</strong> Core API·배치의 PPAS 호환 쿼리를 ANSI SQL로 전환하고 원본 테이블 직접 조회로 단방향 동기화 제거</li>
         </ul>
       </div>
 
