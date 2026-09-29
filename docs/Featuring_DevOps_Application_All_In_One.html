@@ -52,7 +52,7 @@
       <h2>Executive Summary</h2>
       <div class="callout">
         <strong>"대규모 트래픽 안정성과 Observability 기반의 기민한 배포·인프라를 주도하는 5년 차 엔지니어입니다."</strong><br>
-        대기업의 대규모 서비스 환경에서도 스타트업처럼 기민한 Observability 체계를 바탕으로 일해왔습니다. Datadog 기반의 정밀한 모니터링으로 병목과 장애를 선제 탐지하고, 잦은 프로덕션 배포와 빠른 수정 사이클을 주도했습니다. GS리테일에서 1,500만 유저 앱 '우리동네GS'와 택배 서비스의 회원 통합(우리동네GS 가입 시 택배 회원 연동/가입) 전용 인증 서버 구축(월 1,200만 req 수용) 및 일 1,280만 req 규모 레거시 시스템의 AWS 클라우드 무중단 이관을 리드했습니다.
+        대기업의 대규모 서비스 환경에서도 스타트업처럼 기민한 Observability 체계를 바탕으로 일해왔습니다. Datadog 기반의 정밀한 모니터링으로 병목과 장애를 선제 탐지하고, 잦은 프로덕션 배포와 빠른 수정 사이클을 주도했습니다. GS리테일에서 1,500만 유저 앱 '우리동네GS'와 택배 서비스의 회원 통합(우리동네GS 가입 시 택배 회원 연동/가입) 전용 인증 서버 구축(월 1,200만 req 수용) 및 일 1,280만 req 규모 레거시 시스템의 AWS 이관에서 배치 플랫폼과 Core API·배치 SQL 전환을 담당했습니다.
       </div>
     </section>
 
@@ -99,9 +99,9 @@
         </div>
         <ul>
           <li><strong>[우리동네GS × 택배 회원 연동 · 리드]</strong> 1,500만 유저 앱 가입 시 택배 시스템 회원 여부에 따라 연동/가입 처리하는 체계 및 RS256 + AWS KMS 전용 인증 서버 분리 구축 (월 1,197만 req 수용, 피크 에러율 0.042%)</li>
-          <li><strong>[택배 서비스 IDC → AWS 이관 · 리드]</strong> 서비스 13개 · 일 1,280만 req 레거시 마이그레이션, MWAA 파이프라인 구축 및 인프라 비용 30% 절감 (KubernetesPodOperator retry 활용 배치 성공률 99% 목표 고도화)</li>
+          <li><strong>[택배 서비스 IDC → AWS 배치 플랫폼 이관 및 운영 내재화]</strong><p><strong>기간:</strong> 2023.01부터 사전 분석·쿼리 수정 / 본 프로젝트 2023.06–2024.03 / 안정화 2024.04까지</p><p><strong>팀·본인 기여:</strong> 내부 3명·외주 3명 중 Airflow 아키텍처 설계·이관, 배포 자동화, DAG 정비, Core API·배치 SQL 전환 및 외주 온보딩 담당</p><ul><li><strong>문제·역할:</strong> 외주 의존으로 변경·유지보수가 어려웠던 배치 환경의 MWAA·EKS 이관 및 내부 운영 체계 구축 담당.</li><li><strong>단계적 전환:</strong> 동일 이미지를 IDC·AWS에 배포해 IDC에서 검증하고, 실행 Pod 종료를 확인한 뒤 DAG를 순차 전환. IDC 복귀 절차 마련.</li><li><strong>실행 환경 선정:</strong> 5분 주기 배치의 처리 지연을 줄이기 위해 Fargate·EC2 PoC 수행. 준비 시간 약 200초 → 80초인 EC2 선택.</li><li><strong>DAG 정비:</strong> 미사용 DAG 제거 및 저처리량 제휴사 20곳의 전송 작업을 병렬 Flow로 통합하여 DAG 250개 → 170개로 축소.</li><li><strong>자동 복구:</strong> 기존 실패 지점 재개 구조에 자동 재시도·SNS 알림을 적용. 수동 대응 주 약 3–4건 → 월 약 1–2건 (정확한 집계가 아닌 운영 경험에 따른 추정치).</li><li><strong>DB 전환:</strong> Core API·배치의 PPAS 호환 쿼리를 ANSI SQL로 변경하고, 단방향 동기화 테이블 대신 원본 테이블을 직접 조회하도록 전환.</li></ul></li>
           <li><strong>[CRM CI 암호화 & 서비스 안정화 · 진행 중]</strong> 3,000만 회원 CI 암호화 전환 및 GS SHOP Kafka 연동 파이프라인 구축(Lag 관리), OTP/인가 보안 취약점 해결, 쿼리 80% 개선(1s → 200ms), 빌드 시간 90% 단축(20분 → 2분)</li>
-          <li><strong>[기술 부채 청산]</strong> EDB 종속 쿼리 ANSI SQL 전수 표준화 및 Airflow DAG 250개 → 170개 최적화</li>
+          <li><strong>[기술 부채 청산]</strong> Core API·배치의 PPAS 호환 쿼리를 ANSI SQL로 전환하고 원본 테이블 직접 조회로 단방향 동기화 제거</li>
         </ul>
       </div>
 
@@ -189,46 +189,27 @@
       <p style="margin-bottom: 12px;"><strong>소속:</strong> 통합서비스팀 | <strong>직책:</strong> 백엔드</p>
 
       <!-- Project 1 -->
-      <div class="card">
-        <div class="card-header">
-          <div class="company-title">프로젝트 1: 택배 서비스 IDC → AWS 클라우드 이관 및 MWAA 최적화</div>
-          <div class="period">2023.01 – 2023.10 (10개월)</div>
-        </div>
-        <div class="badge-group">
-          <span class="badge badge-primary">AWS (EKS, MWAA, EC2, RDS)</span>
-          <span class="badge badge-primary">Apache Airflow</span>
-          <span class="badge">PostgreSQL</span>
-          <span class="badge">Docker</span>
-          <span class="badge">GitHub Actions</span>
-          <span class="badge">ANSI SQL</span>
-        </div>
-        <p style="font-size: 14px; color: var(--text-light); margin-bottom: 8px;"><strong>규모:</strong> 13개 마이크로서비스, 이기종 DB 2개, 일 평균 1,280만 req(피크 82만 req/h), Airflow 250 DAGs</p>
-
-        <h4>1. 문제 배경 (Problem)</h4>
-        <p>IDC 기반 레거시 시스템을 AWS로 전환해야 했으나, EDB 벤더 종속 SQL 문법으로 인해 AWS DMS 자동 마이그레이션이 불가능했습니다. 또한 외주 개발사에서 구축한 250여 개의 Airflow DAG 중 미사용/중복 코드가 산재하여 IDC 환경에서 잦은 배치 지연이 발생했습니다.</p>
-
-        <h4>2. 분석 및 기술 검토 (Analyze)</h4>
-        <ul>
-          <li><strong>DB 마이그레이션:</strong> EDB 전용 문법을 표준 ANSI SQL로 전환하여 PostgreSQL RDS 호환성을 확보해야 했습니다.</li>
-          <li><strong>워커 노드 지연:</strong> KubernetesPodOperator 실행 환경으로 Fargate 검토 시, Java 콜드스타트 및 프로비저닝 지연(수 분)으로 인해 배치가 지연되는 현상이 확인되었습니다.</li>
-          <li><strong>운영 복잡도:</strong> 외주 의존도를 제거하고 사내 엔지니어링 직접 운영 체계 확립이 시급했습니다.</li>
-        </ul>
-
-        <h4>3. 해결 과정 및 실행 (Action)</h4>
-        <ul>
-          <li><strong>EDB 종속 쿼리 ANSI SQL 전수 표준화:</strong> 13개 서비스의 EDB SQL을 PostgreSQL 호환 ANSI SQL로 전수 변환 및 검증을 완료했습니다.</li>
-          <li><strong>AWS MWAA 직접 구축 및 워커 최적화:</strong> Fargate vs EC2 노드그룹 벤치마크 테스트 후 EC2 노드그룹을 채택하여 Pod 기동 지연을 약 50초 수준으로 단축했습니다.</li>
-          <li><strong>KubernetesPodOperator Retry 설정:</strong> KubernetesPodOperator의 retry 설정을 적용하여 배치 성공률을 99% 수준으로 끌어올리는 파이프라인 고도화를 진행했습니다.</li>
-          <li><strong>DAG 통폐합 & CI/CD 자동화:</strong> 250개 DAG 중 중복·미사용 DAG 80개를 정리(170개로 최적화)하고, GitHub Actions → S3 Sync 자동 배포 파이프라인을 구축했습니다.</li>
-        </ul>
-
-        <h4>4. 엔지니어링 성과 (Result)</h4>
-        <ul>
-          <li><strong>클라우드 운영 비용 30% 절감:</strong> DAG 통폐합(250개 → 170개) 및 인스턴스 최적화로 운영 비용 30% 절감 달성</li>
-          <li><strong>배치 안정성 향상:</strong> EC2 워커 노드 채택 및 retry 설정으로 배치 기동 지연 해소 및 안정적 스케줄링 보장</li>
-          <li><strong>사내 직접 운영 체계 완비:</strong> 외주 의존도 100% 제거 및 배포 자동화 파이프라인 구축</li>
-        </ul>
-      </div>
+<div class="card">
+<h3>프로젝트 1: IDC → AWS 배치 플랫폼 이관 및 운영 내재화</h3>
+<p><strong>기간:</strong> 2023.01부터 사전 분석·쿼리 수정 / 본 프로젝트 2023.06–2024.03 / 안정화 2024.04까지</p><p><strong>팀·본인 기여:</strong> 내부 3명·외주 3명 중 Airflow 아키텍처 설계·이관, 배포 자동화, DAG 정비, Core API·배치 SQL 전환 및 외주 온보딩 담당</p>
+<h4>문제 정의</h4>
+<p>이전 IDC 간 이관·차세대 프로젝트에서 외주가 개발한 코드는 내부에서 수정하기 어려웠고 실제 변경 후 오류도 발생했다. IDC 모니터링·유지보수 인력이 부족한 상황에서 회사 주도로 내부 인력 중심의 AWS 이관을 진행했다.</p>
+<h4>역할 분담</h4>
+<p>내부 인력은 AWS 아키텍처·이관 절차·테스트 및 업무 영향이 큰 Core API·POS 쿼리를 담당했다. 본인은 Core API·배치를 수정했다. 외주 2명은 업무 영향이 적은 쿼리, 택배기 담당 1명은 택배기 쿼리를 변경했다. Git flow·쿼리 변경·운영 배포 가이드를 제공했고 성능 문제는 DBA에게 검토를 요청했다.</p>
+<h4>해결 전략과 실행</h4>
+<p>동일 이미지를 IDC·AWS에 배포해 IDC에서 검증하고, 실행 Pod 종료를 확인한 뒤 DAG를 순차 전환. IDC 복귀 절차 마련.</p>
+<p>5분 주기 배치의 처리 지연을 줄이기 위해 Fargate·EC2 PoC 수행. 준비 시간 약 200초 → 80초인 EC2 선택.</p>
+<p>미사용 DAG 제거 및 저처리량 제휴사 20곳의 전송 작업을 병렬 Flow로 통합하여 DAG 250개 → 170개로 축소.</p>
+<p>DAG 커밋 시 CI/CD를 실행해 S3 Sync로 코드를 업로드하고, Airflow Variables API로 이미지 버전을 갱신했다. KubernetesPodOperator가 해당 버전을 참조하도록 구성했다.</p>
+<p>서로 다른 테이블 구조를 가진 두 PPAS DB를 Aurora PostgreSQL로 통합하고 스키마로 구분했다. 단방향 동기화 테이블을 제거하고 정규화가 잘된 쪽의 원본 테이블을 직접 조회하도록 Core API·배치 쿼리를 수정했다. PPAS 호환 쿼리를 ANSI SQL로 전환했다.</p>
+<h4>성과 및 검증 범위</h4>
+<p>수동 대응 주 약 3–4건 → 월 약 1–2건 (정확한 집계가 아닌 운영 경험에 따른 추정치).</p>
+<p>기존 트랜잭션 분리·실패 지점 재개 구조를 활용해 실패한 Pod의 Job 전체를 즉시 최대 3회 재시도하고, 재시도 소진 시 AWS SNS로 알림을 받도록 했다. 재시도는 락 자체의 원인 제거와 구분된다.</p>
+<p>사전 분석·변경에서 누락된 PPAS 호환 쿼리가 AWS 전환 후 문법 오류를 일으켰다. 오류 범위가 작고 원인이 명확하며 ANSI SQL로 빠르게 수정할 수 있어, 롤백 대신 긴급 수정·테스트 후 운영 배포했다. 실제로 롤백이 필요할 정도의 심각한 오류는 발생하지 않았다.</p>
+<h4>한계와 회고</h4>
+<p>양방향 데이터 흐름과 DB 락은 인터뷰 시점에도 점진적으로 개선 중이다. DB 통합이나 재시도로 락이 완전히 해결된 것은 아니다.</p>
+<p>다시 진행한다면 짧은 주기 배치 중 메시징으로 처리 가능한 작업을 선별해 이벤트 기반 처리로 전환하고 싶다. 짧은 주기 작업에서 오류가 종종 발생했던 운영 경험에 따른 개선 방향이며, 이번 프로젝트에서 구현한 성과는 아니다.</p>
+</div>
 
       <!-- Project 2 -->
       <div class="card">
@@ -467,32 +448,32 @@
     </section>
 
     <section>
-      <h2>2. 실무 프로젝트 심층 분석 1: IDC → AWS MWAA 데이터 파이프라인 마이그레이션</h2>
-      
-      <h3>📊 아키텍처 전환 전/후 비교</h3>
-      <pre>
-[ AS-IS : IDC On-Premise ]
-  Airflow Master (IDC Server) ──▶ Static Worker Nodes ──▶ EDB (종속 문법 SQL)
-  * 문제점: 외주 구축 DAG 250개 방치, 잦은 스케줄 지연, 하드웨어 증설 한계
-
-[ TO-BE : AWS Cloud Native ]
-  GitHub Repo ──(Actions)──▶ S3 (DAGs) ──▶ AWS MWAA (Managed Airflow)
-                                              │
-                                              ▼ KubernetesPodOperator
-                                         EC2 NodeGroup (Fast Startup)
-                                              │
-                                              ▼
-                                         PostgreSQL RDS (ANSI SQL)</pre>
-
-      <div class="card">
-        <h4 style="color: var(--text-main); font-size: 16px;">🔬 워커 노드 선정 Trade-off: AWS Fargate vs EC2 노드그룹</h4>
-        <p>MWAA <code>KubernetesPodOperator</code> 실행 환경으로 Fargate와 EC2 노드그룹을 벤치마크 테스트했습니다.</p>
-        <ul>
-          <li><strong>AWS Fargate:</strong> Pod 프로비저닝 시간 + Java 런타임 기동 시간(수 분)으로 인해 짧은 주기의 배치 실행 시 큐 적체 발생</li>
-          <li><strong>EC2 Warm NodeGroup:</strong> 노드 사전 프로비저닝 및 Docker 이미지 캐싱으로 <strong>Pod 기동 시간 약 50초 수준으로 단축</strong></li>
-          <li><strong>결과 & 고도화:</strong> EC2 관리형 노드그룹 채택 및 <code>KubernetesPodOperator</code> retry 설정을 통해 <strong>배치 성공률 99% 목표 고도화 및 인프라 비용 30% 절감 달성</strong></li>
-        </ul>
-      </div>
+      <h2>2. 실무 프로젝트 심층 분석 1: IDC → AWS 배치 플랫폼 이관 및 운영 내재화</h2>
+<h3>문제 정의와 본인 기여</h3>
+<p>이전 IDC 간 이관·차세대 프로젝트에서 외주가 개발한 코드는 내부에서 수정하기 어려웠고 실제 변경 후 오류도 발생했다. IDC 모니터링·유지보수 인력이 부족한 상황에서 회사 주도로 내부 인력 중심의 AWS 이관을 진행했다.</p>
+<p>기간: 2023.01부터 사전 분석·쿼리 수정 / 본 프로젝트 2023.06–2024.03 / 안정화 2024.04까지. 팀·본인 기여: 내부 3명·외주 3명 중 Airflow 아키텍처 설계·이관, 배포 자동화, DAG 정비, Core API·배치 SQL 전환 및 외주 온보딩 담당. 필요한 외부 인력은 약 2–3개월 활용했다.</p>
+<p>내부 인력은 AWS 아키텍처·이관 절차·테스트 및 업무 영향이 큰 Core API·POS 쿼리를 담당했다. 본인은 Core API·배치를 수정했다. 외주 2명은 업무 영향이 적은 쿼리, 택배기 담당 1명은 택배기 쿼리를 변경했다. Git flow·쿼리 변경·운영 배포 가이드를 제공했고 성능 문제는 DBA에게 검토를 요청했다.</p>
+<h3>동일 이미지 검증과 순차 이관</h3>
+<p>IDC 데이터가 AWS로 실시간 동기화되는 환경을 활용했다. 변경 전후 쿼리를 양쪽 DB에서 실행해 결과를 비교하고, Spring Batch 이미지를 양쪽 레지스트리에 배포해 IDC에서 정상 동작을 확인했다.</p>
+<p>IDC DAG를 중지하고 실행 중인 Job Pod의 종료를 사람이 확인한 후 AWS DAG를 실행했다. AWS에서 문제가 생기면 DAG를 중지하고 동일 이미지를 사용하는 IDC DAG로 복귀할 수 있도록 했다. DAG 250개를 개별 이관·테스트했다.</p>
+<h3>Fargate·EC2 선택 및 배포 자동화</h3>
+<p>MWAA의 KubernetesPodOperator가 EKS에 Pod를 생성해 Spring Batch를 실행하는 구조다. 5분 주기 배치에서 Fargate 준비 시간 약 200초가 주기의 약 67%를 차지해 업무 처리가 늦어졌다. PoC 후 약 80초인 EC2를 선택해 준비 시간을 약 60% 단축했다. 이는 전체 Job 실행 시간의 감소율과는 구분된다.</p>
+<p>DAG 커밋 시 CI/CD를 실행해 S3 Sync로 코드를 업로드하고, Airflow Variables API로 이미지 버전을 갱신했다. KubernetesPodOperator가 해당 버전을 참조하도록 구성했다.</p>
+<h3>DAG 250개 → 170개: 제휴사 작업 통합</h3>
+<p>미사용·업무 종료 DAG를 제거하고, 처리량이 적은 제휴사 20곳의 택배 상태 전송 작업을 하나의 Job 내 제휴사별 Flow로 병렬 실행하도록 통합했다. 전체 DAG는 250개에서 170개로 줄었다.</p>
+<p>일부 Flow가 실패해도 다른 Flow는 완료할 수 있었다. 전체 Job 재실행 시 이미 전송한 제휴사는 조회 결과에 전달 대상이 없어 다시 전송하지 않았다. 다만 일부 Flow 실패도 전체 Job 실패로 표시됐으며, 실패한 제휴사를 파악하려면 로그를 확인해야 했다.</p>
+<h3>집하지시 배치 복구와 관측성</h3>
+<p>고객 데이터 수정과 집하지시가 동시에 실행되면 테이블 락으로 배치가 실패해 수동 재실행이 필요했다. 집하지시 배치가 완료돼야 택배 수거 요청이 전달됐다.</p>
+<p>기존 트랜잭션 분리·실패 지점 재개 구조를 활용해 실패한 Pod의 Job 전체를 즉시 최대 3회 재시도하고, 재시도 소진 시 AWS SNS로 알림을 받도록 했다. 재시도는 락 자체의 원인 제거와 구분된다.</p>
+<p>운영 결과: 수동 대응 주 약 3–4건 → 월 약 1–2건 (정확한 집계가 아닌 운영 경험에 따른 추정치). 재시도 횟수·간격을 정한 별도의 최적화 근거는 없었으며, 정확한 집계 기간은 확보되지 않았다.</p>
+<h3>DB 통합 및 조회 구조 개선</h3>
+<p>서로 다른 테이블 구조를 가진 두 PPAS DB를 Aurora PostgreSQL로 통합하고 스키마로 구분했다. 단방향 동기화 테이블을 제거하고 정규화가 잘된 쪽의 원본 테이블을 직접 조회하도록 Core API·배치 쿼리를 수정했다. PPAS 호환 쿼리를 ANSI SQL로 전환했다.</p>
+<p>양방향 데이터 흐름과 DB 락은 인터뷰 시점에도 점진적으로 개선 중이다. DB 통합이나 재시도로 락이 완전히 해결된 것은 아니다.</p>
+<h3>예상 밖 오류와 긴급 수정 판단</h3>
+<p>사전 분석·변경에서 누락된 PPAS 호환 쿼리가 AWS 전환 후 문법 오류를 일으켰다. 오류 범위가 작고 원인이 명확하며 ANSI SQL로 빠르게 수정할 수 있어, 롤백 대신 긴급 수정·테스트 후 운영 배포했다. 실제로 롤백이 필요할 정도의 심각한 오류는 발생하지 않았다.</p>
+<p>양쪽 DB의 쿼리 실행 결과를 비교했어도 누락된 실행 경로까지 모두 검증하지는 못했다. 복귀 절차를 마련하는 것과 검증 범위를 충분히 확보하는 것은 별개의 과제였다.</p>
+<h3>회고: 짧은 주기 배치의 이벤트 기반 전환</h3>
+<p>다시 진행한다면 짧은 주기 배치 중 메시징으로 처리 가능한 작업을 선별해 이벤트 기반 처리로 전환하고 싶다. 짧은 주기 작업에서 오류가 종종 발생했던 운영 경험에 따른 개선 방향이며, 이번 프로젝트에서 구현한 성과는 아니다.</p>
     </section>
 
     <section class="page-break">
