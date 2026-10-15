@@ -1,234 +1,236 @@
 export const siteConfig = {
-  name: "고형규",
-  title: "5년차 백엔드 개발자 | Java · Spring Boot · AWS",
-  description: "고형규의 포트폴리오 — Backend Developer",
-  accentColor: "#1d4ed8",
-  profilePhoto: "https://pub-1d62bbed806549fe95a5676d3fc13a50.r2.dev/profile.jpg",
-  resumePdf: "https://pub-1d62bbed806549fe95a5676d3fc13a50.r2.dev/%EA%B3%A0%ED%98%95%EA%B7%9C-resume-1.0.0.pdf",
-  social: {
-    email: "gudrb963@gmail.com",
-    github: "https://github.com/GHGHGHKO",
+  "name": "고형규",
+  "title": "백엔드 엔지니어 | Java · Spring Boot · AWS",
+  "description": "고형규의 백엔드 엔지니어 포트폴리오",
+  "accentColor": "#1d4ed8",
+  "profilePhoto": "https://pub-1d62bbed806549fe95a5676d3fc13a50.r2.dev/profile.jpg",
+  "social": {
+    "email": "gudrb963@gmail.com",
+    "github": "https://github.com/GHGHGHKO"
   },
-  aboutMe:
-    "대기업의 대규모 서비스 환경에서도 스타트업처럼 기민한 Observability 체계를 바탕으로 일해왔습니다. Datadog 기반의 정밀한 모니터링으로 병목과 장애를 선제 탐지하고, 잦은 프로덕션 배포와 빠른 수정 사이클을 주도했습니다. GS리테일에서 1,500만 유저 앱 '우리동네GS'와 택배 서비스의 회원 통합(우리동네GS 가입 시 택배 회원 연동/가입)을 위한 전용 인증 서버를 구축하여 월 요청량 8.5배 성장을 안정적으로 수용했고, IDC → AWS 이관에서 Airflow 설계·이관과 Core API·배치 SQL 전환을 담당해 DAG를 250개에서 170개로 정비했습니다.",
-  skills: [
-    "Java",
+  "aboutMe": "택배·회원 서비스의 인증, 제휴 연동, 보안 및 운영 개선을 맡아온 백엔드 엔지니어입니다. 우리동네GS 택배 인증·인가 서버의 토큰 발급·검증·갱신과 권한 처리를 설계·구현했고, 편의점택배 제휴 연동 및 팀의 IDC→AWS 이관에 참여했습니다. 현재는 GS25·GSSHOP 통합회원 플랫폼의 출시 이후 보안·개인정보·운영 개선을 담당합니다.",
+  "skills": [
+    "Java 11 / 21",
     "Spring Boot",
+    "Spring Security",
     "Spring Batch",
-    "JPA",
+    "JPA / QueryDSL",
     "PostgreSQL",
-    "Redis / Valkey",
-    "Kafka",
+    "Redis",
     "AWS",
     "Kubernetes",
     "Docker",
     "Airflow",
     "Python",
     "Datadog",
-    "Git",
+    "OpenSearch / Athena"
   ],
-  projects: [
+  "projects": [
     {
-      name: "우리동네GS × 택배 서비스 회원 연동",
-      description:
-        "1,500만 유저 앱 '우리동네GS' 가입 시 택배 시스템 회원 여부에 따라 연동/가입을 처리하는 회원 통합 프로젝트. RS256 + AWS KMS 기반 전용 인증 서버 분리 구축으로 월 요청량 8.5배(140만 → 1,197만 건) 성장 및 피크 에러율 0.042% 달성.",
-      skills: ["Java", "Spring Boot", "AWS KMS", "JWT", "Kubernetes"],
-      detail: {
-        problem:
-          "1,500만 다운로드 앱 '우리동네GS'에 가입하면 택배 시스템 회원인 경우 연동하고, 회원이 아닌 경우 택배 시스템에 회원가입을 연동하도록 체계를 구축해야 했음. 기존 서버에 직접 인증을 추가하기에는 비회원 서비스 영향과 트래픽 부담이 컸고, 외부 시스템에서 서명을 검증할 수 있는 공개키 기반 체계가 필요했음.",
-        analyze: [
-          "기존 비회원 서버 직접 수정 시 비회원 서비스 영향 범위 확대 → 전용 인증 마이크로서비스 분리 필요 (단일 DB 공유)",
-          "외부 시스템의 안전한 서명 검증을 위한 RS256 비대칭키 및 AWS KMS 기반 공개키 서명 검증 도입 필요",
-          "session cluster 기반의 레거시 홈페이지 연동을 위해 인입 계층에서의 회원 식별 및 세션 바인딩 필요",
-        ],
-        action: [
-          "단일 DB 환경에서 비회원 서버와 분리된 우리동네GS 전용 인증/인가 마이크로서비스 신규 구축",
-          "AWS KMS + RS256 비대칭키 도입으로 외부 payload 서명 검증을 위한 공개키(JWKS) 제공 체계 구현",
-          "session cluster 기반 레거시 홈페이지의 인입 계층에 Interceptor를 구성하여 JWT 검증 및 내부 회원 세션 연계 생성",
-        ],
-        result: [
-          "우리동네GS 회원가입 시 택배 시스템 회원 연동 및 자동 가입 통합 체계 완성",
-          "전용 인증 서버 분리를 통해 기존 서비스 영향 최소화",
-          "서비스 연동 후 월 요청량 140만 → 1,197만 건 (8.5배 성장) 안정적 수용",
-          "피크 트래픽 37,654 req/h 환경에서 에러율 0.042% 수준 유지",
-        ],
-      },
-    },
-    {
-      name: "GS리테일 차세대 CRM 서비스 안정화 & CI 암호화",
-      description:
-        "3,000만 회원 CI 암호화 및 GS SHOP Kafka 데이터 연동 파이프라인 구축(Lag 관리), OTP/인가 보안 취약점 해결, 쿼리 80% 개선 및 빌드 시간 90% 단축.",
-      skills: ["Java", "Spring Boot", "PostgreSQL", "Kafka", "Docker", "Spring Batch"],
-      detail: {
-        problem:
-          "오픈 직후 발생한 API 보안 취약점(OTP 세션 및 인가 검증 누락) 및 쿼리/빌드 병목 해소와, 3,000만 회원의 평문 CI 암호화 전환 및 GS SHOP 실시간 데이터 연동 필요.",
-        analyze: [
-          "3,000만 회원 데이터의 평문 CI를 암호화 컬럼으로 안전하게 전환하기 위한 API 및 배치 쿼리 수정 필요",
-          "CRM DB와 연동된 GS SHOP으로의 안정적인 개인정보 동기화 및 Kafka Consumer Lag 관리 필요",
-          "비밀번호 찾기 API의 OTP 인증 세션 미검증 및 인가 누락 취약점 존재",
-          "Correlated EXISTS 서브쿼리 및 전체 파일 COPY Dockerfile로 인한 빌드(20분)/쿼리 병목",
-        ],
-        action: [
-          "3,000만 명 CI 암호화: API 및 배치 쿼리를 변경하여 평문 CI를 암호화하여 암호화 column에 저장",
-          "GS SHOP Kafka 연동: CRM DB와 연동된 GS SHOP에 Kafka를 통해 개인정보 데이터를 전송하고 Consumer Lag 모니터링/관리",
-          "보안 패치: 비밀번호 변경 API에 OTP 인증 완료 세션 및 계정 일치 검증, 인가(Authorization) 검증 로직 추가",
-          "쿼리 & 빌드 최적화: Correlated EXISTS → INNER JOIN 전환(1s → 200ms) 및 배포 아티팩트 선별 COPY로 Dockerfile 수정(20분 → 2분)",
-        ],
-        result: [
-          "3,000만 회원 CI 암호화 및 GS SHOP Kafka 연동 파이프라인 안정적 운영",
-          "OTP 우회 및 인가 누락을 통한 계정 탈취 취약점 원천 차단",
-          "쿼리 실행시간 1초 → 200ms (80% 개선), 빌드 시간 20분 → 2분 (90% 단축)",
-        ],
-      },
-    },
-    {
-      name: "택배 서비스 IDC → AWS 배치 플랫폼 이관",
-      description: "MWAA·EKS 기반 배치 운영 내재화. DAG 250개 → 170개 정비 및 준비 시간 약 200초 → 80초 단축. Airflow 설계·이관, Core API·배치 SQL 전환 담당",
-      skills: [
-        "AWS MWAA",
-        "EKS",
-        "Spring Batch",
-        "Aurora PostgreSQL",
-        "Airflow"
+      "name": "우리동네GS 택배 인증·인가 서버 (blackpink)",
+      "description": "AWS KMS 기반 stateless 토큰 발급·검증·갱신과 Spring Security 권한 처리를 직접 설계·구현한 프로젝트 (Java 21).",
+      "skills": [
+        "Java 21",
+        "Spring Boot",
+        "Spring Security",
+        "AWS KMS",
+        "Redis"
       ],
-      detail: {
-        problem: "외주 의존으로 코드 변경·유지보수가 어려운 IDC 배치 환경과 짧은 주기 작업의 지연 해소, 내부 운영 체계 확보 필요",
-        analyze: [
-          "기간: 2023.06–2024.03 (2023.01부터 사전 분석·수정, 2024.04까지 안정화)",
-          "팀·본인 기여: 내부 3명·외주 3명 / Airflow 설계·이관, Core API·배치 SQL 전환 및 외주 온보딩 담당",
-          "Fargate 준비 시간 약 200초로 5분 주기 배치 처리 지연 → EC2 PoC 및 실행 환경 전환 검토"
+      "links": [],
+      "detail": {
+        "problem": "우리동네GS 앱과 택배 서비스 연동에서 호출 주체별 인증과 고객 데이터 접근 제어가 필요했습니다.",
+        "analyze": [
+          "앱·홈페이지·현장 장비 등 연동 주체별 API 접근 범위와 고객 데이터 소유권 검사가 필요했습니다.",
+          "GRM 발급 토큰 검증과 택배 회원 식별은 실제 계정 연결 API와 분리된 단계였습니다."
         ],
-        action: [
-          "동일 이미지의 IDC 검증·Pod 종료 확인 후 AWS로 순차 전환하고 IDC 복귀 절차 구성",
-          "5분 주기 배치의 Fargate·EC2 PoC 후 준비 시간이 짧은 EC2 선택. S3 Sync·Airflow Variables API 기반 배포 자동화 구성",
-          "미사용 DAG 제거 및 제휴사 20곳의 전송 작업을 병렬 Flow로 통합. 기존 실패 지점 재개 구조를 활용한 재시도·SNS 알림 구성",
-          "Aurora PostgreSQL 통합에 맞춰 Core API·배치의 PPAS 쿼리를 ANSI SQL로 변경하고 단방향 동기화 대신 원본 직접 조회로 전환"
+        "action": [
+          "AWS KMS 서명·암호화를 결합한 토큰 발급·검증·갱신 흐름과 Spring Security 필터·인가 규칙을 설계·구현했습니다.",
+          "GRM 발급 토큰 검증 및 이름·CI 기반 회원 식별 단계를 구현했습니다. 실제 계정 연결 API는 다른 담당자가 구현했습니다.",
+          "현장 장비와 키오스크 게스트 인증을 구현했습니다."
         ],
-        result: [
-          "DAG 250개 → 170개 축소 및 배치 준비 시간 약 200초 → 80초 단축",
-          "수동 대응 주 약 3–4건 → 월 약 1–2건 감소 (운영 경험에 따른 추정치)",
-          "전환 후 누락 쿼리 오류는 범위가 작고 원인이 명확하여 롤백 대신 ANSI SQL 긴급 수정·테스트·배포로 대응",
-          "일부 Flow 실패 시 전체 Job 실패로 표시되어 로그 확인 필요. DB 락은 추가 개선 중이며, 짧은 주기 배치의 메시징 전환은 향후 과제로 미구현"
+        "result": [
+          "연동 시스템별 API와 예약·주소 등 고객 데이터의 접근을 통제했습니다.",
+          "약 18,000대 현장 장비의 인증 경로를 운영했습니다."
         ]
       }
     },
     {
-      name: "런마켓 (RunMarket) - 실시간 러닝 동행 플랫폼",
-      description:
-        "러너-관전자 간 실시간 GPS 위치 및 페이스 스트리밍 서비스 (iOS & Android 정식 출시). Spring WebFlux + Reactive Redis 기반 초저지연 WebSocket 브로드캐스팅 및 Expo/React Native 기반 크로스플랫폼 앱, Kubernetes 선언적 IaC 구축 (k6 1,000 VU 부하 테스트 에러율 0% 달성).",
-      skills: [
+      "name": "GS25·GSSHOP 통합회원(GRM) 출시 이후 운영 고도화",
+      "description": "2025년 10월 합류 이후 인증·인가 취약점 수정, CI 암호화, 회원 정책 개선 및 운영 로그 절감을 담당했습니다. 초기 플랫폼 구축과 데이터 이관에는 참여하지 않았습니다.",
+      "skills": [
+        "Java 11",
+        "Spring Boot",
+        "PostgreSQL",
+        "OpenSearch",
+        "AWS Athena"
+      ],
+      "links": [],
+      "detail": {
+        "problem": "출시 이후 통합회원 서비스의 계정 도용 취약점, 개인정보 보호 및 운영 로그 적재량을 개선해야 했습니다.",
+        "analyze": [
+          "OTP 검증 우회와 타 계정 정보 접근 가능성 등 인증·인가 경로를 점검했습니다.",
+          "운영 로그를 실측해 UI 로그와 회원 API의 중복 요청 파라미터 로깅을 분리해 분석했습니다."
+        ],
+        "action": [
+          "인증·인가 취약점을 수정하고 가입·재가입 정책 및 CI 암호화 경로를 개선했습니다.",
+          "회원 API의 중복 요청 파라미터 로그 155건과 UI 서비스의 불필요한 로그를 정리했습니다.",
+          "AWS Lambda 기반 AI 코드리뷰 봇을 구축해 production 대상 PR의 변경 내용과 운영 관측 데이터를 함께 검토하도록 구성했습니다."
+        ],
+        "result": [
+          "본인 담당 로그 변경분에서 트래픽 보정 후 약 43.5GB/일 적재량 감소를 확인했습니다. 팀 1차 배포 기준 GRM 전체는 약 87GB/일(40.7%) 감소했습니다.",
+          "AI 코드리뷰 봇의 실제 결함 발견 효과는 별도 성과 지표로 검증되지 않았습니다."
+        ]
+      }
+    },
+    {
+      "name": "편의점택배 제휴·방문택배 백엔드",
+      "description": "10여 개 제휴사의 접수·상태 전송 연동과 택배사 API 전환, 예약·방문택배 운영을 담당했습니다.",
+      "skills": [
+        "Java 11",
+        "Spring Boot",
+        "PostgreSQL",
+        "Airflow"
+      ],
+      "links": [],
+      "detail": {
+        "problem": "제휴사마다 다른 접수·상태 전송 규약과 택배사 인터페이스를 안정적으로 운영해야 했습니다.",
+        "analyze": [
+          "CJ대한통운 미접수 연동의 FTP 전문을 분석해 OpenAPI 전환 요구사항을 정리했습니다.",
+          "점포 취소 후 동일 운송장을 재접수하는 어뷰징과 방문택배 취소 코드 누락을 확인했습니다."
+        ],
+        "action": [
+          "토스·네이버·번개장터·쇼피 등 10여 개 제휴사의 접수·상태 연동을 개발·운영했습니다.",
+          "CJ대한통운 미접수 연동을 FTP에서 OpenAPI로 전환하고 API 토큰 갱신 배치를 구축했습니다.",
+          "POS 취소 신호와 택배 예약·주소록·방문택배 처리 경로를 구현했습니다."
+        ],
+        "result": [
+          "환불 후 동일 운송장 재접수 어뷰징을 차단했습니다.",
+          "방문택배 취소 코드 누락으로 미처리된 86건의 취소·환불·상태·알림 작업을 수정 배포 후 1시간 26분 만에 복구했습니다."
+        ]
+      }
+    },
+    {
+      "name": "택배 서비스 IDC→AWS 이관 (팀 공동 작업)",
+      "description": "13개 서비스와 이기종 DB 2종의 이관에서 MWAA 배치 전환, 쿼리 수정 가이드 및 EKS 실행 환경 개선을 담당했습니다.",
+      "skills": [
+        "Java 11",
+        "AWS MWAA",
+        "EKS",
+        "Aurora PostgreSQL",
+        "Airflow"
+      ],
+      "links": [],
+      "detail": {
+        "problem": "IDC의 API·배치·DB를 AWS로 전환하면서 기존 택배 서비스의 운영 연속성을 유지해야 했습니다.",
+        "analyze": [
+          "PPAS(EDB) 종속 쿼리와 Airflow DAG의 전환 순서, 배치 실행 환경의 콜드스타트 지연을 확인했습니다."
+        ],
+        "action": [
+          "팀과 함께 Airflow DAG 약 250개를 MWAA로 옮기고 태스크 80개를 통폐합했습니다.",
+          "내부·외주 구성원이 쿼리 전환에 참여할 수 있도록 수정 가이드와 코드 기여 방식을 정리했습니다.",
+          "EKS Fargate의 Java Pod 준비 지연을 벤치마크로 확인하고 EC2 노드그룹 전환에 참여했습니다."
+        ],
+        "result": [
+          "13개 서비스와 이기종 DB 2종의 IDC→AWS 전환에 공동 기여했습니다.",
+          "인프라 비용 절감이나 전체 이관을 단독 리드한 성과로 표기하지 않습니다."
+        ]
+      }
+    },
+    {
+      "name": "RunMarket | AI 보조 개인 프로젝트",
+      "description": "AI 도구를 활용해 러너 위치 공유 앱·서비스를 제작하고 iOS App Store와 Google Play에 출시했습니다. 부하 실험은 러너 위치 송신 경로에 한정됐습니다.",
+      "skills": [
         "React Native",
         "Expo",
-        "TypeScript",
         "Spring WebFlux",
-        "Reactive Redis",
+        "Redis",
         "Kubernetes",
-        "Helm",
+        "Helm"
       ],
-      links: [
-        { name: "about.runmarket.cc", url: "https://about.runmarket.cc/" },
-        { name: "GitHub", url: "https://github.com/runmarket-cc" },
+      "links": [
+        {
+          "name": "서비스",
+          "url": "https://about.runmarket.cc/"
+        },
+        {
+          "name": "GitHub",
+          "url": "https://github.com/runmarket-cc"
+        }
       ],
-      detail: {
-        problem:
-          "마라톤 대회나 러닝 크루에서 팀원들이 현재 어디서 달리고 있는지 위치를 파악해 코스에서 직접 응원하고, 팀원의 페이스와 이동 거리를 확인하여 러너의 안전을 확보하며 함께 달리는 동행 경험을 제공하고자 서비스를 직접 기획·개발함. 이를 구현하는 과정에서 1초 주기로 실시간 GPS 위치 및 운동 데이터를 송수신할 때, 동시 접속자 급증에 따른 블로킹 I/O 스레드 풀 고갈 및 모바일 네트워크 음영지역에서의 데이터 유실 방지와 클라이언트-서버-인프라 전반의 안정적 배포 체계 구축이 핵심 과제였음.",
-        analyze: [
-          "Spring MVC(Thread-per-request) 모델은 1초 주기 실시간 WebSocket 스트리밍 시 동시 접속자 급증에 따른 스레드 풀 고갈 및 컨텍스트 스위칭 오버헤드 유발",
-          "러너의 이동 중 일시적인 터널/음영지역 네트워크 단절 시 GPS 경로 데이터 유실 위험 존재 → 로컬 오프라인 버퍼링 및 복구 시 동기화 메커니즘 필요",
-          "모바일 백그라운드 GPS 위치 추적, 잠금화면/Dynamic Island 실시간 위젯(iOS Live Activity), Apple HealthKit 등 네이티브 생태계와의 정밀한 통합 필요",
-          "Docker 데몬 종속성 없는 경량 컨테이너 빌드 및 Kubernetes 선언적 IaC 기반 무중단 배포 표준화 필요",
+      "detail": {
+        "problem": "러너와 관전자가 위치를 공유하는 앱을 개인 프로젝트로 제작했습니다.",
+        "analyze": [
+          "k6 실험은 러너 위치 송신만 대상으로 했으며 관전자 구독·브로드캐스트와 전체 모바일 앱 흐름은 검증하지 않았습니다.",
+          "러너 수가 많아졌을 때 클라이언트 UI 크래시가 관찰됐습니다."
         ],
-        action: [
-          "Spring WebFlux + Reactive Redis: Netty 이벤트 루프 기반 전용 WebSocket 중계 서버(pulse.runmarket.cc)를 구축하고 Redis Pub/Sub 토픽 채널링으로 분산 인스턴스 간 초저지연 브로드캐스팅 구현",
-          "크로스플랫폼 앱 구축 (Expo SDK 56 / React Native): expo-location 백그라운드 위치 추적, SQLite 로컬 버퍼링 및 네트워크 재연결 시 REST API 자동 동기화(runSync) 파이프라인 구현",
-          "iOS Live Activity & Apple HealthKit 연동: Swift/Nitro 커스텀 모듈로 잠금화면/Dynamic Island 실시간 위젯을 연동하고, 러닝 완료 후 Apple HealthKit 운동 자동 동기화 구현",
-          "Google Jib & Helm 선언적 IaC: Docker 데몬 없는 경량 OCI 컨테이너 빌드 파이프라인 구축 및 Helm Chart(helm/runmarket)를 통한 K8s 배포 자동화, 무중단 롤링 업데이트 구성",
-          "k6 WebSocket 부하 테스트: 1,000 VU가 1초 주기로 위치 데이터를 전송하고 관전자가 수신하는 고부하 시나리오 시뮬레이션 수행",
+        "action": [
+          "AI 도구를 활용해 모바일 앱·서버·배포 구성을 만들고 양대 앱 스토어에 출시했습니다.",
+          "앱 기능을 수동 확인하고 공개 저장소의 과장된 부하 테스트 표현을 정정했습니다."
         ],
-        result: [
-          "iOS App Store 및 Google Play Store 양대 마켓 정식 출시 및 서비스 운영 중 (cc.runmarket.app)",
-          "k6 1,000명 동시 접속 실시간 부하 테스트 환경에서 에러율 0.00%, WebSocket 메시지 왕복 지연시간(RTT) 평균 38ms (p95: 62ms) 달성",
-          "SQLite 로컬 버퍼링 파이프라인으로 네트워크 단절 상황에서도 러닝 데이터 유실 제로 보장",
-          "Google Jib + Helm Chart 도입으로 CI/CD 경량화 및 환경 일관성 확보, 무중단 배포 체계 확립",
-        ],
-      },
-    },
+        "result": [
+          "iOS App Store와 Google Play에 앱을 출시했습니다.",
+          "1,000명 동시 처리량, 오류율 0% 또는 종단 간 관전자 전달 성능은 검증된 결과로 제시하지 않습니다."
+        ]
+      }
+    }
   ],
-  experience: [
+  "experience": [
     {
-      company: "GS리테일 (GS네트웍스에서 인사이동)",
-      title: "백엔드 개발자",
-      dateRange: "Oct 2022 – 현재",
-      bullets: [
-        "[우리동네GS × 택배 회원 연동 · 리드] 우리동네GS 가입 시 택배 회원 연동/가입 및 RS256 + AWS KMS 전용 인증 서버 구축 (월 1,197만 req 수용, 피크 에러율 0.042%)",
-        "[IDC → AWS 이관] Airflow 설계·이관 및 내부 운영 체계 구축, DAG 250개 → 170개 정비, 준비 시간 약 200초 → 80초 단축",
-        "[CRM CI 암호화 & 안정화] 3,000만 회원 CI 암호화 및 GS SHOP Kafka 연동 파이프라인 구축(Lag 관리), OTP/인가 보안 취약점 해결, 쿼리 80% 개선(1s → 200ms), 빌드 시간 90% 단축(20분 → 2분)",
-        "[DB 전환] Core API·배치의 PPAS 호환 쿼리를 ANSI SQL로 변경하고 단방향 동기화 대신 원본 테이블 직접 조회로 전환",
-      ],
+      "company": "GS리테일 | 통합서비스팀",
+      "title": "매니저 · 백엔드 엔지니어",
+      "dateRange": "2025.10 – 현재",
+      "bullets": [
+        "GS25·GSSHOP 통합회원 플랫폼의 출시 이후 인증·인가 보안, CI 암호화 및 회원 정책을 개선",
+        "운영 로그 중복을 정리해 본인 담당 변경분 약 43.5GB/일 적재량 감소 확인",
+        "AWS Lambda 기반 AI 코드리뷰 봇 설계·구축"
+      ]
     },
     {
-      company: "GS네트웍스",
-      title: "백엔드 개발자",
-      dateRange: "Aug 2021 – Oct 2022",
-      bullets: [
-        "[배송조회 API 고가용성] 네이버·당근·토스 공유 API의 Connection Timeout 원인 분석 및 해결",
-        "[캐시 레이어 & 장애 격리] 캐시 레이어(Redis + DB) 및 Fallback 패턴으로 Redis 장애 시 무중단 DB Fallback 보장",
-        "[캐시 최적화] 배송조회 및 토큰 발급에 단일 TTL 캐시를 적용하여 외부 API 중복 호출 차단 및 응답 안정성 향상",
-      ],
+      "company": "GS네트웍스 → GS리테일 | GS25 라이프스타일플랫폼팀",
+      "title": "매니저 · 백엔드 엔지니어",
+      "dateRange": "2021.08 – 2025.10 (2022.10 소속 변경)",
+      "bullets": [
+        "blackpink 인증·인가 서버의 KMS 기반 토큰 흐름과 Spring Security 권한 처리 설계·구현 (Java 21)",
+        "10여 개 제휴사의 택배 접수·상태 연동, CJ대한통운 FTP→OpenAPI 전환, 방문택배 백엔드 개발",
+        "팀의 13개 서비스·이기종 DB 2종 IDC→AWS 이관에서 MWAA 배치·쿼리 전환·EKS 실행 환경 개선에 기여"
+      ]
     },
     {
-      company: "마인드패스 (공동창업)",
-      title: "공동창업자",
-      dateRange: "Dec 2018 – Jan 2021",
-      bullets: [
-        "[인프라 및 백엔드 구축] On-Premise Linux 서버 배포 환경 구축 및 서비스 인프라 전담 운영",
-        "[AI 서빙 파이프라인 개발] GoogleNet 기반 이미지 분류/OCR 모델 서빙 API 개발 및 지원사업 5,000만원 수혜",
-        "[IoT 데이터 파이프라인] Raspberry Pi 기반 센서 데이터 수집 파이프라인 개발 및 건국대학교병원 파일럿 테스트 진행",
-      ],
-    },
+      "company": "마인드패스",
+      "title": "공동창업자",
+      "dateRange": "2018.11 – 2021.02",
+      "bullets": [
+        "GoogLeNet/CNN 기반 입술 움직임 인식 PoC 제작 및 실시간 시연 (상용 정확도 주장 아님)",
+        "위치 기반 Android 리마인더 앱 개발과 Linux 서버·DB 운영",
+        "창업지원사업 자료·발표 준비를 통해 5,000만 원 및 3,000만 원 프로그램 지원금 확보 (매출·투자 아님)"
+      ]
+    }
   ],
-  activities: [
+  "activities": [
     {
-      name: "런마켓 (RunMarket) - 러닝 동행 서비스",
-      organization: "개인 프로젝트",
-      dateRange: "2025 – 현재",
-      bullets: [
-        "러너-관전자 실시간 위치 공유 서비스 백엔드 및 인프라 전담 개발 (iOS App Store & Google Play Store 정식 출시)",
-        "Spring WebFlux + Reactive Redis 기반 고성능 WebSocket 실시간 위치 브로드캐스팅 파이프라인(pulse.runmarket.cc) 구축",
-        "Spring Boot 멀티모듈 아키텍처(web, socket, batch, core) 적용으로 도메인 및 관심사 분리",
-        "Google Jib 기반 데몬리스 컨테이너 이미지 빌드 및 Kubernetes & Helm Chart 선언적 IaC 배포 자동화",
-        "k6 부하 테스트: 1,000명 동시 접속 및 1초 주기 실시간 위치 수집 환경에서 에러율 0% 검증",
-      ],
-      link: "https://about.runmarket.cc/",
+      "name": "모두의연구소 코칭스터디",
+      "organization": "기술 멘토링",
+      "dateRange": "2023 – 2025",
+      "bullets": [
+        "Python·Data Science·Gen AI 학습자 대상 기술 멘토링 및 실습 코칭"
+      ]
     },
     {
-      name: "코칭스터디 멘토링",
-      organization: "모두의연구소",
-      dateRange: "2023 – 2025",
-      bullets: [
-        "누적 400명+ 학습자 대상 Python 기초, Data Science, Gen AI 기술 멘토링 및 실습 코칭",
-        "비전공자 및 주니어 대상 문제 해결 중심의 코드 리뷰 진행",
+      "name": "Rust 핵심 개념과 메모리 안전성 모델",
+      "organization": "GS리테일 사내 기술 세미나",
+      "dateRange": "2024",
+      "bullets": [
+        "Ownership·Borrowing 등 Rust 메모리 관리 개념을 사내 엔지니어에게 발표"
       ],
-    },
-    {
-      name: "Rust 핵심 개념과 메모리 안전성 모델",
-      organization: "GS리테일 사내 기술 세미나",
-      dateRange: "2024",
-      bullets: [
-        "소유권(Ownership), 차용(Borrowing) 등 Rust의 메모리 관리 메커니즘 사내 엔지니어 대상 공유",
-      ],
-      link: "https://gsretail.tistory.com/39",
-    },
+      "link": "https://gsretail.tistory.com/39"
+    }
   ],
-  education: [
+  "education": [
     {
-      school: "건국대학교 글로컬캠퍼스",
-      degree: "컴퓨터공학과 학사",
-      dateRange: "Mar 2014 – Feb 2021",
-      achievements: [
-        "학과 BareMetal 서버 대상 Ubuntu 기반 실습 서버 환경 구축 및 사용자/런타임 격리 운영",
-        "학과 네트워크 루핑 장애 트러블슈팅 및 L2/L3 스위치 패킷 경로 정상화",
-      ],
-    },
-  ],
+      "school": "건국대학교 글로컬캠퍼스",
+      "degree": "컴퓨터공학과 학사",
+      "dateRange": "2014.03 – 2021.02",
+      "achievements": []
+    }
+  ]
 };
