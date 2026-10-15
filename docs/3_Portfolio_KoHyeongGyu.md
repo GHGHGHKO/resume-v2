@@ -1,162 +1,45 @@
-# [기술 포트폴리오] 고형규 | Backend & DevOps Engineer
+# 고형규 | 백엔드 프로젝트 포트폴리오
 
-> **클라우드 네이티브 아키텍처 설계와 실제 운영 결과물의 기술적 증명**
+[gudrb963@gmail.com](mailto:gudrb963@gmail.com) · [GitHub](https://github.com/GHGHGHKO) · [웹 포트폴리오](https://feelsgoodfrog.vercel.app/)
 
-- **이메일:** gudrb963@gmail.com
-- **GitHub:** [github.com/GHGHGHKO](https://github.com/GHGHGHKO)
-- **Portfolio:** [feelsgoodfrog.vercel.app](https://feelsgoodfrog.vercel.app)
-- **개인 프로젝트 (런마켓):** [about.runmarket.cc](https://about.runmarket.cc) | [GitHub (runmarket-cc)](https://github.com/runmarket-cc)
+## RunMarket | AI 보조 개인 프로젝트
 
----
+[서비스 소개](https://about.runmarket.cc) · [GitHub](https://github.com/runmarket-cc/runmarket-pacer) · iOS App Store 및 Google Play 출시
 
-## 📑 목차
-1. **개인 프로젝트: 런마켓 (RunMarket) - 러닝 동행 실시간 위치 공유 서비스**
-   - 서비스 소개 및 운영 현황 (iOS & Android 정식 출시)
-   - RunMarket 멀티모듈 백엔드 생태계 및 아키텍처
-   - 핵심 엔지니어링 챌린지 1: Spring WebFlux & Reactive Redis 기반 실시간 위치 중계 (`pulse.runmarket.cc`)
-   - 핵심 엔지니어링 챌린지 2: Google Jib 기반 데몬리스 컨테이너 빌드 & Kubernetes + Helm Chart 선언적 IaC 자동화
-   - 핵심 엔지니어링 챌린지 3: k6 기반 1,000명 동시 접속 실시간 부하 테스트 (에러율 0.00% 달성)
-2. **실무 프로젝트 심층 분석 1: IDC → AWS MWAA 데이터 파이프라인 마이그레이션 (GS리테일)**
-   - 단계적 이관·복귀 전략과 Fargate vs EC2 PoC (준비 시간 약 200초 → 80초)
-   - DAG 250개 → 170개 정비, 자동 복구, 긴급 수정 판단 및 회고
-3. **실무 프로젝트 심층 분석 2: AWS KMS + RS256 비대칭키 기반 독립 인증 아키텍처 (GS리테일)**
-   - 비회원 서비스 영향 격리 구조 및 보안 토큰 서명/검증 플로우
+러너 위치 공유 서비스를 AI 도구를 활용해 제작했습니다. 생성 코드를 직접 검토했다고 주장하지 않으며, 구현 사실과 검증된 성능을 구분합니다.
 
----
+### 구성과 운영
 
-## 🚀 1. 개인 프로젝트: 런마켓 (RunMarket)
+- 앱 기능은 수동으로 확인했습니다. 서비스에는 러너 위치 송신과 관전자 구독 경로가 있으나, 현재 자료는 전체 송수신 성능을 입증하지 않습니다.
+- k6 예비 실험은 **러너 위치 송신 경로에 한정**됐습니다. 관전자 구독·브로드캐스트와 전체 서비스 용량은 검증하지 않았습니다.
+- 높은 부하에서 클라이언트 UI 크래시가 관찰됐습니다. 1,000명 수용, 0% 오류율, RTT 수치를 성능 성과로 제시하지 않습니다.
 
-> **"러너와 관전자가 실시간으로 위치와 페이스를 공유하는 러닝 동행 서비스"**
-> - **서비스 URL:** [https://about.runmarket.cc](https://about.runmarket.cc)
-> - **GitHub Organization:** [https://github.com/runmarket-cc](https://github.com/runmarket-cc)
-> - **운영 현황:** iOS App Store & Google Play Store 양대 마켓 정식 출시 및 서비스 운영 중 (Bundle ID: `cc.runmarket.app`)
-> - **담당 역할:** 1인 백엔드 아키텍처 설계, Spring Boot 멀티모듈 개발, Google Jib 컨테이너화, Kubernetes & Helm Chart 기반 IaC 인프라 전담 구축
+## IDC → AWS: 배치 플랫폼 이관과 운영 내재화
 
-### 🛠 Tech Stack
-- **Backend:** Java 17, Spring Boot 3, Spring WebFlux, Spring MVC, Spring Batch, Spring Data JPA, Spring Data Reactive Redis
-- **Infra & DevOps:** Kubernetes, Helm Charts (`helm/runmarket`), Google Jib (Daemonless Container Build), GitHub Actions, Nginx Ingress Controller
-- **Database & Cache:** PostgreSQL, SQLite, Redis (Pub/Sub & Geospatial)
-- **Testing & Tooling:** k6 (WebSocket Load Testing), Postman, Git
+**기간:** 사전 분석·점진적 수정 2023.01–2023.05, 본 이관 2023.06–2024.03, 안정화 2024.04까지. **범위:** 13개 서비스와 PPAS DB 2종의 팀 공동 이관.
 
----
+### 본인 기여와 전환 절차
 
-### 🏛 전체 시스템 및 멀티모듈 백엔드 아키텍처
+- Airflow 아키텍처 설계·이관, DAG 정비, 배포 자동화, Core API·Spring Batch SQL 전환과 외주 인력 온보딩을 맡았습니다.
+- 동일한 Spring Batch 이미지를 IDC·AWS 레지스트리에 올리고 IDC 동작과 실행 Pod 종료를 확인한 뒤 DAG를 순차 전환했습니다. 문제가 있으면 IDC DAG를 다시 켤 수 있도록 했습니다.
+- 기존·변경 SQL은 동기화된 IDC·AWS DB에서 결과를 비교했습니다. 모든 쿼리 누락을 자동 검출한 것은 아니며 전환 뒤 누락된 쿼리를 긴급 수정·테스트 후 배포한 사례가 있습니다.
 
-```
-                  ┌─────────────────────────────────┐
-                  │   runmarket-front (Web Frontend) │
-                  │      https://runmarket.cc       │
-                  └────────────────┬────────────────┘
-                                   │
-                                   ▼
-┌─────────────────────────────────────────────────────────────────────────┐
-│                    runmarket-app (iOS & Android App)                    │
-│                        Bundle ID: cc.runmarket.app                      │
-└──────────────┬──────────────────────────────────┬───────────────────────┘
-               │                                  │
-      HTTP REST│ (Bearer JWT)                     │ WebSocket Stream (WSS)
-  api.runmarket.cc                                │ pulse.runmarket.cc
-               ▼                                  ▼
-      [ Nginx Ingress ]                  [ Nginx Ingress ]
-               │                                  │
-┌──────────────┴──────────────────────────────────┴───────────────────────┐
-│                Kubernetes Cluster (IaC / Helm)                          │
-│                                                                         │
-│  ├── [web]     : Spring MVC REST API (인증, 유저/코스/기록)              │
-│  ├── [socket]  : Spring WebFlux + Reactive Redis 실시간 위치 중계        │
-│  ├── [batch]   : Spring Batch + Jsoup 마라톤/대회 데이터 웹 크롤러      │
-│  └── [core]    : application, domain, infrastructure, event-bus         │
-└────────────────────────────────┬────────────────────────────────────────┘
-                                 │
-                 ┌───────────────┼───────────────┐
-                 ▼               ▼               ▼
-         [ Redis Pub/Sub ]   [ SQLite ]   [ PostgreSQL DB ]
-         (실시간 중계/브로드캐스트) (실시간 위치)  (영속 데이터 저장)
-```
+### 실행 환경과 정비 결과
 
----
+- MWAA의 KubernetesPodOperator가 EKS의 Spring Batch 컨테이너를 실행하도록 구성했습니다. DAG 커밋 후 CI/CD·S3 Sync로 배포하고 Airflow Variables API로 이미지 버전을 갱신했습니다.
+- 미사용 DAG 정리와 저처리량 제휴사 20곳의 전송 작업 통합으로 DAG를 약 **250개에서 170개**로 줄였습니다.
+- Fargate 준비 시간 약 200초와 EC2 약 80초를 비교해 EC2를 선택했습니다. 약 60% 개선은 **준비 시간**에 한정됩니다. 전체 Job 처리 시간과 운영 비용 감소율은 확인하지 않았습니다.
+- 기존 실패 지점 재개 구조를 활용한 Job 재시도와 SNS 알림을 구성했습니다. DB 락의 근본 원인 해결과는 구분합니다.
 
-### 💡 핵심 엔지니어링 챌린지 및 해결 과정
+## blackpink | 택배 인증·인가 서버
 
-#### 🎯 Challenge 1: Spring WebFlux & Reactive Redis 기반 실시간 위치 중계 (`socket` 모듈)
-- **문제점:** 수많은 러너와 관전자가 1초 주기로 실시간 GPS 위치를 송수신하는 구조에서, 전통적인 Spring MVC (Thread-per-request) 방식은 동시 접속자 증가 시 스레드 풀 고갈 및 컨텍스트 스위칭 오버헤드가 발생했습니다.
-- **해결책:**
-  1. **Spring WebFlux (Non-blocking I/O) 채택:** Netty 기반의 이벤트 루프 모델을 통해 최소한의 스레드로 수천 개의 동시 WebSocket 세션을 처리하도록 전용 WebSocket 서비스(`pulse.runmarket.cc`)로 분리 구축했습니다.
-  2. **Reactive Redis Pub/Sub 채널링:** 러닝 방(Room)별 고유 토픽을 구독(Sub) 및 발행(Pub)하여 분산 인스턴스 간 지연 없는 위치 메시지 브로드캐스팅을 구현했습니다.
-  3. **실시간 위치 데이터 관리:** 실시간 위치는 SQLite에 저장/관리하고, 러닝 종료 시점에 PostgreSQL로 영속화하여 안정적인 데이터 파이프라인을 구축했습니다.
+- **Java 21**, AWS KMS, Spring Security를 사용해 stateless 토큰의 발급·검증·갱신과 API 인가 규칙을 설계·구현했습니다.
+- GRM 발급 토큰 검증·회원 식별을 담당했고, 실제 계정 연결 API는 다른 담당자의 작업입니다.
+- 현장 장비 약 **18,000대**와 키오스크 게스트 인증을 구현했습니다. 그 외 주요 업무 서비스는 **Java 11**입니다.
 
-#### 🎯 Challenge 2: Google Jib 기반 데몬리스 컨테이너 빌드 & Helm Chart 선언적 IaC 자동화
-- **문제점:** 멀티 모듈(API, WebSocket, Batch) 애플리케이션의 컨테이너 빌드 시 호스트에 Docker 데몬이 종속되어 CI 환경이 무거워지고, 수동 리소스 관리 시 환경 불일치 및 배포 실수가 발생할 수 있었습니다.
-- **해결책:**
-  1. **Google Jib 빌드 파이프라인 도입:** Docker 데몬 및 Dockerfile 작성 없이 Gradle 빌드 과정에서 OCI 표준 컨테이너 이미지를 레이어별로 최적화하여 빌드. 레이어 캐싱을 통해 빌드 및 배포 속도를 높였습니다.
-  2. **Helm Chart 템플릿화 (`helm/runmarket`):** Deployment, Service, Ingress, ConfigMap, Secret을 Helm Chart로 표준화하고, `values.yaml`을 통해 환경 설정을 코드화(IaC)했습니다.
-  3. **무중단 롤링 업데이트:** `readinessProbe`와 `livenessProbe`를 구성하여 Pod 교체 중 WebSocket 세션 끊김 없는 무중단 배포를 달성했습니다.
+## GRM | 출시 후 보안·운영 개선
 
-#### 🎯 Challenge 3: k6 기반 1,000명 동시 접속 실시간 부하 테스트
-- **목표:** 동시 러너 1,000명이 1초 주기로 위치 데이터를 전송하고, 관전자가 실시간으로 수신하는 피크 시나리오 검증
-- **테스트 환경:** k6 분산 스크립트 작성 (WebSocket VUs 시뮬레이션)
-- **테스트 결과:**
-  - **동시 접속자:** 1,000 VU (Virtual Users)
-  - **요청 주기:** 1초 간격 실시간 좌표 전송
-  - **결과 지표:** **에러율 0.00% 달성**, WebSocket 메시지 왕복 지연시간(RTT) **평균 38ms (p95: 62ms)** 달성
+2025.10부터 참여했으며 2024년 초기 구축·데이터 이관은 본인 기여가 아닙니다.
 
----
-
-## 🏛 2. 실무 프로젝트 심층 분석 1: IDC → AWS 배치 플랫폼 이관
-
-- **기간:** 2023.06–2024.03 (2023.01부터 사전 분석·수정, 2024.04까지 안정화)
-- **팀·본인 기여:** 내부 3명·외주 3명 / Airflow 설계·이관, Core API·배치 SQL 전환 및 외주 온보딩 담당
-
-### 문제 정의
-
-- 외주 의존으로 코드 변경·유지보수가 어려운 IDC 배치 환경과 짧은 주기 작업의 지연 해소, 내부 운영 체계 확보 필요
-
-### 해결 전략 및 본인 기여
-
-- 동일 이미지의 IDC 검증·Pod 종료 확인 후 AWS로 순차 전환하고 IDC 복귀 절차 구성
-- 5분 주기 배치의 Fargate·EC2 PoC 후 준비 시간이 짧은 EC2 선택. S3 Sync·Airflow Variables API 기반 배포 자동화 구성
-- 미사용 DAG 제거 및 제휴사 20곳의 전송 작업을 병렬 Flow로 통합. 기존 실패 지점 재개 구조를 활용한 재시도·SNS 알림 구성
-- Aurora PostgreSQL 통합에 맞춰 Core API·배치의 PPAS 쿼리를 ANSI SQL로 변경하고 단방향 동기화 대신 원본 직접 조회로 전환
-
-### 성과
-
-- DAG 250개 → 170개 축소 및 배치 준비 시간 약 200초 → 80초 단축
-- 수동 대응 주 약 3–4건 → 월 약 1–2건 감소 (운영 경험에 따른 추정치)
-
-### 대응 경험 및 개선 과제
-
-- 전환 후 누락 쿼리 오류는 범위가 작고 원인이 명확하여 롤백 대신 ANSI SQL 긴급 수정·테스트·배포로 대응
-- 일부 Flow 실패 시 전체 Job 실패로 표시되어 로그 확인 필요. DB 락은 추가 개선 중이며, 짧은 주기 배치의 메시징 전환은 향후 과제로 미구현
-
----
-
-## 🔒 3. 실무 프로젝트 심층 분석 2: AWS KMS + RS256 기반 독립 인증/인가 아키텍처
-
-### 🛡 기존 서비스 영향 격리 & 비대칭키 검증 워크플로우
-
-```
-[ 우리동네GS App (1,500만 유저) ]
-            │ (1) 앱 로그인 요청
-            ▼
-┌───────────────────────────────────────────────┐
-│ [NEW] 전용 인증/인가 서버 (AWS EKS)           │
-│  - AWS KMS 비대칭 키(RS256)로 JWT 서명         │
-│  - Public JWKS 엔드포인트 호스팅              │
-└───────────────────────┬───────────────────────┘
-                        │ (2) 발행된 JWT 토큰
-                        ▼
-┌───────────────────────────────────────────────┐
-│ [택배 서비스 게이트웨이 / Interceptor 계층]   │
-│  - JWKS 캐시를 통한 로컬 공개키 서명 검증     │
-│  - session cluster 기반 내부 회원 세션 연계    │
-└───────────────────────┬───────────────────────┘
-                        │
-         ┌──────────────┴──────────────┐
-         ▼                             ▼
-[ 통합 회원 비즈니스 로직 ]     [ 기존 비회원 서비스 ]
-(단일 DB 환경 내 독립 마이크로서비스 구축으로 기존 서비스 영향 최소화)
-```
-
-### 💡 엔지니어링 핵심 성과
-- **보안성 확보:** AWS KMS 기반 RS256 비대칭키 서명 체계를 통해 외부 시스템에 안전한 공개키(JWKS) 제공 및 payload 서명 검증 체계 구현
-- **가용성 & 안정성:** 월 요청량 8.5배 급증(140만 → 1,197만 건) 상황에서도 피크 에러율 0.042% 유지
+- OTP 우회·타 계정 정보 접근 취약점을 수정하고 CI 암호화 경로를 개선했습니다.
+- 중복 요청 파라미터 로그 **155건**을 정리했습니다. 트래픽 보정 비교에서 본인 담당 변경분 약 **43.5GB/일**, 팀 1차 배포 전체 약 **87GB/일(40.7%)**의 적재량 감소를 확인했습니다.
