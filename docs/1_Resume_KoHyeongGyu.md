@@ -1,94 +1,76 @@
-# [이력서] 고형규 | Backend & DevOps Engineer
+# 고형규 | 백엔드 엔지니어
 
-> **1,500만 유저 대규모 트래픽 안정화와 Observability 기반의 기민한 배포·인프라를 주도하는 5년 차 엔지니어**
+[gudrb963@gmail.com](mailto:gudrb963@gmail.com) · [GitHub](https://github.com/GHGHGHKO) · [포트폴리오](https://feelsgoodfrog.vercel.app/)
 
-- **이메일:** gudrb963@gmail.com
-- **GitHub:** [github.com/GHGHGHKO](https://github.com/GHGHGHKO)
-- **Portfolio:** [feelsgoodfrog.vercel.app](https://feelsgoodfrog.vercel.app)
-- **개인 프로젝트 (런마켓):** [about.runmarket.cc](https://about.runmarket.cc) | [GitHub (runmarket-cc)](https://github.com/runmarket-cc)
+## 소개
 
----
+택배·회원 서비스의 인증, 외부 연동, 보안 및 운영 개선을 맡아온 Java/Spring 백엔드 엔지니어입니다. 우리동네GS 택배 인증·인가 서버를 설계·구현하고, 편의점택배 제휴 연동과 팀 공동 AWS 이관에 참여했습니다. 현재는 GS25·GSSHOP 통합회원 플랫폼의 출시 이후 보안·개인정보·운영 개선을 담당합니다.
 
-## 📌 Summary
+## 핵심 역량
 
-- **대규모 트래픽 안정화 & 클라우드 인프라 이관:** GS리테일에서 1,500만 유저 앱 '우리동네GS'와 택배 서비스의 회원 통합(우리동네GS 가입 시 택배 회원 연동/가입) 전용 인증 서버 구축(월 1,200만 req 수용) 및 일 1,280만 req 규모 레거시 시스템의 AWS 이관에서 배치 플랫폼과 Core API·배치 SQL 전환을 담당했습니다.
-- **Observability 기반의 기민한 운영 배포:** Datadog 기반의 정밀한 모니터링 체계를 바탕으로 병목과 장애를 선제 탐지하고, 잦은 프로덕션 배포와 신속한 수정 사이클을 주도했습니다.
-- **데이터 파이프라인 & 컨테이너 최적화:** 3,000만 회원 CI 암호화 및 GS SHOP Kafka 연동 파이프라인(Lag 관리), MWAA 데이터 파이프라인 최적화(DAG 250개 → 170개, 내부 운영 체계 구축), Google Jib 기반 데몬리스 컨테이너 빌드, Docker 빌드 시간 90% 단축(20분 → 2분)을 직접 주도했습니다.
+- AWS KMS 기반 stateless 토큰과 Spring Security 인가를 구현하고 현장 장비 약 **18,000대**의 인증을 지원했습니다.
+- 택배 제휴사 **10여 개**의 접수·배송 연동과 방문택배 백엔드를 개발·운영했습니다.
+- GRM 로그 개선에서 본인 담당 변경분의 적재량을 약 **43.5GB/일** 줄였습니다. 팀 1차 배포 기준 전체 감소량은 **87GB/일(40.7%)** 수준입니다.
 
----
+## 경력
 
-## 🛠 Technical Skills
+### GS리테일 | 통합서비스팀 매니저 | 2025.10–현재
 
-| 구분 | 주요 기술 스택 |
-| :--- | :--- |
-| **Cloud & Infra** | AWS (EC2, EKS, RDS, S3, KMS, MWAA), Linux, Kubernetes, Docker, Helm Chart |
-| **CI/CD & Container Build** | GitHub Actions, Google Jib (Daemonless Build), Dockerfile 최적화, IaC, Bash Scripting |
-| **Observability** | Datadog (APM, Metrics, Log Management, Dashboard, Alerting), CloudWatch |
-| **Backend & DB** | Java 17, Spring Boot 3, Spring WebFlux, Spring Batch, JPA, PostgreSQL, Redis / Valkey, SQLite |
-| **Data & Messaging**| Apache Kafka (Lag Management), Apache Airflow / AWS MWAA (170 DAGs), WebSocket, Python |
-| **Testing & Tools** | k6 부하 테스트, Git, JIRA, Confluence, Slack |
+**GS25·GSSHOP 통합회원 플랫폼(GRM) 출시 후 개선**
 
----
+- 2024년 초기 구축·데이터 이관에는 참여하지 않았으며, 출시 이후 보안·개인정보·운영 개선을 담당했습니다.
+- 비밀번호 찾기 OTP 우회와 타 계정 정보 접근 등 인증·인가 취약점을 수정하고 가입·재가입 정책을 개선했습니다.
+- 통합회원 동기화·분리보관·복제 DB 경로의 CI 암호화와 배포 전환 작업을 수행했습니다.
+- UI 서비스의 불필요한 로그와 회원 API의 중복 요청 파라미터 로그 **155건**을 정리했습니다. 트래픽을 보정한 배포 전후 비교에서 본인 담당 변경분은 약 **43.5GB/일**, 팀 1차 배포 기준 GRM 전체는 약 **87GB/일(40.7%)** 감소했습니다.
+- production 대상 PR 변경 사항과 운영 관측 데이터를 함께 검토하도록 AWS Lambda 기반 AI 코드리뷰 봇을 설계·구축했습니다.
 
-## 💼 Work Experience
+### GS네트웍스 → GS리테일 | GS25 라이프스타일플랫폼팀 매니저 | 2021.08–2025.10
 
-### **GS리테일** (GS네트웍스에서 인사이동)
-*소속: 통합서비스팀 | 직책: 백엔드 | 2022.10 – 현재 (재직 중)*
+2022.10 사내 인사이동으로 소속 회사가 변경됐습니다.
 
-- **[우리동네GS × 택배 회원 연동 · 리드]**
-  - 1,500만 유저 앱 '우리동네GS' 가입 시 택배 시스템 회원 여부에 따라 연동/가입을 처리하는 회원 통합 체계 구축
-  - RS256 + AWS KMS 기반 전용 인증 서버 분리 구축으로 기존 서비스 영향 최소화
-  - session cluster 기반의 레거시 홈페이지 인입 계층에 Interceptor를 구성하여 JWT 검증 및 내부 회원 세션 연계 생성
-  - 연동 후 월 요청량 140만 → 1,197만 건(8.5배) 안정적 수용 및 피크 에러율 0.042% 유지
-- **[택배 서비스 IDC → AWS 배치 플랫폼 이관 및 운영 내재화]**
-  - **기간:** 2023.06–2024.03 (2023.01부터 사전 분석·수정, 2024.04까지 안정화)
-  - **팀·본인 기여:** 내부 3명·외주 3명 / Airflow 설계·이관, Core API·배치 SQL 전환 및 외주 온보딩 담당
-  - 외주 의존 배치 환경의 MWAA·EKS 이관 및 동일 이미지 검증 기반 순차 전환·복귀 절차 구성
-  - Fargate·EC2 PoC로 준비 시간 약 200초 → 80초 단축, 미사용 DAG 제거·제휴사 Flow 통합으로 DAG 250개 → 170개 축소
-  - 기존 재개 구조를 활용한 재시도·SNS 알림 구성, 수동 대응 주 약 3–4건 → 월 약 1–2건 감소 (운영 경험에 따른 추정치)
-  - Core API·배치의 ANSI SQL 전환 및 단방향 동기화 제거, 작은 범위의 누락 쿼리 오류는 긴급 수정·검증 후 배포
-- **[CRM CI 암호화 & 서비스 안정화 · 진행 중]**
-  - 3,000만 회원 평문 CI 암호화 전환: API 및 배치 쿼리 변경 후 암호화 컬럼에 안전하게 적재
-  - CRM DB와 연동된 GS SHOP에 Kafka 기반 개인정보 실시간 동기화 파이프라인 구축 및 Consumer Lag 관리
-  - 비밀번호 변경 API의 OTP 인증 세션 검증 및 인가(Authorization) 검증 누락 보안 취약점 해결로 계정 탈취 원천 차단
-  - 쿼리 80% 개선(1s → 200ms) 및 Dockerfile 수정으로 빌드 시간 20분 → 2분(90% 단축)
+**우리동네GS 택배 인증·인가 서버 (blackpink, Java 21)**
 
----
+- AWS KMS 기반 서명·암호화를 적용한 stateless 토큰 발급·검증·갱신 흐름을 설계·구현했습니다.
+- Spring Security 필터와 인가 규칙으로 연동 시스템별 API 접근과 예약·주소 등 고객 데이터의 소유자 접근을 제어했습니다.
+- GRM 토큰 검증과 회원 식별 단계를 구현했습니다. 실제 회원 계정 연결 API는 다른 담당자의 작업입니다.
+- 현장 장비 약 **18,000대**의 인증과 키오스크 게스트 인증을 구현했습니다.
 
-### **GS네트웍스**
-*소속: 시스템파트 | 직책: 백엔드 | 2021.08 – 2022.10*
+**편의점택배·방문택배 백엔드 (주요 업무 서비스 Java 11)**
 
-- **[배송조회 API 고가용성 구축]**
-  - 네이버, 당근, 토스 등 제휴사가 공유하는 배송조회 API의 Connection Timeout 병목 해소
-  - 캐시 레이어(Redis + DB) 및 Fallback 패턴 구현으로 Redis 장애 시 무중단 DB Fallback 보장
-  - 배송조회 및 토큰 발급에 단일 TTL 캐시를 적용하여 외부 API 중복 호출 차단 및 응답 지연 개선
+- 토스·네이버·번개장터·쇼피 등 **10여 개** 제휴사의 택배 접수·배송 상태 연동을 개발·운영했습니다.
+- 점포 POS 취소 신호를 연동해 환불 후 동일 운송장을 다시 접수하는 어뷰징을 차단했습니다.
+- CJ대한통운 미접수 연동을 FTP 파일 교환에서 OpenAPI 호출로 전환하고 API 토큰 갱신 배치를 구축했습니다.
+- 우리동네GS 택배 예약·주소록 API와 방문택배 접수·취소·상태 처리 백엔드를 개발했습니다. 취소 코드 누락으로 미처리된 **86건**의 취소·환불·상태·알림 작업을 수정 배포 후 **1시간 26분** 만에 복구했습니다.
 
----
+**IDC → AWS 이관 (팀 공동 작업, 2023.01–2024.04)**
 
-### **마인드패스 (공동창업)**
-*직책: 공동창업자 | 2018.12 – 2021.01*
+- 13개 서비스와 서로 다른 테이블 구조의 PPAS DB 2종을 AWS로 옮기는 팀 프로젝트에 참여했습니다. 초기 분석·점진적 수정, 본 이관, 안정화 기간을 포함한 범위입니다.
+- Airflow DAG 약 250개를 MWAA로 이관하면서 미사용 작업 정리와 저처리량 제휴사 작업 통합으로 **250개에서 170개**로 줄였습니다. Core API·배치 SQL 전환과 순차 운영 배포, 외주 인력 온보딩에도 기여했습니다.
+- 동일한 Spring Batch 이미지를 IDC·AWS에 배포하고 실행 상태를 확인한 뒤 DAG를 순차 전환했습니다. 문제 발생 시 IDC로 복귀 가능한 절차를 마련했습니다.
+- Fargate·EC2 실행 환경을 비교해 5분 주기 배치의 준비 시간이 약 200초에서 약 80초로 줄어드는 EC2 환경을 선택했습니다. 이는 준비 시간 비교이며 전체 처리 시간이나 비용 절감 수치가 아닙니다.
 
-- On-Premise Linux 서버 배포 환경 구축 및 서비스 인프라 전담 운영
-- GoogleNet 기반 이미지/OCR 모델 서빙 API 개발 및 정부 지원사업 5,000만 원 수혜
-- Raspberry Pi 기반 센서 데이터 수집 파이프라인 개발 및 건국대학교병원 파일럿 테스트 진행
+### 마인드패스 | 공동창업자 | 2018.11–2021.02
 
----
+- GoogLeNet/CNN 기반 입술 움직임 인식 PoC를 제작해 제한된 발화의 실시간 시연을 진행했습니다. 상용 정확도는 검증하지 않았습니다.
+- 위치 기반 Android 리마인더 앱 개발과 Linux 서버·DB 운영을 맡았습니다.
+- 창업지원사업 신청 자료와 발표를 준비해 **5,000만 원** 및 **3,000만 원** 규모의 프로그램 지원금을 확보했습니다. 매출·투자 유치액은 아닙니다.
 
-## 🚀 Projects & Activities
+## 개인 프로젝트
 
-- **런마켓 (RunMarket) - 러닝 동행 실시간 위치 공유 서비스 (2025 ~ 현재)**
-  - 러너와 관전자가 실시간으로 위치와 페이스를 공유하는 서비스 (iOS App Store & Google Play Store 양대 마켓 정식 출시 운영 중)
-  - Spring Boot 멀티모듈 (`web` REST API, `socket` WebFlux WebSocket, `batch` 크롤러, `core` 도메인) 백엔드 전담 구축
-  - Google Jib 기반 데몬리스 컨테이너 이미지 빌드 & Kubernetes + Helm Chart 선언적 IaC 배포 자동화
-  - k6 기반 1,000명 동시 접속 1초 주기 위치 수집 시뮬레이션 부하 테스트 (에러율 0.00% 달성)
-  - 서비스 소개: [about.runmarket.cc](https://about.runmarket.cc) | GitHub: [github.com/runmarket-cc](https://github.com/runmarket-cc)
-- **사내 기술 세미나: 'Rust 핵심 개념과 메모리 안전성 모델' (2024)**
-  - 소유권(Ownership), 차용(Borrowing) 등 Rust의 메모리 관리 메커니즘 사내 엔지니어 공유
-- **모두의연구소 코칭스터디 기술 멘토링 (2023 ~ 2025)**
-  - 누적 400명+ 학습자 대상 Python 기초 및 데이터 처리 멘토링, 문제 해결 중심 코드 리뷰
+### RunMarket | AI 보조 개발 개인 프로젝트 | 2026.04–현재
 
----
+[GitHub](https://github.com/runmarket-cc/runmarket-pacer) · iOS App Store 및 Google Play 출시
 
-## 🎓 Education
+- AI 도구를 활용해 러너 위치 공유 서비스를 제작·출시했습니다. 생성 코드를 직접 검토했다고 주장하지 않습니다.
+- 앱 기능을 수동 확인했습니다. k6 예비 실험은 러너 위치 **송신 경로에 한정**됐으며 관전자 구독·브로드캐스트와 전체 서비스 용량은 검증하지 않았습니다. 높은 부하에서 클라이언트 UI 크래시가 관찰됐습니다.
 
-- **건국대학교 글로컬캠퍼스** | 컴퓨터공학과 학사 (2014.03 – 2021.02)
+## 기술
+
+- **Java 21**: blackpink 인증 서버, Spring Batch 작업
+- **Java 11**: 그 외 업무 서비스
+- Spring Boot, Spring Security, JPA·QueryDSL, PostgreSQL, Redis
+- AWS(KMS·EKS·MWAA), Airflow, Kubernetes·Helm, Datadog, OpenSearch·Athena
+
+## 학력
+
+건국대학교 글로컬캠퍼스 컴퓨터공학과 학사 | 2014.03–2021.02
