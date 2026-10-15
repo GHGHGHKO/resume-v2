@@ -10,7 +10,8 @@ export const siteConfig = {
   },
   "aboutMe": "택배·회원 서비스의 인증, 제휴 연동, 보안 및 운영 개선을 맡아온 백엔드 엔지니어입니다. 우리동네GS 택배 인증·인가 서버의 토큰 발급·검증·갱신과 권한 처리를 설계·구현했고, 편의점택배 제휴 연동 및 팀의 IDC→AWS 이관에 참여했습니다. 현재는 GS25·GSSHOP 통합회원 플랫폼의 출시 이후 보안·개인정보·운영 개선을 담당합니다.",
   "skills": [
-    "Java 11 / 21",
+    "Java 11 (기타 업무 서비스)",
+    "Java 21 (blackpink·Spring Batch)",
     "Spring Boot",
     "Spring Security",
     "Spring Batch",
