@@ -1,196 +1,39 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>고형규 - 기술 포트폴리오 (Portfolio)</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <div class="top-bar no-print">
-    <span class="title">고형규 | 기술 포트폴리오 (Portfolio) - 주식회사 피처링 [프로덕트] DevOps 지원</span>
-    <button class="btn-print" onclick="window.print()">🖨️ PDF 인쇄 / 저장</button>
-  </div>
-
-  <div class="container">
-    <header>
-      <h1>기술 포트폴리오 (Portfolio)</h1>
-      <div class="subtitle">클라우드 네이티브 아키텍처 설계와 실제 운영 결과물의 기술적 증명</div>
-      <div class="contact-info">
-        <span>고형규 (Ko Hyung-gyu) | 5년차 백엔드 & DevOps 엔지니어</span>
-        <span>📧 <a href="mailto:gudrb963@gmail.com">gudrb963@gmail.com</a></span>
-        <span>💻 <a href="https://github.com/GHGHGHKO" target="_blank">github.com/GHGHGHKO</a></span>
-        <span>🚀 <a href="https://feelsgoodfrog.vercel.app" target="_blank">feelsgoodfrog.vercel.app</a></span>
-        <span>🏃 <a href="https://about.runmarket.cc" target="_blank">about.runmarket.cc</a></span>
-      </div>
-    </header>
-
-    <section>
-      <h2>1. 개인 프로젝트: 런마켓 (RunMarket)</h2>
-      <div class="callout">
-        <strong>"러너와 관전자가 실시간으로 위치와 페이스를 공유하는 러닝 동행 서비스"</strong><br>
-        • <strong>서비스 소개:</strong> <a href="https://about.runmarket.cc" target="_blank">about.runmarket.cc</a><br>
-        • <strong>GitHub Organization:</strong> <a href="https://github.com/runmarket-cc" target="_blank">github.com/runmarket-cc</a><br>
-        • <strong>운영 현황:</strong> iOS App Store & Google Play Store 양대 마켓 정식 출시 및 서비스 운영 중 (Bundle ID: <code>cc.runmarket.app</code>)<br>
-        • <strong>역할:</strong> 1인 백엔드 아키텍처 설계, Spring Boot 멀티모듈 구축, Google Jib 컨테이너화, Kubernetes & Helm 기반 선언적 IaC 인프라 전담
-      </div>
-
-      <div class="badge-group">
-        <span class="badge badge-primary">Java 17</span>
-        <span class="badge badge-primary">Spring Boot 3</span>
-        <span class="badge badge-primary">Spring WebFlux</span>
-        <span class="badge badge-primary">Reactive Redis</span>
-        <span class="badge badge-primary">Google Jib</span>
-        <span class="badge">Kubernetes</span>
-        <span class="badge">Helm Chart</span>
-        <span class="badge">PostgreSQL</span>
-        <span class="badge">SQLite</span>
-        <span class="badge">k6 Load Testing</span>
-      </div>
-
-      <h3>🏛 멀티모듈 백엔드 아키텍처</h3>
-      <pre>
-                  ┌─────────────────────────────────┐
-                  │   runmarket-front (Web Frontend) │
-                  │      https://runmarket.cc       │
-                  └────────────────┬────────────────┘
-                                   │
-                                   ▼
-┌─────────────────────────────────────────────────────────────────────────┐
-│                    runmarket-app (iOS & Android App)                    │
-│                        Bundle ID: cc.runmarket.app                      │
-└──────────────┬──────────────────────────────────┬───────────────────────┘
-               │                                  │
-      HTTP REST│ (Bearer JWT)                     │ WebSocket Stream (WSS)
-  api.runmarket.cc                                │ pulse.runmarket.cc
-               ▼                                  ▼
-      [ Nginx Ingress ]                  [ Nginx Ingress ]
-               │                                  │
-┌──────────────┴──────────────────────────────────┴───────────────────────┐
-│                Kubernetes Cluster (IaC / Helm)                          │
-│                                                                         │
-│  ├── [web]     : Spring MVC REST API (인증, 유저/코스/기록)              │
-│  ├── [socket]  : Spring WebFlux + Reactive Redis 실시간 위치 중계        │
-│  ├── [batch]   : Spring Batch + Jsoup 마라톤/대회 데이터 웹 크롤러      │
-│  └── [core]    : application, domain, infrastructure, event-bus         │
-└────────────────────────────────┬────────────────────────────────────────┘
-                                 │
-                 ┌───────────────┼───────────────┐
-                 ▼               ▼               ▼
-         [ Redis Pub/Sub ]   [ SQLite ]   [ PostgreSQL DB ]
-         (실시간 중계/브로드캐스트) (실시간 위치)  (영속 데이터 저장)</pre>
-
-      <h3>💡 핵심 엔지니어링 챌린지 및 해결 과정</h3>
-
-      <div class="card">
-        <h4 style="color: var(--text-main); font-size: 16px;">🎯 챌린지 1: Spring WebFlux & Reactive Redis 기반 실시간 위치 중계 (socket 모듈)</h4>
-        <p><strong>[문제점]</strong> 수많은 러너와 관전자가 1초 주기로 위치 데이터를 주고받는 환경에서, 전통적인 Spring MVC (Thread-per-request) 방식은 동시 접속자 증가 시 스레드 풀 고갈 및 컨텍스트 스위칭 오버헤드가 발생했습니다.</p>
-        <p><strong>[해결책]</strong></p>
-        <ul>
-          <li><strong>Spring WebFlux 도입:</strong> Netty 기반 Non-blocking Event Loop 모델을 채택하여 최소한의 스레드로 수천 개의 동시 WebSocket 커넥션을 유지하도록 전용 WebSocket 서비스(<code>pulse.runmarket.cc</code>)로 분리했습니다.</li>
-          <li><strong>Reactive Redis Pub/Sub 채널링:</strong> 방(Room) 단위 고유 채널을 생성하고 Redis Reactive Subscriber를 활용해 분산 노드 간 지연 없는 실시간 브로드캐스팅을 구현했습니다.</li>
-          <li><strong>실시간 위치 데이터 관리:</strong> 실시간 위치는 SQLite에 저장/관리하고, 러닝 종료 시점에만 PostgreSQL로 영속화하여 안정적인 데이터 파이프라인을 구축했습니다.</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <h4 style="color: var(--text-main); font-size: 16px;">🎯 챌린지 2: Google Jib 기반 데몬리스 컨테이너 빌드 & Helm Chart 선언적 IaC 배포</h4>
-        <p><strong>[문제점]</strong> 멀티모듈(web, socket, batch) 애플리케이션 빌드 시 Docker 데몬 종속성으로 인해 CI 환경이 무거워지고, 수동 리소스 관리 시 환경 불일치와 휴먼 에러 위험이 있었습니다.</p>
-        <p><strong>[해결책]</strong></p>
-        <ul>
-          <li><strong>Google Jib 빌드 파이프라인:</strong> Docker 데몬 없이 Gradle 플러그인(Jib)을 통해 OCI 표준 컨테이너 이미지를 레이어별로 최적화하여 빌드. 레이어 캐싱으로 빌드 및 배포 속도를 높였습니다.</li>
-          <li><strong>Helm Chart 템플릿화:</strong> <code>helm/runmarket</code> 차트를 작성하여 Deployment, Service, Ingress, ConfigMap을 코드화(IaC)했습니다.</li>
-          <li><strong>무중단 롤링 업데이트:</strong> <code>readinessProbe</code>, <code>livenessProbe</code>를 정밀하게 구성하여 배포 중 커넥션 유실 없는 무중단 업데이트를 달성했습니다.</li>
-        </ul>
-      </div>
-
-      <div class="card page-break">
-        <h4 style="color: var(--text-main); font-size: 16px;">🎯 챌린지 3: k6 기반 1,000명 동시 접속 실시간 부하 테스트</h4>
-        <p><strong>[목표]</strong> 1,000명의 러너가 1초 주기로 위치 좌표를 전송하는 피크 부하 시나리오에서 시스템 안정성 및 지연 시간 검증</p>
-        <p><strong>[결과 지표]</strong></p>
-        <table>
-          <tr>
-            <th>동시 접속자 수 (VU)</th>
-            <td>1,000 Virtual Users (WebSocket 커넥션 유지)</td>
-          </tr>
-          <tr>
-            <th>요청 주기</th>
-            <td>1초 간격 실시간 GPS 좌표 브로드캐스팅</td>
-          </tr>
-          <tr>
-            <th>에러율 (Error Rate)</th>
-            <td><strong>0.00% 달성</strong> (패킷 유실 및 커넥션 끊김 Zero)</td>
-          </tr>
-          <tr>
-            <th>평균 왕복 지연 (RTT)</th>
-            <td><strong>평균 38ms</strong> (p95: 62ms, p99: 89ms)</td>
-          </tr>
-        </table>
-      </div>
-    </section>
-
-    <section>
-      <h2>2. 실무 프로젝트 심층 분석 1: IDC → AWS 배치 플랫폼 이관</h2>
-<p><strong>기간:</strong> 2023.06–2024.03 (2023.01부터 사전 분석·수정, 2024.04까지 안정화)</p>
-<p><strong>팀·본인 기여:</strong> 내부 3명·외주 3명 / Airflow 설계·이관, Core API·배치 SQL 전환 및 외주 온보딩 담당</p>
-<h3>문제 정의</h3>
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>고형규 | 프로젝트 포트폴리오</title><style>:root{color-scheme:light}*{box-sizing:border-box}body{margin:0;background:#f1f5f9;color:#172033;font:15px/1.58 system-ui,-apple-system,"Noto Sans KR",sans-serif}.page{max-width:840px;margin:28px auto;padding:42px 50px;background:white;box-shadow:0 4px 20px #0f172a12}h1{font-size:28px;line-height:1.25;margin:0 0 8px;letter-spacing:-.03em}h2{font-size:19px;border-bottom:1px solid #cbd5e1;margin:27px 0 10px;padding-bottom:6px}h3{font-size:16px;margin:19px 0 8px}p{margin:7px 0 10px}ul{padding-left:22px;margin:7px 0 14px}li{margin:5px 0}strong{font-weight:700}a{color:#1d4ed8;text-decoration:none}a:hover{text-decoration:underline}@media print{body{background:#fff;font-size:10.5pt}.page{max-width:none;margin:0;padding:0;box-shadow:none}h2,h3{break-after:avoid}li{break-inside:avoid}@page{size:A4;margin:16mm}}@media(max-width:600px){.page{margin:0;padding:24px 20px;box-shadow:none}h1{font-size:24px}}</style></head><body><main class="page"><h1>고형규 | 백엔드 프로젝트 포트폴리오</h1>
+<p><a href="mailto:gudrb963@gmail.com">gudrb963@gmail.com</a> · <a href="https://github.com/GHGHGHKO">GitHub</a> · <a href="https://feelsgoodfrog.vercel.app/">웹 포트폴리오</a></p>
+<h2>RunMarket | AI 보조 개인 프로젝트</h2>
+<p><a href="https://about.runmarket.cc">서비스 소개</a> · <a href="https://github.com/runmarket-cc/runmarket-pacer">GitHub</a> · iOS App Store 및 Google Play 출시</p>
+<p>러너 위치 공유 서비스를 AI 도구를 활용해 제작했습니다. 생성 코드를 직접 검토했다고 주장하지 않으며, 구현 사실과 검증된 성능을 구분합니다.</p>
+<h3>구성과 운영</h3>
 <ul>
-  <li>외주 의존으로 코드 변경·유지보수가 어려운 IDC 배치 환경과 짧은 주기 작업의 지연 해소, 내부 운영 체계 확보 필요</li>
+<li>앱 기능은 수동으로 확인했습니다. 서비스에는 러너 위치 송신과 관전자 구독 경로가 있으나, 현재 자료는 전체 송수신 성능을 입증하지 않습니다.</li>
+<li>k6 예비 실험은 <strong>러너 위치 송신 경로에 한정</strong>됐습니다. 관전자 구독·브로드캐스트와 전체 서비스 용량은 검증하지 않았습니다.</li>
+<li>높은 부하에서 클라이언트 UI 크래시가 관찰됐습니다. 1,000명 수용, 0% 오류율, RTT 수치를 성능 성과로 제시하지 않습니다.</li>
 </ul>
-<h3>해결 전략 및 본인 기여</h3>
+<h2>IDC → AWS: 배치 플랫폼 이관과 운영 내재화</h2>
+<p><strong>기간:</strong> 사전 분석·점진적 수정 2023.01–2023.05, 본 이관 2023.06–2024.03, 안정화 2024.04까지. <strong>범위:</strong> 13개 서비스와 PPAS DB 2종의 팀 공동 이관.</p>
+<h3>본인 기여와 전환 절차</h3>
 <ul>
-  <li>동일 이미지의 IDC 검증·Pod 종료 확인 후 AWS로 순차 전환하고 IDC 복귀 절차 구성</li>
-  <li>5분 주기 배치의 Fargate·EC2 PoC 후 준비 시간이 짧은 EC2 선택. S3 Sync·Airflow Variables API 기반 배포 자동화 구성</li>
-  <li>미사용 DAG 제거 및 제휴사 20곳의 전송 작업을 병렬 Flow로 통합. 기존 실패 지점 재개 구조를 활용한 재시도·SNS 알림 구성</li>
-  <li>Aurora PostgreSQL 통합에 맞춰 Core API·배치의 PPAS 쿼리를 ANSI SQL로 변경하고 단방향 동기화 대신 원본 직접 조회로 전환</li>
+<li>Airflow 아키텍처 설계·이관, DAG 정비, 배포 자동화, Core API·Spring Batch SQL 전환과 외주 인력 온보딩을 맡았습니다.</li>
+<li>동일한 Spring Batch 이미지를 IDC·AWS 레지스트리에 올리고 IDC 동작과 실행 Pod 종료를 확인한 뒤 DAG를 순차 전환했습니다. 문제가 있으면 IDC DAG를 다시 켤 수 있도록 했습니다.</li>
+<li>기존·변경 SQL은 동기화된 IDC·AWS DB에서 결과를 비교했습니다. 모든 쿼리 누락을 자동 검출한 것은 아니며 전환 뒤 누락된 쿼리를 긴급 수정·테스트 후 배포한 사례가 있습니다.</li>
 </ul>
-<h3>성과</h3>
+<h3>실행 환경과 정비 결과</h3>
 <ul>
-  <li>DAG 250개 → 170개 축소 및 배치 준비 시간 약 200초 → 80초 단축</li>
-  <li>수동 대응 주 약 3–4건 → 월 약 1–2건 감소 (운영 경험에 따른 추정치)</li>
+<li>MWAA의 KubernetesPodOperator가 EKS의 Spring Batch 컨테이너를 실행하도록 구성했습니다. DAG 커밋 후 CI/CD·S3 Sync로 배포하고 Airflow Variables API로 이미지 버전을 갱신했습니다.</li>
+<li>미사용 DAG 정리와 저처리량 제휴사 20곳의 전송 작업 통합으로 DAG를 약 <strong>250개에서 170개</strong>로 줄였습니다.</li>
+<li>Fargate 준비 시간 약 200초와 EC2 약 80초를 비교해 EC2를 선택했습니다. 약 60% 개선은 <strong>준비 시간</strong>에 한정됩니다. 전체 Job 처리 시간과 운영 비용 감소율은 확인하지 않았습니다.</li>
+<li>기존 실패 지점 재개 구조를 활용한 Job 재시도와 SNS 알림을 구성했습니다. DB 락의 근본 원인 해결과는 구분합니다.</li>
 </ul>
-<h3>대응 경험 및 개선 과제</h3>
+<h2>blackpink | 택배 인증·인가 서버</h2>
 <ul>
-  <li>전환 후 누락 쿼리 오류는 범위가 작고 원인이 명확하여 롤백 대신 ANSI SQL 긴급 수정·테스트·배포로 대응</li>
-  <li>일부 Flow 실패 시 전체 Job 실패로 표시되어 로그 확인 필요. DB 락은 추가 개선 중이며, 짧은 주기 배치의 메시징 전환은 향후 과제로 미구현</li>
+<li><strong>Java 21</strong>, AWS KMS, Spring Security를 사용해 stateless 토큰의 발급·검증·갱신과 API 인가 규칙을 설계·구현했습니다.</li>
+<li>GRM 발급 토큰 검증·회원 식별을 담당했고, 실제 계정 연결 API는 다른 담당자의 작업입니다.</li>
+<li>현장 장비 약 <strong>18,000대</strong>와 키오스크 게스트 인증을 구현했습니다. 그 외 주요 업무 서비스는 <strong>Java 11</strong>입니다.</li>
 </ul>
-    </section>
-
-    <section class="page-break">
-      <h2>3. 실무 프로젝트 심층 분석 2: AWS KMS + RS256 기반 독립 인증/인가 아키텍처</h2>
-
-      <h3>🛡 기존 서비스 영향 격리 & 비대칭키 서명/검증 플로우</h3>
-      <pre>
-[ 우리동네GS App (1,500만 유저) ]
-            │ (1) 앱 로그인 요청
-            ▼
-┌───────────────────────────────────────────────┐
-│ [NEW] 전용 인증/인가 서버 (AWS EKS)           │
-│  - AWS KMS 비대칭 키(RS256)로 JWT 서명         │
-│  - Public JWKS 엔드포인트 호스팅              │
-└───────────────────────┬───────────────────────┘
-                        │ (2) 발행된 JWT 토큰
-                        ▼
-┌───────────────────────────────────────────────┐
-│ [택배 서비스 게이트웨이 / Interceptor 계층]   │
-│  - JWKS 캐시를 통한 로컬 공개키 서명 검증     │
-│  - session cluster 기반 내부 회원 세션 연계    │
-└───────────────────────┬───────────────────────┘
-                        │
-         ┌──────────────┴──────────────┐
-         ▼                             ▼
-[ 통합 회원 비즈니스 로직 ]     [ 기존 비회원 서비스 ]
-(단일 DB 환경 내 독립 마이크로서비스 구축으로 기존 서비스 영향 최소화)</pre>
-
-      <div class="card">
-        <h4 style="color: var(--text-main); font-size: 16px;">💡 기술적 의사결정 및 엔지니어링 성과</h4>
-        <ul>
-          <li><strong>보안성 확보:</strong> AWS KMS 기반 RS256 비대칭키 서명 체계를 통해 외부 시스템에 안전한 공개키(JWKS) 제공 및 payload 서명 검증 체계 구현</li>
-          <li><strong>장애 영향 분리:</strong> 전용 인증 서버 분리를 통해 기존 서비스 영향 최소화 달성</li>
-          <li><strong>대규모 트래픽 안정성:</strong> 월 요청량 8.5배 급증(140만 → 1,197만 건) 상황에서도 <strong>피크 에러율 0.042% 유지</strong></li>
-        </ul>
-      </div>
-    </section>
-  </div>
-</body>
-</html>
+<h2>GRM | 출시 후 보안·운영 개선</h2>
+<p>2025.10부터 참여했으며 2024년 초기 구축·데이터 이관은 본인 기여가 아닙니다.</p>
+<ul>
+<li>OTP 우회·타 계정 정보 접근 취약점을 수정하고 CI 암호화 경로를 개선했습니다.</li>
+<li>중복 요청 파라미터 로그 <strong>155건</strong>을 정리했습니다. 트래픽 보정 비교에서 본인 담당 변경분 약 <strong>43.5GB/일</strong>, 팀 1차 배포 전체 약 <strong>87GB/일(40.7%)</strong>의 적재량 감소를 확인했습니다.</li>
+</ul></main></body></html>
