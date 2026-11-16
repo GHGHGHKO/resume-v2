@@ -10,6 +10,7 @@ export const siteConfig = {
   },
   "aboutMe": "Java·Spring Boot 기반으로 편의점 택배와 통합회원 서비스를 개발해 온 백엔드 엔지니어입니다. 제휴 연동, 공통 인증·인가, 회원 보안 개선, 운영 로그·조회 환경 개선을 맡았습니다. AWS KMS 기반 택배 인증 서버를 설계·구현했고, 로그 적재량 개선과 미처리 업무 복구까지 개발과 운영을 함께 담당했습니다.",
   "skills": [
+    "사내 LLM API 연동",
     "Java 11 (기타 업무 서비스)",
     "Java 21 (blackpink·Spring Batch)",
     "Spring Boot",
@@ -22,10 +23,45 @@ export const siteConfig = {
     "Kubernetes / Docker",
     "JUnit 5",
     "Datadog / Scouter",
-    "OpenSearch / Athena",
-    "사내 LLM API 연동"
+    "OpenSearch / Athena"
   ],
   "projects": [
+    {
+      "name": "AI 코드 리뷰 Agent",
+      "description": "Bitbucket PR의 코드·관련 사용처와 필요 시 운영 데이터를 함께 검토하고 인라인·요약 코멘트를 남기는 Agent를 설계·구현했습니다. 사내 LLM API·AWS Lambda를 연결하고 새 커밋의 증분 리뷰와 실행 제어를 구현했습니다.",
+      "skills": [
+        "사내 LLM API 연동",
+        "Agent Tool Calling",
+        "Bitbucket Webhook",
+        "AWS Lambda",
+        "Datadog / OpenSearch / Scouter"
+      ],
+      "links": [
+        {
+          "name": "기술 블로그 · AI 코드 리뷰 도입기",
+          "url": "https://gsretail.tistory.com/100"
+        }
+      ],
+      "detail": {
+        "problem": "스타일 검사만으로 찾기 어려운 버그·정합성·보안·배포 선후관계와 다른 호출 경로의 변경 누락을 PR 단계에서 검토하고자 했습니다.",
+        "analyze": [
+          "diff뿐 아니라 주변 코드·관련 사용처를 함께 살피고, 필요할 때 로그·APM·SQL 등 운영 근거를 조회하도록 설계했습니다.",
+          "실수로 열거나 바로 병합하는 PR은 검토 대상에서 제외하고, 코드 변경·승인·병합은 사람이 결정하도록 경계를 정했습니다."
+        ],
+        "action": [
+          "Bitbucket PR 생성·업데이트 Webhook과 AWS Lambda를 연결하고, 비동기 실행·30초 유예·열린 PR 및 최신 커밋 확인을 구현했습니다.",
+          "사내 LLM API에 코드와 OpenSearch·Datadog APM·Scouter SQL 조회 도구를 연결해 근거와 불확실성을 구분한 인라인·요약 코멘트를 작성하도록 했습니다.",
+          "새 커밋은 이전 분석 문맥과 함께 추가 변경분을 검토하고 수정 여부를 PR 코멘트로 남기도록 했습니다.",
+          "Datadog Agent Observability로 호출 경로·단계별 시간·토큰·추정 비용을 관측하도록 연결했습니다."
+        ],
+        "result": [
+          "2026.10.19–11.08 공개 글 집계 기준: 리뷰 대상 PR 91건 중 85건에 리뷰 작성 (약 93%). 리뷰 실행 125회 중 새 커밋 증분 리뷰 40회가 포함됩니다. 93%는 리뷰 커버리지이며 정확도가 아닙니다.",
+          "로그인 실패 이력의 트랜잭션 롤백 위험과 다른 자동 로그인 경로의 기록 누락을 지적했고, 수정 후 실패 이력이 남는 동작을 담당자에게 확인받았습니다.",
+          "외부 인증정보의 ID 형식 차이로 정상 데이터가 삭제될 수 있는 경로를 지적해 삭제 중단 조건 반영으로 이어졌습니다.",
+          "PR 유예 중 닫기·병합 시 미실행을 확인했습니다. 오탐은 사람이 검토하며 정확도·생산성 개선율은 별도로 검증하지 않았습니다."
+        ]
+      }
+    },
     {
       "name": "우리동네GS 택배 인증·인가 서버 (blackpink)",
       "description": "AWS KMS 기반 stateless 토큰 발급·검증·갱신과 Spring Security 권한 처리를 직접 설계·구현한 프로젝트 (Java 21).",
@@ -81,46 +117,10 @@ export const siteConfig = {
       }
     },
     {
-      "name": "AI 코드 리뷰 Agent",
-      "description": "Bitbucket PR의 코드·관련 사용처와 필요 시 운영 데이터를 함께 검토하고 인라인·요약 코멘트를 남기는 Agent를 설계·구현했습니다. 사내 LLM API·AWS Lambda를 연결하고 새 커밋의 증분 리뷰와 실행 제어를 구현했습니다.",
-      "skills": [
-        "LLM API",
-        "Agent Tool Calling",
-        "Bitbucket Webhook",
-        "AWS Lambda",
-        "Datadog / OpenSearch / Scouter"
-      ],
-      "links": [
-        {
-          "name": "기술 블로그 · AI 코드 리뷰 도입기",
-          "url": "https://gsretail.tistory.com/100"
-        }
-      ],
-      "detail": {
-        "problem": "스타일 검사만으로 찾기 어려운 버그·정합성·보안·배포 선후관계와 다른 호출 경로의 변경 누락을 PR 단계에서 검토하고자 했습니다.",
-        "analyze": [
-          "diff뿐 아니라 주변 코드·관련 사용처를 함께 살피고, 필요할 때 로그·APM·SQL 등 운영 근거를 조회하도록 설계했습니다.",
-          "실수로 열거나 바로 병합하는 PR은 검토 대상에서 제외하고, 코드 변경·승인·병합은 사람이 결정하도록 경계를 정했습니다."
-        ],
-        "action": [
-          "Bitbucket PR 생성·업데이트 Webhook과 AWS Lambda를 연결하고, 비동기 실행·30초 유예·열린 PR 및 최신 커밋 확인을 구현했습니다.",
-          "사내 LLM API에 코드와 OpenSearch·Datadog APM·Scouter SQL 조회 도구를 연결해 근거와 불확실성을 구분한 인라인·요약 코멘트를 작성하도록 했습니다.",
-          "새 커밋은 이전 분석 문맥과 함께 추가 변경분을 검토하고 수정 여부를 PR 코멘트로 남기도록 했습니다.",
-          "Datadog Agent Observability로 호출 경로·단계별 시간·토큰·추정 비용을 관측하도록 연결했습니다."
-        ],
-        "result": [
-          "2026.10.19–11.08 공개 글 집계 기준: 리뷰 대상 PR 91건 중 85건에 리뷰 작성 (약 93%). 리뷰 실행 125회 중 새 커밋 증분 리뷰 40회가 포함됩니다. 93%는 리뷰 커버리지이며 정확도가 아닙니다.",
-          "로그인 실패 이력의 트랜잭션 롤백 위험과 다른 자동 로그인 경로의 기록 누락을 지적했고, 수정 후 실패 이력이 남는 동작을 담당자에게 확인받았습니다.",
-          "외부 인증정보의 ID 형식 차이로 정상 데이터가 삭제될 수 있는 경로를 지적해 삭제 중단 조건 반영으로 이어졌습니다.",
-          "PR 유예 중 닫기·병합 시 미실행을 확인했습니다. 오탐은 사람이 검토하며 정확도·생산성 개선율은 별도로 검증하지 않았습니다."
-        ]
-      }
-    },
-    {
       "name": "AI 장애 분석 Agent",
       "description": "Datadog 알림을 시작으로 APM·외부 연동 로그·SQL 실행 정보를 조회하고 분석 결과를 전달하는 자동화 흐름을 구현했습니다. 여러 운영 도구를 오가던 분석 과정을 Agent로 연결했습니다.",
       "skills": [
-        "LLM API",
+        "사내 LLM API 연동",
         "Datadog Workflow",
         "AWS Lambda",
         "APM / Flame Graph",
